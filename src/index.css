@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+.cursor {
+  cursor: url("/cursor/default-image-32.png"), auto;
+}
+
+.cursor-pointer {
+  cursor: url("/cursor/pointer-image-32.png"), pointer;
+}
