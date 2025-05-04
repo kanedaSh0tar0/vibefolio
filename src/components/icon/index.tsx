@@ -39,9 +39,11 @@ const IconContainer = styled.div<{ chosen?: boolean }>`
 function Icon({
   SvgIcon,
   text,
+  onClick,
 }: {
   SvgIcon: React.FC<SVGProps<SVGSVGElement>>;
   text: string;
+  onClick: () => void;
 }) {
   const [chosen, setChosen] = useState(false);
   const iconRef = useRef<HTMLDivElement>(null);
@@ -50,7 +52,6 @@ function Icon({
     const handleClick = (e: MouseEvent) => {
       if (iconRef.current && !iconRef.current.contains(e.target as Node)) {
         setChosen(false);
-        console.log("clicked outside", e.target, e.currentTarget);
       }
     };
 
@@ -67,7 +68,14 @@ function Icon({
       className="cursor-pointer"
       chosen={chosen}
       onClick={() => {
-        setChosen((prev) => !prev);
+        if (chosen) {
+          onClick();
+          console.log("clicked", text);
+          
+          setChosen(false);
+        } else {
+          setChosen(true);
+        }
       }}
     >
       <div className="svg">

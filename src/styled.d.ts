@@ -6,7 +6,6 @@ declare module 'styled-components' {
     secondColor: string;
     thirdColor: string;
     forthColor: string;
-    glassColor: string;
     textColor: string;
   }
 }

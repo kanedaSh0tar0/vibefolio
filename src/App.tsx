@@ -3,6 +3,7 @@ import { GlobalStyle } from "./GlobalStyle"
 import { Canvas } from "@react-three/fiber"
 import { Model as Computer } from "./scenes/first"
 import Desktop from "./components/desktop"
+import ModalManager from "./components/modals"
 import './index.css'
 
 function App() {
@@ -11,7 +12,6 @@ function App() {
     secondColor: '#CDC1FF',
     thirdColor: '#FFF6E3',
     forthColor: '#FFCCEA',
-    glassColor: 'rgba(255, 246, 227, 0.2)',
     textColor: '#4A4A4A',
   }
 
@@ -44,6 +44,7 @@ function App() {
       </Canvas>
 
       <Desktop />
+      <ModalManager />
     </ThemeProvider>
   )
 }

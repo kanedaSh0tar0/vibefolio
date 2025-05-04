@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Container = styled.header`
     height: 40px;
     border: 2px solid black;
-    border-radius: 16px;
+    border-radius: 10px;
     background-color: ${({ theme }) => theme.thirdColor};
 `
 
