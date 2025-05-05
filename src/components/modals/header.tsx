@@ -2,6 +2,9 @@ import styled from "styled-components";
 import { ModalType } from "../../store/modalSlice";
 import { closeModal } from "../../store/modalSlice";
 import { useAppDispatch } from "../../store/hooks";
+import Close from "../../assets/icons/close";
+import Resize from "../../assets/icons/resize";
+import HeaderButton from "./header-button";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -15,14 +18,6 @@ const HeaderContainer = styled.div`
   background-color: ${({ theme }) => theme.thirdColor};
 `;
 
-const Button = styled.button`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid ${({ theme }) => theme.textColor};
-  background-color: ${({ theme }) => theme.forthColor};
-`;
-
 function Header({ type }: { type: ModalType }) {
   const dispatch = useAppDispatch();
 
@@ -32,8 +27,8 @@ function Header({ type }: { type: ModalType }) {
 
   return (
     <HeaderContainer>
-      <Button className="cursor-pointer" onClick={() => {}} />
-      <Button className="cursor-pointer" onClick={handleClose} />
+      <HeaderButton Icon={Resize} onClick={() => {}} />
+      <HeaderButton Icon={Close} onClick={handleClose} />
     </HeaderContainer>
   );
 }

@@ -7,7 +7,7 @@ const IconContainer = styled.div<{ chosen?: boolean }>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 5px 5px;
+  padding: 5px 5px;
 
   position: relative;
 
@@ -18,12 +18,6 @@ const IconContainer = styled.div<{ chosen?: boolean }>`
     border: ${(props) => (props.chosen ? "2px dashed white" : "none")};
     pointer-events: none;
     border-radius: 4px;
-  }
-
-  .svg {
-    width: 100%;
-    height: 100%;
-    padding: 10px;
   }
 
   span {
@@ -70,17 +64,13 @@ function Icon({
       onClick={() => {
         if (chosen) {
           onClick();
-          console.log("clicked", text);
-          
           setChosen(false);
         } else {
           setChosen(true);
         }
       }}
     >
-      <div className="svg">
-        <SvgIcon width="100%" height="100%" />
-      </div>
+      <SvgIcon width="100%" height="100%" />
       <span>{text}</span>
     </IconContainer>
   );

@@ -17,11 +17,21 @@ const Container = styled.div`
   top: 30%;
 `;
 
-function Wrapper({ children, type }: { children: React.ReactNode, type: ModalType }) {
+const Content = styled.div`
+  padding: 10px;
+`;
+
+function Wrapper({
+  children,
+  type,
+}: {
+  children: React.ReactNode;
+  type: ModalType;
+}) {
   return (
     <Container className="cursor">
       <Header type={type} />
-      <div>{children}</div>
+      <Content>{children}</Content>
     </Container>
   );
 }

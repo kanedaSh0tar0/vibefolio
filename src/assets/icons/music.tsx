@@ -13,4 +13,3 @@ function MusicIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 export default MusicIcon;
-// import { SVGProps } from "react";
