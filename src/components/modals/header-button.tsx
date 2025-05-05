@@ -17,12 +17,19 @@ const Button = styled.button<{ clicked?: boolean }>`
   }
 `;
 
-function HeaderButton({ Icon, onClick }: { Icon: React.ComponentType, onClick?: () => void }) {
+function HeaderButton({
+  Icon,
+  onClick,
+}: {
+  Icon: React.ComponentType;
+  onClick?: () => void;
+}) {
   const [clicked, setClicked] = useState(false);
 
   return (
     <Button
       clicked={clicked}
+      onMouseDown={(e) => e.stopPropagation()}
       onPointerDown={() => setClicked(true)}
       onPointerUp={() => setClicked(false)}
       onPointerOut={() => setClicked(false)}
