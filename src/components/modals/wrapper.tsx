@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Header from "./header";
 import { ModalType } from "../../store/modalSlice";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -10,10 +10,25 @@ const DEFAULT_HEIGHT = window.innerHeight * 0.75;
 
 type ModalSize = "small" | "full";
 
+const scaleIn = keyframes`
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
+
+const scaleOut = keyframes`
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
+`;
+
 const Container = styled.div<{
   position: { x: number; y: number };
   size: ModalSize;
   dimensions: { width: number; height: number };
+  isClosing?: boolean;
 }>`
   position: absolute;
   display: flex;
@@ -30,6 +45,11 @@ const Container = styled.div<{
 
   left: ${({ position }) => (position ? position.x : 0)}px;
   top: ${({ position }) => (position ? position.y : 0)}px;
+
+  opacity: ${({ isClosing }) => (isClosing ? "1" : "0")};
+  transform: ${({ isClosing }) => (isClosing ? "scale(1)" : "scale(0)")};
+  animation: ${({ isClosing }) => (isClosing ? scaleOut : scaleIn)} 0.25s
+    cubic-bezier(0.39, 0.575, 0.565, 1) both;
 `;
 
 const Content = styled.div`
@@ -62,6 +82,7 @@ function Wrapper({
     }),
     [defaultPositionX, defaultPositionY]
   );
+  const [isClosing, setIsClosing] = useState(false);
   const prevPosition = useRef(defaultCoordinates);
   const [position, setPosition] = useState(defaultCoordinates);
   const [size, setSize] = useState<ModalSize>("small");
@@ -70,7 +91,11 @@ function Wrapper({
   const dispatch = useAppDispatch();
 
   const handleClose = () => {
-    dispatch(closeModal(type));
+    setIsClosing(true);
+
+    setTimeout(() => {
+      dispatch(closeModal(type));
+    }, 250);
   };
 
   const handleResize = () => {
@@ -116,6 +141,7 @@ function Wrapper({
 
   return (
     <Container
+      isClosing={isClosing}
       dimensions={{ width, height }}
       position={position}
       size={size}
