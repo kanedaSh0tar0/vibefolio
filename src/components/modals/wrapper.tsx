@@ -1,8 +1,13 @@
 import styled, { keyframes } from "styled-components";
 import Header from "./header";
-import { ModalType } from "../../store/modalSlice";
+import {
+  Modal,
+  ModalType,
+  PositionType,
+  bringToFront,
+  closeModal,
+} from "../../store/modalSlice";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { closeModal } from "../../store/modalSlice";
 import { useAppDispatch } from "../../store/hooks";
 
 const DEFAULT_WIDTH = window.innerWidth * 0.75;
@@ -25,10 +30,11 @@ const scaleOut = keyframes`
 `;
 
 const Container = styled.div<{
-  position: { x: number; y: number };
+  position: PositionType;
   size: ModalSize;
   dimensions: { width: number; height: number };
-  isClosing?: boolean;
+  isClosing: boolean;
+  index: number;
 }>`
   position: absolute;
   display: flex;
@@ -50,6 +56,8 @@ const Container = styled.div<{
   transform: ${({ isClosing }) => (isClosing ? "scale(1)" : "scale(0)")};
   animation: ${({ isClosing }) => (isClosing ? scaleOut : scaleIn)} 0.25s
     cubic-bezier(0.39, 0.575, 0.565, 1) both;
+
+  z-index: ${({ index }) => 10 * (index + 1)};
 `;
 
 const Content = styled.div`
@@ -61,21 +69,39 @@ function Wrapper({
   type,
   width = DEFAULT_WIDTH,
   height = DEFAULT_HEIGHT,
+  position,
+  modal,
 }: {
   children: React.ReactNode;
   type: ModalType;
   width?: number;
   height?: number;
+  position?: PositionType;
+  modal?: Modal;
 }) {
-  const defaultPositionX = useMemo(
-    () => window.innerWidth / 2 - width / 2,
-    [width]
-  );
-  const defaultPositionY = useMemo(
-    () => window.innerHeight / 2 - height / 2,
-    [height]
-  );
-  const defaultCoordinates = useMemo(
+  const defaultPositionX = useMemo(() => {
+    if (modal) {
+      return modal.position.x;
+    }
+
+    if (position) {
+      return position.x;
+    }
+
+    return window.innerWidth / 2 - width / 2;
+  }, [width]);
+  const defaultPositionY = useMemo(() => {
+    if (modal) {
+      return modal.position.y;
+    }
+
+    if (position) {
+      return position.y;
+    }
+
+    return window.innerHeight / 2 - height / 2;
+  }, [height]);
+  const defaultCoordinates = useMemo<PositionType>(
     () => ({
       x: defaultPositionX,
       y: defaultPositionY,
@@ -84,7 +110,7 @@ function Wrapper({
   );
   const [isClosing, setIsClosing] = useState(false);
   const prevPosition = useRef(defaultCoordinates);
-  const [position, setPosition] = useState(defaultCoordinates);
+  const [coordinates, setCoordinates] = useState(defaultCoordinates);
   const [size, setSize] = useState<ModalSize>("small");
   const dragging = useRef(false);
   const offset = useRef({ x: 0, y: 0 });
@@ -94,23 +120,24 @@ function Wrapper({
     setIsClosing(true);
 
     setTimeout(() => {
-      dispatch(closeModal(type));
+      dispatch(closeModal({ type, position: coordinates }));
     }, 250);
   };
 
   const handleResize = () => {
+    dispatch(bringToFront(type));
     const isSmall = size === "small";
     setSize(isSmall ? "full" : "small");
-    setPosition(isSmall ? { x: 0, y: 0 } : prevPosition.current);
+    setCoordinates(isSmall ? { x: 0, y: 0 } : prevPosition.current);
 
     if (isSmall) {
-      prevPosition.current = position;
+      prevPosition.current = coordinates;
     }
   };
 
   const handleMouseMove = (e: MouseEvent) => {
     if (!dragging.current) return;
-    setPosition({
+    setCoordinates({
       x: e.clientX - offset.current.x,
       y: e.clientY - offset.current.y,
     });
@@ -123,10 +150,11 @@ function Wrapper({
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
+    dispatch(bringToFront(type));
     dragging.current = true;
     offset.current = {
-      x: e.clientX - position.x,
-      y: e.clientY - position.y,
+      x: e.clientX - coordinates.x,
+      y: e.clientY - coordinates.y,
     };
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
@@ -141,9 +169,13 @@ function Wrapper({
 
   return (
     <Container
+      index={modal?.index || 1}
       isClosing={isClosing}
-      dimensions={{ width, height }}
-      position={position}
+      dimensions={{
+        width: modal?.dimensions.width || width,
+        height: modal?.dimensions.height || height,
+      }}
+      position={coordinates}
       size={size}
       className="cursor"
     >

@@ -1,8 +1,12 @@
-import { ModalType } from "../../../store/modalSlice";
+import { Modal } from "../../../store/modalSlice";
 import Wrapper from "../wrapper";
 
-function InfoModal({ type }: { type: ModalType }) {
-  return <Wrapper type={type}>Test Info Modal</Wrapper>;
+function InfoModal({ modal }: { modal?: Modal }) {
+  return (
+    <Wrapper modal={modal} type="info">
+      Test Info Modal
+    </Wrapper>
+  );
 }
 
 export default InfoModal;
