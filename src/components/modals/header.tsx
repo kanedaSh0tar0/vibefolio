@@ -5,10 +5,10 @@ import HeaderButton from "./header-button";
 
 const HeaderContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
-  gap: 5px;
   height: 30px;
+  width: 100%;
   padding: 0 10px;
   border-bottom: 2px solid ${({ theme }) => theme.textColor};
   border-radius: 10px 10px 0 0;
@@ -16,19 +16,39 @@ const HeaderContainer = styled.div`
   cursor: move;
 `;
 
+const ButtonsContainer = styled.div`
+  display: flex;
+  align-center: center;
+  gap: 5px;
+`;
+
+const Title = styled.span`
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.textColor};
+  text-align: center;
+  user-select: none;
+`;
+
 function Header({
   handleClose,
   handleResize,
   handleDrag,
+  title,
 }: {
   handleClose: () => void;
   handleResize: () => void;
   handleDrag: (e: React.MouseEvent) => void;
+  title?: string;
 }) {
   return (
     <HeaderContainer onMouseDown={handleDrag}>
-      <HeaderButton Icon={Resize} onClick={handleResize} />
-      <HeaderButton Icon={Close} onClick={handleClose} />
+      <Title>{title}</Title>
+      <ButtonsContainer>
+        <HeaderButton Icon={Resize} onClick={handleResize} />
+        <HeaderButton Icon={Close} onClick={handleClose} />
+      </ButtonsContainer>
     </HeaderContainer>
   );
 }

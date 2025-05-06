@@ -6,6 +6,7 @@ export type ModalDimansion = { width: number; height: number };
 
 export interface Modal {
   type: ModalType;
+  title?: string;
   isOpen: boolean;
   index: number;
   position: PositionType;
@@ -21,6 +22,7 @@ const initialState: ModalStackState = {
   modals: [
     {
       type: "info",
+      title: 'Info.txt',
       isOpen: false,
       index: 0,
       position: { x: 200, y: 200 },

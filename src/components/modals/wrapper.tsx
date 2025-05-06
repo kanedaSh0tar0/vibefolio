@@ -180,6 +180,7 @@ function Wrapper({
       className="cursor"
     >
       <Header
+        title={modal?.title}
         handleClose={handleClose}
         handleResize={handleResize}
         handleDrag={handleMouseDown}
