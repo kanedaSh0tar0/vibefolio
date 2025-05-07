@@ -29,6 +29,9 @@ const Title = styled.span`
   color: ${({ theme }) => theme.textColor};
   text-align: center;
   user-select: none;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 function Header({

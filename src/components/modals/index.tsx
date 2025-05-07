@@ -26,6 +26,24 @@ function ModalManager() {
                   Test other Modal
                 </Wrapper>
               );
+            case "other_0":
+              return (
+                <Wrapper modal={modal} key={modal.type} type={modal.type}>
+                  Test other_0 Modal
+                </Wrapper>
+              );
+            case "other_1":
+              return (
+                <Wrapper modal={modal} key={modal.type} type={modal.type}>
+                  Test other_1 Modal
+                </Wrapper>
+              );
+            case "other_2":
+              return (
+                <Wrapper modal={modal} key={modal.type} type={modal.type}>
+                  Test other_2 Modal
+                </Wrapper>
+              );
             // ...
             default:
               return null;

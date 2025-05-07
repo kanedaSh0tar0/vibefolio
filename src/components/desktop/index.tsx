@@ -5,7 +5,12 @@ import FolderIcon from "../../assets/icons/folder";
 import MusicIcon from "../../assets/icons/music";
 import Icon from "../icon";
 import { useAppDispatch } from "../../store/hooks";
-import { ModalType, openModal } from "../../store/modalSlice";
+import {
+  ModalType,
+  openModal,
+  ProgramType,
+  openProgramThunk,
+} from "../../store/modalSlice";
 
 const Container = styled.div`
   position: absolute;
@@ -27,8 +32,12 @@ const IconsContainer = styled.div`
 function Desktop() {
   const dispatch = useAppDispatch();
 
-  const handleIconClick = (modal: ModalType) => {
+  const handleOpenSingleModal = (modal: ModalType) => {
     dispatch(openModal(modal));
+  };
+
+  const handleOpenProgram = (program: ProgramType) => {
+    dispatch(openProgramThunk(program));
   };
 
   return (
@@ -37,17 +46,17 @@ function Desktop() {
 
       <IconsContainer>
         <Icon
-          onClick={() => handleIconClick("info")}
+          onClick={() => handleOpenSingleModal("info")}
           SvgIcon={ComputerIcon}
           text="MyComputer"
         />
         <Icon
-          onClick={() => handleIconClick("other")}
+          onClick={() => handleOpenSingleModal("other")}
           SvgIcon={FolderIcon}
           text="New Folder"
         />
         <Icon
-          onClick={() => handleIconClick("other")}
+          onClick={() => handleOpenProgram("other")}
           SvgIcon={MusicIcon}
           text="Music"
         />
