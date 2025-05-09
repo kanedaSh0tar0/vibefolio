@@ -60,6 +60,11 @@ function Desktop() {
           SvgIcon={MusicIcon}
           text="Music"
         />
+        <Icon
+          onClick={() => handleOpenProgram("info")}
+          SvgIcon={MusicIcon}
+          text="Music 2"
+        />
       </IconsContainer>
     </Container>
   );

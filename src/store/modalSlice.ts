@@ -6,7 +6,6 @@ export type ModalType =
   | "info"
   | "about_me"
   | "skills"
-  | "languages"
   | "photo"
   | "other"
   | "other_0"
@@ -38,6 +37,30 @@ const initialState: ModalStackState = {
       index: 0,
       position: { x: 200, y: 200 },
       dimensions: { width: 200, height: 200 },
+    },
+    {
+      type: "photo",
+      title: "My_photo.jpg",
+      isOpen: false,
+      index: 0,
+      position: { x: 200, y: 200 },
+      dimensions: { width: 200, height: 200 },
+    },
+    {
+      type: "about_me",
+      title: "About_me.txt",
+      isOpen: false,
+      index: 0,
+      position: { x: 600, y: 250 },
+      dimensions: { width: 600, height: 250 },
+    },
+    {
+      type: "skills",
+      title: "Skills",
+      isOpen: false,
+      index: 0,
+      position: { x: 400, y: 100 },
+      dimensions: { width: 300, height: 450 },
     },
     {
       type: "other",
@@ -76,7 +99,7 @@ const initialState: ModalStackState = {
 };
 
 const programs: Record<string, ModalType[]> = {
-  info: ["photo", "about_me", "skills", "languages"],
+  info: ["photo", "about_me", "skills"],
   other: ["other", "other_0", "other_1", "other_2"],
 };
 

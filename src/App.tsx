@@ -16,6 +16,7 @@ const activeTheme = {
   thirdColor: "#FFF6E3",
   forthColor: "#FFCCEA",
   textColor: "#4A4A4A",
+  whiteColor: "#F8F8FF",
 };
 
 function App() {

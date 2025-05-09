@@ -2,7 +2,6 @@ import styled, { keyframes } from "styled-components";
 import Header from "./header";
 import {
   Modal,
-  ModalType,
   PositionType,
   bringToFront,
   closeModal,
@@ -46,7 +45,6 @@ const Container = styled.div<{
 
   border-radius: 10px;
   border: 2px solid ${({ theme }) => theme.textColor};
-  background-color: ${({ theme }) => theme.mainColor};
   box-shadow: 5px 5px 0px 2px rgba(0, 0, 0, 0.75);
 
   left: ${({ position }) => (position ? position.x : 0)}px;
@@ -61,19 +59,30 @@ const Container = styled.div<{
 `;
 
 const Content = styled.div`
-  padding: 10px;
+  background-color: ${({ theme }) => theme.thirdColor};
+  padding: 4px;
+  flex: 1;
+  display: flex;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+`;
+
+const InnerWrapper = styled.div`
+  width: 100%;
+  border-radius: 6px;
+  border: 2px solid ${({ theme }) => theme.textColor};
+  background-color: ${({ theme }) => theme.whiteColor};
+  overflow: auto;
 `;
 
 function Wrapper({
   children,
-  type,
   width = DEFAULT_WIDTH,
   height = DEFAULT_HEIGHT,
   position,
   modal,
 }: {
   children: React.ReactNode;
-  type: ModalType;
   width?: number;
   height?: number;
   position?: PositionType;
@@ -115,6 +124,7 @@ function Wrapper({
   const dragging = useRef(false);
   const offset = useRef({ x: 0, y: 0 });
   const dispatch = useAppDispatch();
+  const type = modal?.type || "info";
 
   const handleClose = () => {
     setIsClosing(true);
@@ -185,7 +195,9 @@ function Wrapper({
         handleResize={handleResize}
         handleDrag={handleMouseDown}
       />
-      <Content>{children}</Content>
+      <Content>
+        <InnerWrapper>{children}</InnerWrapper>
+      </Content>
     </Container>
   );
 }

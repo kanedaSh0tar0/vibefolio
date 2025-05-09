@@ -1,5 +1,6 @@
 import { SVGProps, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import IconText from "../icon-text";
 
 const IconContainer = styled.div<{ chosen?: boolean }>`
   width: 80px;
@@ -7,26 +8,17 @@ const IconContainer = styled.div<{ chosen?: boolean }>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 5px 5px;
-
+  padding: 5px;
   position: relative;
 
   &::after {
     content: "";
     position: absolute;
     inset: 0;
-    border: ${(props) => (props.chosen ? "2px dashed white" : "none")};
+    border: ${(props) =>
+      props.chosen ? `2px dashed ${props.theme.whiteColor}` : "none"};
     pointer-events: none;
     border-radius: 4px;
-  }
-
-  span {
-    font-family: "Segoe UI", sans-serif;
-    font-size: 12px;
-    color: white;
-    text-align: center;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-    user-select: none;
   }
 `;
 
@@ -71,7 +63,7 @@ function Icon({
       }}
     >
       <SvgIcon width="100%" height="100%" />
-      <span>{text}</span>
+      <IconText text={text} />
     </IconContainer>
   );
 }

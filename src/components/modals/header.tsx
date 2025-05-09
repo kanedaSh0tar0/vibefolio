@@ -10,7 +10,6 @@ const HeaderContainer = styled.div`
   height: 30px;
   width: 100%;
   padding: 0 10px;
-  border-bottom: 2px solid ${({ theme }) => theme.textColor};
   border-radius: 10px 10px 0 0;
   background-color: ${({ theme }) => theme.thirdColor};
   cursor: move;

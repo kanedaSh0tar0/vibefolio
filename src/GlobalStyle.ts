@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     height: 100%;
     width: 100%;
+    overflow: hidden;
     font-family: 'Manrope', sans-serif;
     font-size: 16px;
     line-height: 1.5;

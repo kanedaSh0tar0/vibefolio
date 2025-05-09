@@ -10,6 +10,7 @@ const Button = styled.button<{ clicked?: boolean }>`
   border-radius: 50%;
   border: 2px solid ${({ theme }) => theme.textColor};
   background-color: ${({ theme }) => theme.forthColor};
+  padding: 4px;
 
   svg {
     transform: ${({ clicked }) => (clicked ? "scale(0.9)" : "scale(1)")};
