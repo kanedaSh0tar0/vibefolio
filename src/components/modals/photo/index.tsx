@@ -27,7 +27,6 @@ const Thumb = styled.div<{ loaded: boolean; width?: number; height?: number }>`
   background-position: center;
   filter: blur(10px);
 `;
-// opacity: ${(props) => (props.loaded ? 0 : 1)};
 
 const Image = styled.img<{ loaded: boolean }>`
   width: 100%;

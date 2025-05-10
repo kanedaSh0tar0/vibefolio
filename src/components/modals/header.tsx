@@ -12,7 +12,6 @@ const HeaderContainer = styled.div`
   padding: 0 10px;
   border-radius: 10px 10px 0 0;
   background-color: ${({ theme }) => theme.thirdColor};
-  cursor: move;
 `;
 
 const ButtonsContainer = styled.div`
@@ -45,7 +44,7 @@ function Header({
   title?: string;
 }) {
   return (
-    <HeaderContainer onMouseDown={handleDrag}>
+    <HeaderContainer className="cursor-move" onMouseDown={handleDrag}>
       <Title>{title}</Title>
       <ButtonsContainer>
         <HeaderButton Icon={Resize} onClick={handleResize} />

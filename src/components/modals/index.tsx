@@ -5,6 +5,7 @@ import Wrapper from "./wrapper";
 import Photo from "./photo";
 import AboutMe from "./about-me";
 import Skills from "./skills";
+import Experience from "./experience";
 
 const modalRoot = document.getElementById("modal-root");
 
@@ -29,6 +30,8 @@ function ModalManager() {
               return <AboutMe modal={modal} key={modal.type} />;
             case "skills":
               return <Skills modal={modal} key={modal.type} />;
+            case "experience":
+              return <Experience modal={modal} key={modal.type} />;
             case "other":
               return (
                 <Wrapper modal={modal} key={modal.type}>
