@@ -30,6 +30,10 @@ export const GlobalStyle = createGlobalStyle`
     max-width: 100%;
   }
 
+  svg {
+    fill: ${({ theme }) => theme.textColor};
+  }
+
   canvas {4
     min-width: 100vw;
     min-height: 100vh;

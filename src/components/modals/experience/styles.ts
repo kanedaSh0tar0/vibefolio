@@ -35,16 +35,25 @@ export const CompanyName = styled.a`
 `;
 
 export const Button = styled.button`
+  position: relative;
   min-width: 24px;
   min-height: 48px;
   height: 100%;
   width: auto;
   z-index: 2;
+  transition: linear 0.1s;
 
   svg {
     height: 100%;
     width: auto;
     transition: linear 0.1s;
+  }
+
+  &:hover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid ${({ theme }) => theme.secondColor};
   }
 
   &:hover:not([disabled]) {
