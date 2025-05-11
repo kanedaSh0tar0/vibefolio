@@ -1,22 +1,5 @@
 import { useState } from "react";
-import styled from "styled-components";
-
-const Button = styled.button<{ clicked?: boolean }>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid ${({ theme }) => theme.textColor};
-  background-color: ${({ theme }) => theme.forthColor};
-  padding: 4px;
-
-  svg {
-    transform: ${({ clicked }) => (clicked ? "scale(0.9)" : "scale(1)")};
-    color: ${({ theme }) => theme.textColor};
-  }
-`;
+import { Button } from "./styles";
 
 function HeaderButton({
   Icon,

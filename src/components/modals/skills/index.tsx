@@ -1,4 +1,4 @@
-import styled, { useTheme } from "styled-components";
+import { useTheme } from "styled-components";
 import { Modal } from "../../../store/modalSlice";
 import { CircularProgressIcon } from "../../circular-progress";
 import Wrapper from "../wrapper";
@@ -8,20 +8,7 @@ import Javascript from "../../../assets/skills-icons/javascript";
 import React from "../../../assets/skills-icons/react";
 import Threejs from "../../../assets/skills-icons/threejs";
 import Nodejs from "../../../assets/skills-icons/nodejs";
-
-const InnerWrapper = styled.div`
-  padding: 10px 20px;
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 1fr 1fr;
-`;
-
-const SkillContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  align-items: center;
-`;
+import { InnerWrapper, SkillContainer } from "./styles";
 
 function Skills({ modal }: { modal: Modal }) {
   const theme = useTheme();

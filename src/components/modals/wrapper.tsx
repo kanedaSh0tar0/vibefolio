@@ -1,4 +1,3 @@
-import styled, { keyframes } from "styled-components";
 import Header from "./header";
 import {
   Modal,
@@ -8,72 +7,12 @@ import {
 } from "../../store/modalSlice";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
+import { Container, Content, InnerWrapper } from "./styles";
 
 const DEFAULT_WIDTH = window.innerWidth * 0.75;
 const DEFAULT_HEIGHT = window.innerHeight * 0.75;
 
-type ModalSize = "small" | "full";
-
-const scaleIn = keyframes`
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-`;
-
-const scaleOut = keyframes`
-  to {
-    opacity: 0;
-    transform: scale(0);
-  }
-`;
-
-const Container = styled.div<{
-  position: PositionType;
-  size: ModalSize;
-  dimensions: { width: number; height: number };
-  isClosing: boolean;
-  index: number;
-}>`
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  width: ${({ size, dimensions }) =>
-    size === "small" ? `${dimensions.width}px` : "100vw"};
-  height: ${({ size, dimensions }) =>
-    size === "small" ? `${dimensions.height}px` : "100vh"};
-
-  border-radius: 10px;
-  border: 2px solid ${({ theme }) => theme.textColor};
-  box-shadow: 5px 5px 0px 2px rgba(0, 0, 0, 0.75);
-
-  left: ${({ position }) => (position ? position.x : 0)}px;
-  top: ${({ position }) => (position ? position.y : 0)}px;
-
-  opacity: ${({ isClosing }) => (isClosing ? "1" : "0")};
-  transform: ${({ isClosing }) => (isClosing ? "scale(1)" : "scale(0)")};
-  animation: ${({ isClosing }) => (isClosing ? scaleOut : scaleIn)} 0.25s
-    cubic-bezier(0.39, 0.575, 0.565, 1) both;
-
-  z-index: ${({ index }) => 10 * (index + 1)};
-`;
-
-const Content = styled.div`
-  background-color: ${({ theme }) => theme.thirdColor};
-  padding: 4px;
-  flex: 1;
-  display: flex;
-  border-radius: 0 0 10px 10px;
-  overflow: hidden;
-`;
-
-const InnerWrapper = styled.div`
-  width: 100%;
-  border-radius: 6px;
-  border: 2px solid ${({ theme }) => theme.textColor};
-  background-color: ${({ theme }) => theme.whiteColor};
-  overflow: auto;
-`;
+export type ModalSize = "small" | "full";
 
 function Wrapper({
   children,

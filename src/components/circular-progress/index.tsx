@@ -1,43 +1,14 @@
 import React, { useEffect, useState } from "react";
-import styled, { useTheme } from "styled-components";
+import { useTheme } from "styled-components";
+import { CircleWrapper, Container, InnerCircle } from "./styles";
 
 const size = 50;
 const strokeWidth = 4;
 const radius = (size - strokeWidth) / 2;
 const circumference = 2 * Math.PI * radius;
 
-const Container = styled.div`
-  position: relative;
-  width: 50px;
-  height: 50px;
-`;
-
-const CircleWrapper = styled.svg<{ width: number; height: number }>`
-  width: ${(props) => `${props.width}px`};
-  height: ${(props) => `${props.height}px`};
-`;
-
-const InnerCircle = styled.div`
-  position: absolute;
-  top: ${strokeWidth}px;
-  left: ${strokeWidth}px;
-  width: ${size - strokeWidth * 2}px;
-  height: ${size - strokeWidth * 2}px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  overflow: hidden;
-
-  svg {
-    width: 25px;
-    height: 25px;
-  }
-`;
-
 type CircularProgressIconProps = {
   progress: number;
-  // Icon?: React.FC<SVGProps<SVGSVGElement>>;
   Icon?: React.ReactNode;
 };
 
@@ -98,8 +69,10 @@ export const CircularProgressIcon: React.FC<CircularProgressIconProps> = ({
           }}
         />
       </CircleWrapper>
-      {/* <InnerCircle>{Icon && <Icon width={25} height={25} />}</InnerCircle> */}
-      <InnerCircle>{Icon}</InnerCircle>
+
+      <InnerCircle strokeWidth={strokeWidth} size={size}>
+        {Icon}
+      </InnerCircle>
     </Container>
   );
 };
