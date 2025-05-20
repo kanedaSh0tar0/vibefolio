@@ -1,12 +1,15 @@
 import "styled-components";
+import { ThemeType } from "./store/themeSlice";
 
 declare module "styled-components" {
   export interface DefaultTheme {
-    mainColor: string;
-    secondColor: string;
-    thirdColor: string;
-    forthColor: string;
-    textColor: string;
-    whiteColor: string;
+    name: ThemeType;
+    fontFamily: string;
+    pallet: {
+      mainColor: string;
+      secondColor: string;
+      thirdColor: string;
+      textColor: string;
+    };
   }
 }

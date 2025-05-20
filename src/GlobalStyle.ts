@@ -1,6 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
+  :root {
+    --white-color: #F8F8FF;
+  }
+
   *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -11,11 +15,11 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
     width: 100%;
     overflow: hidden;
-    font-family: 'Manrope', sans-serif;
+    font-family: ${({ theme }) => theme.fontFamily};
     font-size: 16px;
     line-height: 1.5;
-    color: ${({ theme }) => theme.textColor};
-    background-color: ${({ theme }) => theme.mainColor};
+    color: ${({ theme }) => theme.pallet.textColor};
+    background-color: ${({ theme }) => theme.pallet.mainColor};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -28,10 +32,6 @@ export const GlobalStyle = createGlobalStyle`
   img, picture, video, svg {
     display: block;
     max-width: 100%;
-  }
-
-  svg {
-    fill: ${({ theme }) => theme.textColor};
   }
 
   canvas {4

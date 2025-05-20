@@ -54,7 +54,7 @@ export const CircularProgressIcon: React.FC<CircularProgressIconProps> = ({
           cy={size / 2}
         />
         <circle
-          stroke={theme.secondColor}
+          stroke={theme.pallet.secondColor}
           fill="transparent"
           strokeWidth={strokeWidth}
           strokeLinecap="round"

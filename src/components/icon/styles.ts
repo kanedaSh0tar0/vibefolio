@@ -13,8 +13,8 @@ export const IconContainer = styled.div<{ chosen?: boolean }>`
     content: "";
     position: absolute;
     inset: 0;
-    border: ${(props) =>
-      props.chosen ? `2px dashed ${props.theme.whiteColor}` : "none"};
+    border: ${({ chosen }) =>
+      chosen ? "2px dashed var(--white-color)" : "none"};
     pointer-events: none;
     border-radius: 4px;
   }

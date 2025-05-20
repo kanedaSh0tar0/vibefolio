@@ -1,21 +1,42 @@
 import styled from "styled-components";
+import { ThemeType } from "../../store/themeSlice";
 
-export const Container = styled.header`
+export const Container = styled.header<{ themeName: ThemeType }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 35px;
   padding: 0 10px;
-  border: 2px solid black;
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.thirdColor};
 
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 800;
+
+  svg {
+    fill: ${({ theme }) => theme.pallet.textColor};
+  }
+
+  ${({ themeName, theme }) => {
+    if (themeName === "pastel") {
+      return `
+        margin: 10px 20px;
+        border: 2px solid black;
+        border-radius: 10px;
+        background-color: ${theme.pallet.thirdColor};
+      `;
+    }
+
+    if (themeName === "code") {
+      return `
+        background-color: ${theme.pallet.thirdColor};
+      `;
+    }
+  }}
 `;
 
 export const ClockContainer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 20px;
 `;
 
@@ -28,14 +49,4 @@ export const LeftSide = styled.div`
 export const ButtonsContainer = styled.div`
   display: flex;
   align-items: center;
-
-  svg {
-    transition: linear 0.3s;
-  }
-
-  &:hover {
-    svg {
-      fill: ${({ theme }) => theme.secondColor};
-    }
-  }
 `;

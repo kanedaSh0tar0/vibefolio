@@ -6,21 +6,14 @@ import Desktop from "./components/desktop";
 import ModalManager from "./components/modals";
 import "./index.css";
 import { useEffect, useState } from "react";
+import { useAppSelector } from "./store/hooks";
 
 const MIN_WIDTH = 1024;
 const MIN_HEIGHT = 600;
 
-const activeTheme = {
-  mainColor: "#BFECFF",
-  secondColor: "#CDC1FF",
-  thirdColor: "#FFF6E3",
-  forthColor: "#FFCCEA",
-  textColor: "#4A4A4A",
-  whiteColor: "#F8F8FF",
-};
-
 function App() {
   const [isSupported, setIsSupported] = useState<boolean | null>(null);
+  const activeTheme = useAppSelector((state) => state.themes);
 
   useEffect(() => {
     const checkSize = () => {
@@ -33,22 +26,22 @@ function App() {
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
-  // if (!isSupported) {
-  //   // TODO
-  //   return (
-  //     <div style={{ padding: "2rem", textAlign: "center" }}>
-  //       <h1>The screen is too small</h1>
-  //       <span>Desktop only</span>
-  //     </div>
-  //   );
-  // }
+  if (!isSupported) {
+    // TODO
+    return (
+      <div style={{ padding: "2rem", textAlign: "center" }}>
+        <h1>The screen is too small</h1>
+        <span>Desktop only</span>
+      </div>
+    );
+  }
 
   return (
     <ThemeProvider theme={activeTheme}>
       <GlobalStyle />
 
       <Canvas shadows>
-        <color attach="background" args={[activeTheme.mainColor]} />
+        <color attach="background" args={[activeTheme.pallet.mainColor]} />
 
         <Computer />
         <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
@@ -56,14 +49,14 @@ function App() {
           <shadowMaterial
             attach="material"
             opacity={0.3}
-            color={activeTheme.mainColor}
+            color={activeTheme.pallet.mainColor}
           />
         </mesh>
 
         <directionalLight
           position={[-1, 2, -1.5]}
           intensity={1}
-          color={activeTheme.secondColor}
+          color={activeTheme.pallet.secondColor}
           castShadow
           shadow-mapSize-width={1024}
           shadow-mapSize-height={1024}

@@ -12,8 +12,6 @@ const modalRoot = document.getElementById("modal-root");
 function ModalManager() {
   const modals = useAppSelector((state) => state.modals);
 
-  console.log(modals, "modals");
-
   if (!modalRoot || modals.modals.length === 0) return null;
 
   return createPortal(

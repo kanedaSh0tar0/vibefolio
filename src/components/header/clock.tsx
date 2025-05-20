@@ -7,6 +7,7 @@ function Clock() {
 
   const hours = currentTime.getHours().toString().padStart(2, "0");
   const minutes = currentTime.getMinutes().toString().padStart(2, "0");
+  const seconds = currentTime.getSeconds().toString().padStart(2, "0");
   const formattedHours = (+hours % 12 || 12).toString().padStart(2, "0");
   const ampm = +hours >= 12 ? "PM" : "AM";
 
@@ -30,7 +31,7 @@ function Clock() {
   return (
     <ClockContainer>
       <div>{currentDate}</div>
-      <div>{`${formattedHours}:${minutes} ${ampm}`}</div>
+      <div>{`${formattedHours}:${minutes}:${seconds} ${ampm}`}</div>
     </ClockContainer>
   );
 }

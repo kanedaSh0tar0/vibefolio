@@ -53,12 +53,12 @@ export const Button = styled.button`
     content: "";
     position: absolute;
     inset: 0;
-    border: 2px solid ${({ theme }) => theme.secondColor};
+    border: 2px solid ${({ theme }) => theme.pallet.secondColor};
   }
 
   &:hover:not([disabled]) {
     svg {
-      fill: ${({ theme }) => theme.secondColor};
+      fill: ${({ theme }) => theme.pallet.secondColor};
     }
   }
 `;
@@ -135,6 +135,6 @@ export const ProjectItem = styled.li`
   }
 
   &::marker {
-    color: ${({ theme }) => theme.secondColor};
+    color: ${({ theme }) => theme.pallet.secondColor};
   }
 `;

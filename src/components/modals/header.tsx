@@ -1,3 +1,4 @@
+import { useTheme } from "styled-components";
 import Close from "../../assets/icons/close";
 import Resize from "../../assets/icons/resize";
 import HeaderButton from "./header-button";
@@ -14,13 +15,20 @@ function Header({
   handleDrag: (e: React.MouseEvent) => void;
   title?: string;
 }) {
+  const theme = useTheme();
+
   return (
     <HeaderContainer className="cursor-move" onMouseDown={handleDrag}>
-      <Title>{title}</Title>
-      <ButtonsContainer>
-        <HeaderButton Icon={Resize} onClick={handleResize} />
-        <HeaderButton Icon={Close} onClick={handleClose} />
-      </ButtonsContainer>
+      {theme.name !== "code" && (
+        <>
+          <Title>{title}</Title>
+
+          <ButtonsContainer>
+            <HeaderButton Icon={Resize} onClick={handleResize} />
+            <HeaderButton Icon={Close} onClick={handleClose} />
+          </ButtonsContainer>
+        </>
+      )}
     </HeaderContainer>
   );
 }

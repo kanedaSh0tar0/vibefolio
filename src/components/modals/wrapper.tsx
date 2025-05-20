@@ -63,7 +63,7 @@ function Wrapper({
   const dragging = useRef(false);
   const offset = useRef({ x: 0, y: 0 });
   const dispatch = useAppDispatch();
-  const type = modal?.type || "info";
+  const type = modal?.type || "info"; // TODO: default modal type
 
   const handleClose = () => {
     setIsClosing(true);
@@ -134,7 +134,7 @@ function Wrapper({
         handleResize={handleResize}
         handleDrag={handleMouseDown}
       />
-      <Content>
+      <Content title={modal?.title}>
         <InnerWrapper>{children}</InnerWrapper>
       </Content>
     </Container>
