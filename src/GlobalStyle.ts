@@ -1,4 +1,13 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, keyframes } from "styled-components";
+
+const textFlicker = keyframes`
+    from {
+      text-shadow: 0.5px 0 0 #ea36af, -1px 0 0 #75fa69;
+    }
+    to {
+      text-shadow: 1px 0.5px 1px #ea36af, -0.5px -0.5px 1px #75fa69;
+    }
+`;
 
 export const GlobalStyle = createGlobalStyle`
   :root {
@@ -9,13 +18,22 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  body {
+    animation-duration: 0.01s;
+    animation-name: ${textFlicker};
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
   html, body {
+    user-select: none; 
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
     overflow: hidden;
     font-family: ${({ theme }) => theme.fontFamily};
+    letter-spacing: 0.1em;
     font-size: 16px;
     line-height: 1.5;
     color: ${({ theme }) => theme.pallet.textColor};
@@ -52,5 +70,40 @@ export const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
     color: inherit;
+  }
+`;
+
+export const CRTOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.1) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0) 60%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+    pointer-events: none;
+    mix-blend-mode: multiply;
   }
 `;

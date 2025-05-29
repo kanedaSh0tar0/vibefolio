@@ -12,7 +12,7 @@ export const IconContainer = styled.div<{ chosen?: boolean }>`
   &::after {
     content: "";
     position: absolute;
-    inset: 0;
+    inset: -4px;
     border: ${({ chosen }) =>
       chosen ? "2px dashed var(--white-color)" : "none"};
     pointer-events: none;
