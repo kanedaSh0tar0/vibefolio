@@ -1,10 +1,10 @@
 import { createPortal } from "react-dom";
 import { useAppSelector } from "../../store/hooks";
-import InfoModal from "./info";
 import Photo from "./photo";
 import AboutMe from "./about-me";
 import Skills from "./skills";
 import Experience from "./experience";
+import Folder from "./folder";
 
 const modalRoot = document.getElementById("modal-root");
 
@@ -19,8 +19,6 @@ function ModalManager() {
         .filter(({ isOpen }) => isOpen)
         .map((modal) => {
           switch (modal.type) {
-            case "info":
-              return <InfoModal modal={modal} key={modal.type} />;
             case "photo":
               return <Photo modal={modal} key={modal.type} />;
             case "about_me":
@@ -29,6 +27,8 @@ function ModalManager() {
               return <Skills modal={modal} key={modal.type} />;
             case "experience":
               return <Experience modal={modal} key={modal.type} />;
+            case "folder":
+              return <Folder modal={modal} key={modal.type} />;
             default:
               return null;
           }

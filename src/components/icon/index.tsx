@@ -6,10 +6,12 @@ function Icon({
   SvgIcon,
   text,
   onClick,
+  textColor,
 }: {
   SvgIcon: React.FC<SVGProps<SVGSVGElement>>;
   text: string;
   onClick: () => void;
+  textColor?: string;
 }) {
   const [chosen, setChosen] = useState(false);
   const iconRef = useRef<HTMLDivElement>(null);
@@ -33,6 +35,7 @@ function Icon({
       ref={iconRef}
       className="cursor-pointer"
       chosen={chosen}
+      borderColor={textColor}
       onClick={() => {
         if (chosen) {
           onClick();
@@ -43,7 +46,7 @@ function Icon({
       }}
     >
       <SvgIcon width="100%" height="100%" />
-      <IconText text={text} />
+      <IconText color={textColor} text={text} />
     </IconContainer>
   );
 }

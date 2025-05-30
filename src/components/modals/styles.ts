@@ -1,6 +1,5 @@
 import styled, { keyframes } from "styled-components";
 import { PositionType } from "../../store/modalSlice";
-import { ModalSize } from "./wrapper";
 
 export const Button = styled.button<{ clicked?: boolean }>`
   display: flex;
@@ -85,7 +84,6 @@ export const scaleOut = keyframes`
 
 export const Container = styled.div<{
   position: PositionType;
-  size: ModalSize;
   dimensions: { width: number; height: number };
   isClosing: boolean;
   index: number;
@@ -94,10 +92,8 @@ export const Container = styled.div<{
   display: flex;
   flex-direction: column;
 
-  width: ${({ size, dimensions }) =>
-    size === "small" ? `${dimensions.width}px` : "100vw"};
-  height: ${({ size, dimensions }) =>
-    size === "small" ? `${dimensions.height}px` : "100vh"};
+  width: ${({ dimensions }) => `${dimensions.width}px`};
+  height: ${({ dimensions }) => `${dimensions.height}px`};
   left: ${({ position }) => (position ? position.x : 0)}px;
   top: ${({ position }) => (position ? position.y : 0)}px;
 

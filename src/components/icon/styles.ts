@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-export const IconContainer = styled.div<{ chosen?: boolean }>`
+export const IconContainer = styled.div<{
+  chosen?: boolean;
+  borderColor?: string;
+}>`
   width: 80px;
   display: flex;
   flex-direction: column;
@@ -12,9 +15,9 @@ export const IconContainer = styled.div<{ chosen?: boolean }>`
   &::after {
     content: "";
     position: absolute;
-    inset: -4px;
-    border: ${({ chosen }) =>
-      chosen ? "2px dashed var(--white-color)" : "none"};
+    inset: -2px;
+    border: ${({ chosen, borderColor }) =>
+      chosen ? `2px dashed ${borderColor || "var(--white-color)"}` : "none"};
     pointer-events: none;
     border-radius: 4px;
   }

@@ -1,7 +1,4 @@
 import Header from "../header";
-import ComputerIcon from "../../assets/icons/computer";
-import FolderIcon from "../../assets/icons/folder";
-import MusicIcon from "../../assets/icons/music";
 import Icon from "../icon";
 import { useAppDispatch } from "../../store/hooks";
 import {
@@ -11,6 +8,8 @@ import {
   openProgramThunk,
 } from "../../store/modalSlice";
 import { Container, IconsContainer } from "./styles";
+import FileUserIcon from "../../assets/icons/file-user";
+import FolderIcon from "../../assets/icons/folder";
 
 function Desktop() {
   const dispatch = useAppDispatch();
@@ -29,24 +28,14 @@ function Desktop() {
 
       <IconsContainer>
         <Icon
-          onClick={() => handleOpenSingleModal("info")}
-          SvgIcon={ComputerIcon}
-          text="MyComputer"
-        />
-        <Icon
-          onClick={() => handleOpenSingleModal("other")}
-          SvgIcon={FolderIcon}
-          text="New Folder"
-        />
-        <Icon
-          onClick={() => handleOpenProgram("other")}
-          SvgIcon={MusicIcon}
-          text="Music"
-        />
-        <Icon
           onClick={() => handleOpenProgram("info")}
-          SvgIcon={MusicIcon}
-          text="Music 2"
+          SvgIcon={FileUserIcon}
+          text="My CV"
+        />
+        <Icon
+          onClick={() => handleOpenSingleModal("folder")}
+          SvgIcon={FolderIcon}
+          text="Folder"
         />
       </IconsContainer>
     </Container>
