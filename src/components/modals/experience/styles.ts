@@ -49,13 +49,6 @@ export const Button = styled.button`
     transition: linear 0.1s;
   }
 
-  &:hover::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border: 2px solid ${({ theme }) => theme.pallet.secondColor};
-  }
-
   &:hover:not([disabled]) {
     svg {
       fill: ${({ theme }) => theme.pallet.secondColor};

@@ -25,6 +25,10 @@ export const GlobalStyle = createGlobalStyle`
     animation-direction: alternate;
   }
 
+  html {
+    cursor: url("/cursor/Arrow1.png"), auto;
+  }
+
   html, body {
     user-select: none; 
     margin: 0;

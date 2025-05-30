@@ -23,7 +23,7 @@ function Desktop() {
   };
 
   return (
-    <Container className="cursor">
+    <Container>
       <Header />
 
       <IconsContainer>

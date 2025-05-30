@@ -5,7 +5,6 @@ import ModalManager from "./components/modals";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "./store/hooks";
 import Scene from "./scene";
-import "./index.css";
 
 const MIN_WIDTH = 1024;
 const MIN_HEIGHT = 600;
