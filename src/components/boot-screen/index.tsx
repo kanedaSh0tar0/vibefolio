@@ -1,13 +1,29 @@
 import { useProgress } from "@react-three/drei";
 import { useCallback, useEffect, useState } from "react";
-import { Container, Screen } from "./styles";
+import { Container, ErrorText, Screen, Text, WarningText } from "./styles";
 import { useSoundContext } from "../../context/SoundContext";
 
 function BootScreen({ onFinish }: { onFinish: () => void }) {
   const { progress } = useProgress();
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  const { playIntro } = useSoundContext();
+  const {
+    playIntro,
+    isLoaded: audioReady,
+    loadProgress: audioProgress,
+  } = useSoundContext();
   const allReady = progress === 100 && fontsLoaded;
+  const [skanningDots, setScanningDots] = useState("");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setScanningDots((prev) => {
+        if (prev === "...") return "";
+        return prev + ".";
+      });
+    }, 300);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleOnFinish = useCallback(() => {
     onFinish();
@@ -35,16 +51,36 @@ function BootScreen({ onFinish }: { onFinish: () => void }) {
   return (
     <Container>
       <Screen>
-        <pre style={{ fontFamily: "monospace" }}>
+        <Text>
           {[
-            "> Initializing virtual BIOS...",
+            "> Booting PortfolioOS v1.0",
             `> Loading 3D assets.... ${Math.round(progress)
               .toString()
               .padEnd(3, " ")}%`,
             `> Fonts system......... ${fontsLoaded ? "OK" : "LOADING"}`,
+            `> Audio system......... ${
+              audioReady ? "OK" : `${Math.round(audioProgress)}%`
+            }`,
             "> CRT Display.......... ONLINE",
-            "> Audio system......... ONLINE",
           ].join("\n")}
+          {
+            <>
+              {"\n> Employment status.... "}
+              <ErrorText>UNEMPLOYED</ErrorText>
+            </>
+          }
+          {
+            <>
+              {"\n> Job seek subsystem... "}
+              <WarningText>SCANNING NETWORK{skanningDots}</WarningText>
+            </>
+          }
+          {
+            <>
+              {"\n> Floppy drive......... "}
+              <WarningText>NOT FOUND — SKIPPING</WarningText>
+            </>
+          }
           {allReady && (
             <>
               {"\n> Boot sequence complete. Press "}
@@ -58,7 +94,7 @@ function BootScreen({ onFinish }: { onFinish: () => void }) {
               {" to continue..."}
             </>
           )}
-        </pre>
+        </Text>
       </Screen>
     </Container>
   );

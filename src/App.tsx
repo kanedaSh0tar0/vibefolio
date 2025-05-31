@@ -1,5 +1,5 @@
 import { ThemeProvider } from "styled-components";
-import { CRTOverlay, GlobalStyle } from "./GlobalStyle";
+import { CRTOverlay, GlobalStyle, StartOpacity } from "./GlobalStyle";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "./store/hooks";
 import Scene from "./scene";
@@ -38,6 +38,7 @@ function App() {
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
+  // TODO: Better styling for unsupported screen sizes
   if (!isSupported) {
     return (
       <div style={{ padding: "2rem", textAlign: "center" }}>
@@ -51,18 +52,14 @@ function App() {
     <ThemeProvider theme={activeTheme}>
       <CRTOverlay />
       <GlobalStyle />
+
       {!bootDone && <BootScreen onFinish={() => setBootDone(true)} />}
-      <div
-        style={{
-          opacity: bootDone ? 1 : 0,
-          transition: "opacity 2s ease-in-out",
-          pointerEvents: bootDone ? "auto" : "none",
-        }}
-      >
+
+      <StartOpacity bootDone={bootDone}>
         <Scene />
         <Desktop />
         <ModalManager />
-      </div>
+      </StartOpacity>
     </ThemeProvider>
   );
 }

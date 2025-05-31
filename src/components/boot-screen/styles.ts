@@ -32,11 +32,22 @@ export const Container = styled.div`
 export const Screen = styled.div`
   width: 100%;
   height: 100%;
-  animation: ${turnOn} 0.1s linear forwards;
+  animation: ${turnOn} 1s linear forwards;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: black;
+`;
+
+export const Text = styled.pre`
   font-family: monospace;
   color: #00ffcc;
-  background-color: black;
+`;
+
+export const ErrorText = styled.span`
+  color: #ff6347;
+`;
+
+export const WarningText = styled.span`
+  color: #ffa500;
 `;

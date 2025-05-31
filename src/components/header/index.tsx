@@ -5,6 +5,7 @@ import Clock from "./clock";
 import { ButtonsContainer, Container, LeftSide } from "./styles";
 import ChangeTheme from "../../assets/icons/change-theme";
 import { changeTheme, themeTypes } from "../../store/themeSlice";
+import VolumeButton from "./volume-button";
 
 function Header() {
   const themeName = useAppSelector((state) => state.themes.name);
@@ -44,6 +45,7 @@ function Header() {
             width={25}
             height={25}
           />
+          <VolumeButton className="cursor-pointer" width={25} height={25} />
         </ButtonsContainer>
       </LeftSide>
 

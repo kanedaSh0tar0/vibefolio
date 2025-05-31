@@ -49,4 +49,5 @@ export const LeftSide = styled.div`
 export const ButtonsContainer = styled.div`
   display: flex;
   align-items: center;
+  gap: 10px;
 `;

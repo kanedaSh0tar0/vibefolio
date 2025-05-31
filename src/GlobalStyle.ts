@@ -111,3 +111,9 @@ export const CRTOverlay = styled.div`
     mix-blend-mode: multiply;
   }
 `;
+
+export const StartOpacity = styled.div<{ bootDone: boolean }>`
+  opacity: ${({ bootDone }) => (bootDone ? 1 : 0)};
+  transition: opacity 2s ease-in-out;
+  pointerevents: ${({ bootDone }) => (bootDone ? "auto" : "none")};
+`;
