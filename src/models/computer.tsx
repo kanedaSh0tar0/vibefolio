@@ -2,7 +2,7 @@ import { useGLTF } from "@react-three/drei";
 import { JSX, useRef } from "react";
 import { Group } from "three";
 
-useGLTF.preload("/retro_computer.glb");
+useGLTF.preload("models/retro_computer.glb");
 
 function Computer(props: JSX.IntrinsicElements["group"]) {
   const group = useRef<Group>(null);

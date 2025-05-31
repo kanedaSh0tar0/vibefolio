@@ -1,16 +1,18 @@
 import { ThemeProvider } from "styled-components";
 import { CRTOverlay, GlobalStyle } from "./GlobalStyle";
-import Desktop from "./components/desktop";
-import ModalManager from "./components/modals";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "./store/hooks";
 import Scene from "./scene";
+import Desktop from "./components/desktop";
+import ModalManager from "./components/modals";
+import BootScreen from "./components/boot-screen";
 
 const MIN_WIDTH = 1024;
 const MIN_HEIGHT = 600;
 
 function App() {
-  const [isSupported, setIsSupported] = useState<boolean | null>(null);
+  const [isSupported, setIsSupported] = useState(true);
+  const [bootDone, setBootDone] = useState(false);
   const activeTheme = useAppSelector((state) => state.themes);
 
   useEffect(() => {
@@ -25,7 +27,6 @@ function App() {
   }, []);
 
   if (!isSupported) {
-    // TODO
     return (
       <div style={{ padding: "2rem", textAlign: "center" }}>
         <h1>The screen is too small</h1>
@@ -38,9 +39,18 @@ function App() {
     <ThemeProvider theme={activeTheme}>
       <CRTOverlay />
       <GlobalStyle />
-      <Scene />
-      <Desktop />
-      <ModalManager />
+      {!bootDone && <BootScreen onFinish={() => setBootDone(true)} />}
+      <div
+        style={{
+          opacity: bootDone ? 1 : 0,
+          transition: "opacity 1s ease-in-out",
+          pointerEvents: bootDone ? "auto" : "none",
+        }}
+      >
+        <Scene />
+        <Desktop />
+        <ModalManager />
+      </div>
     </ThemeProvider>
   );
 }
