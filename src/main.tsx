@@ -4,11 +4,14 @@ import App from "./App.tsx";
 import { Provider } from "react-redux";
 import { store } from "./store/index.ts";
 import "./index.css";
+import { SoundProvider } from "./context/SoundContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
+      <SoundProvider>
+        <App />
+      </SoundProvider>
     </Provider>
   </StrictMode>
 );

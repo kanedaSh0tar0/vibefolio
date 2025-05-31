@@ -6,6 +6,7 @@ import Scene from "./scene";
 import Desktop from "./components/desktop";
 import ModalManager from "./components/modals";
 import BootScreen from "./components/boot-screen";
+import { useSoundContext } from "./context/SoundContext";
 
 const MIN_WIDTH = 1024;
 const MIN_HEIGHT = 600;
@@ -14,6 +15,17 @@ function App() {
   const [isSupported, setIsSupported] = useState(true);
   const [bootDone, setBootDone] = useState(false);
   const activeTheme = useAppSelector((state) => state.themes);
+  const { playClickDown, playClickUp } = useSoundContext();
+
+  useEffect(() => {
+    window.addEventListener("mousedown", playClickDown);
+    window.addEventListener("mouseup", playClickUp);
+
+    return () => {
+      window.removeEventListener("mousedown", playClickDown);
+      window.removeEventListener("mouseup", playClickUp);
+    };
+  }, [playClickDown, playClickUp]);
 
   useEffect(() => {
     const checkSize = () => {
@@ -43,7 +55,7 @@ function App() {
       <div
         style={{
           opacity: bootDone ? 1 : 0,
-          transition: "opacity 1s ease-in-out",
+          transition: "opacity 2s ease-in-out",
           pointerEvents: bootDone ? "auto" : "none",
         }}
       >

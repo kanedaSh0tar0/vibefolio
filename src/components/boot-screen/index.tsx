@@ -1,22 +1,26 @@
 import { useProgress } from "@react-three/drei";
 import { useCallback, useEffect, useState } from "react";
 import { Container, Screen } from "./styles";
+import { useSoundContext } from "../../context/SoundContext";
 
 function BootScreen({ onFinish }: { onFinish: () => void }) {
   const { progress } = useProgress();
   const [fontsLoaded, setFontsLoaded] = useState(false);
-
+  const { playIntro } = useSoundContext();
   const allReady = progress === 100 && fontsLoaded;
+
+  const handleOnFinish = useCallback(() => {
+    onFinish();
+    playIntro();
+  }, [onFinish, playIntro]);
 
   const onPressEnter = useCallback(
     (e: KeyboardEvent) => {
-      console.log("ENTER PRESSED");
-
       if (e.key === "Enter" && allReady) {
-        onFinish();
+        handleOnFinish();
       }
     },
-    [allReady, onFinish]
+    [allReady, handleOnFinish]
   );
 
   useEffect(() => {
@@ -45,7 +49,7 @@ function BootScreen({ onFinish }: { onFinish: () => void }) {
             <>
               {"\n> Boot sequence complete. Press "}
               <span
-                onClick={onFinish}
+                onClick={handleOnFinish}
                 className="cursor-pointer"
                 style={{ textDecoration: "underline" }}
               >
