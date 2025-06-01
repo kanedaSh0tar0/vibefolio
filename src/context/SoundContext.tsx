@@ -4,6 +4,7 @@ import {
   ReactNode,
   useEffect,
   useState,
+  useRef,
 } from "react";
 
 const audioList = {
@@ -32,62 +33,54 @@ export const useSoundContext = () => {
 };
 
 export const SoundProvider = ({ children }: { children: ReactNode }) => {
-  const [sounds, setSounds] = useState<{ [key: string]: HTMLAudioElement }>({});
   const [isMuted, setIsMuted] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-
-  const total = Object.keys(audioList).length;
+  const [loadProgress, setLoadProgress] = useState(0);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const bufferMap = useRef<Map<string, AudioBuffer>>(new Map());
 
   useEffect(() => {
-    const loadAudio = (
-      name: string,
-      src: string
-    ): Promise<[string, HTMLAudioElement]> =>
-      new Promise((resolve, reject) => {
-        const audio = new Audio();
-        audio.src = src;
-        audio.preload = "auto";
-        audio.addEventListener(
-          "canplaythrough",
-          () => {
-            resolve([name, audio]);
-          },
-          { once: true }
-        );
-        audio.addEventListener("error", reject, { once: true });
-      });
+    audioContextRef.current = new AudioContext();
+
+    const loadAudio = async (name: string, url: string) => {
+      const response = await fetch(url);
+      const arrayBuffer = await response.arrayBuffer();
+      const buffer = await audioContextRef.current!.decodeAudioData(
+        arrayBuffer
+      );
+      bufferMap.current.set(name, buffer);
+      setLoadProgress((prev) => prev + 1);
+    };
 
     const loadAll = async () => {
-      console.log(Object.entries(audioList), "Object.entries(audioList)");
-
-      const entries = await Promise.all(
-        Object.entries(audioList).map(([name, src]) =>
-          loadAudio(name, src).finally(() => {
-            setIsLoaded(true);
-          })
-        )
-      );
-
-      setSounds(Object.fromEntries(entries));
+      const entries = Object.entries(audioList);
+      await Promise.all(entries.map(([name, url]) => loadAudio(name, url)));
+      setIsLoaded(true);
     };
 
     loadAll();
   }, []);
 
-  const rawClickDown = () => sounds.clickDown?.play();
-  const rawClickUp = () => sounds.clickUp?.play();
-  const rawIntro = () => sounds.intro?.play();
+  const playSound = (name: keyof typeof audioList) => {
+    if (isMuted || !isLoaded) return;
+    const ctx = audioContextRef.current;
+    const buffer = bufferMap.current.get(name);
+    if (!ctx || !buffer) return;
 
-  const loadProgress = (Object.keys(sounds).length / total) * 100;
-
-  const play = (fn: () => void) => {
-    if (!isMuted) fn();
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+    source.connect(ctx.destination);
+    source.start(0);
   };
 
+  const rawClickDown = () => playSound("clickDown");
+  const rawClickUp = () => playSound("clickUp");
+  const rawIntro = () => playSound("intro");
+
   const value: SoundContextType = {
-    playClickDown: () => play(rawClickDown),
-    playClickUp: () => play(rawClickUp),
-    playIntro: () => play(rawIntro),
+    playClickDown: rawClickDown,
+    playClickUp: rawClickUp,
+    playIntro: rawIntro,
     mute: () => setIsMuted(true),
     unmute: () => setIsMuted(false),
     isLoaded,
