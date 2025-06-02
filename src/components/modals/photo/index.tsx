@@ -1,24 +1,21 @@
 import { Modal } from "../../../store/modalSlice";
 import Wrapper from "../wrapper";
-import { useState } from "react";
-import { ImageWrapper, Thumb, Image } from "./styles";
+import { ImageWrapper } from "./styles";
+import ThumbImage from "/pics/My_photo_thumb.webp";
+import MainImage from "/pics/My_photo.webp";
+import ImageComponent from "./image";
 
 function Photo({ modal }: { modal: Modal }) {
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const { width = 200, height = 200 } = modal?.dimensions || {};
 
   return (
     <Wrapper modal={modal}>
       <ImageWrapper width={width} height={height}>
-        <Thumb url="pics/My_photo_thumb.webp" width={width} height={height} loaded={isImageLoaded} />
-        <Image
+        <ImageComponent
           width={width}
           height={height}
-          loaded={isImageLoaded}
-          onLoad={() => setIsImageLoaded(true)}
-          src="pics/My_photo.webp"
-          alt="My photo"
-          loading="lazy"
+          src={MainImage}
+          thumb={ThumbImage}
         />
       </ImageWrapper>
     </Wrapper>

@@ -13,7 +13,7 @@ function BootScreen({ onFinish }: { onFinish: () => void }) {
     isLoaded: audioReady,
     loadProgress: audioProgress,
   } = useSoundContext();
-  const allReady = progress === 100 && fontsLoaded;
+  const allReady = progress === 100 && fontsLoaded && audioReady;
   const [skanningDots, setScanningDots] = useState("");
 
   useEffect(() => {
