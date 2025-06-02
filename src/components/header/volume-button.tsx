@@ -1,4 +1,4 @@
-import { useSoundContext } from "../../context/SoundContext";
+import { useSoundContext } from "../../context/sound";
 import VolumeIcon from "../../assets/icons/volume";
 import VolumeMuteIcon from "../../assets/icons/volume-mute";
 

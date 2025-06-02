@@ -15,7 +15,7 @@ function Scene() {
         <Camera />
         <Light position={[1, 2, 1]} />
         <Suspense fallback={null}>
-          <Computer rotation={[0, 3, 0]} position={[-0.5, 0, 1.5]} />
+          <Computer rotation={[0, 3, 0]} position={[0, 0, 1]} />
         </Suspense>
 
         <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]}>

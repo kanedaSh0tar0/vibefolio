@@ -13,7 +13,7 @@ const audioList = {
   intro: "/sounds/intro-sound.mp3",
 };
 
-interface SoundContextType {
+interface SoundContextInterface {
   playClickDown: () => void;
   playClickUp: () => void;
   playIntro: () => void;
@@ -24,7 +24,7 @@ interface SoundContextType {
   isMuted: boolean;
 }
 
-const SoundContext = createContext<SoundContextType | null>(null);
+const SoundContext = createContext<SoundContextInterface | null>(null);
 
 export const useSoundContext = () => {
   const context = useContext(SoundContext);
@@ -32,7 +32,7 @@ export const useSoundContext = () => {
   return context;
 };
 
-export const SoundProvider = ({ children }: { children: ReactNode }) => {
+export function SoundProvider({ children }: { children: ReactNode }) {
   const [isMuted, setIsMuted] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [loadProgress, setLoadProgress] = useState(0);
@@ -77,7 +77,7 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
   const rawClickUp = () => playSound("clickUp");
   const rawIntro = () => playSound("intro");
 
-  const value: SoundContextType = {
+  const value: SoundContextInterface = {
     playClickDown: rawClickDown,
     playClickUp: rawClickUp,
     playIntro: rawIntro,
@@ -91,4 +91,4 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
   return (
     <SoundContext.Provider value={value}>{children}</SoundContext.Provider>
   );
-};
+}

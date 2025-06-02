@@ -1,10 +1,12 @@
 import { useProgress } from "@react-three/drei";
 import { useCallback, useEffect, useState } from "react";
 import { Container, ErrorText, Screen, Text, WarningText } from "./styles";
-import { useSoundContext } from "../../context/SoundContext";
+import { useSoundContext } from "../../context/sound";
+import { useCameraContext } from "../../context/camera";
 
 function BootScreen({ onFinish }: { onFinish: () => void }) {
   const { progress } = useProgress();
+  const { start } = useCameraContext();
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const {
     playIntro,
@@ -28,7 +30,8 @@ function BootScreen({ onFinish }: { onFinish: () => void }) {
   const handleOnFinish = useCallback(() => {
     onFinish();
     playIntro();
-  }, [onFinish, playIntro]);
+    start();
+  }, [onFinish, playIntro, start]);
 
   const onPressEnter = useCallback(
     (e: KeyboardEvent) => {

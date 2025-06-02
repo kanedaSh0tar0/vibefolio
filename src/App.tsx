@@ -6,7 +6,7 @@ import Scene from "./scene";
 import Desktop from "./components/desktop";
 import ModalManager from "./components/modals";
 import BootScreen from "./components/boot-screen";
-import { useSoundContext } from "./context/SoundContext";
+import { useSoundContext } from "./context/sound";
 
 const MIN_WIDTH = 1024;
 const MIN_HEIGHT = 600;

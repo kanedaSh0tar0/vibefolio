@@ -5,29 +5,30 @@ import { useGlobalPointer } from "../utils/global-pointer";
 
 export function useOrbitalControl(
   target: Camera | null,
-  options?: {
-    startX?: number;
-    startY?: number;
-    startZ?: number;
-    radius?: number;
+  options: {
+    initialAngle?: number;
+    enabled?: boolean;
   }
 ) {
   const { size } = useThree();
-  const { startX = 0, startY = 2, startZ = 0, radius = 5 } = options || {};
-
-  const angleRef = useRef(0);
-  const targetAngle = useRef(0);
+  const { enabled = true, initialAngle = 0 } = options;
+  const radius = 4;
+  const angleOffset = Math.PI / 24;
+  const angleRef = useRef(initialAngle);
+  const targetAngle = useRef(-angleOffset);
 
   useGlobalPointer((pos) => {
     const ndcX = (pos.x / size.width) * 1 - 1;
-    targetAngle.current = ndcX;
+    targetAngle.current = ndcX - angleOffset;
   });
 
   useFrame((_, delta) => {
+    if (!enabled) return;
+
     angleRef.current = MathUtils.damp(
       angleRef.current,
       targetAngle.current,
-      2,
+      1,
       delta
     );
 
@@ -35,7 +36,7 @@ export function useOrbitalControl(
     const z = radius * Math.cos(angleRef.current);
 
     if (target) {
-      target.position.set(startX + x, startY, startZ + z);
+      target.position.set(x, 2, z);
       target.lookAt(0, 0, 0);
     }
   });
