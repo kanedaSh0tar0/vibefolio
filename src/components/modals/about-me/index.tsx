@@ -6,7 +6,7 @@ const Content = styled.div`
   padding: 10px;
 `;
 
-function AboutMe({ modal }: { modal?: Modal }) {
+function AboutMe({ modal }: { modal: Modal }) {
   return (
     <Wrapper modal={modal}>
       <Content>

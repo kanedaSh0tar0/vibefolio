@@ -14,6 +14,7 @@ export const ImageWrapper = styled.div<{ width?: number; height?: number }>`
 
 export const Thumb = styled.div<{
   loaded: boolean;
+  url: string;
   width?: number;
   height?: number;
 }>`
@@ -23,7 +24,7 @@ export const Thumb = styled.div<{
   height: 100%;
   max-width: ${(props) => `${props.width}px`};
   max-height: ${(props) => `${props.height}px`};
-  background-image: url("pics/My_photo_thumb.jpg");
+  background-image: url(${(props) => props.url});
   background-size: cover;
   background-position: center;
   filter: blur(10px);
