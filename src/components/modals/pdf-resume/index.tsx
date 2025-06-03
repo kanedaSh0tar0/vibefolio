@@ -3,11 +3,15 @@ import Wrapper from "../wrapper";
 import { Document, Page, pdfjs } from "react-pdf";
 import Expand from "../../../assets/icons/expand";
 import DownloadFile from "../../../assets/icons/download-file";
+import { useState } from "react";
+import Loader from "../../loader";
 
 pdfjs.GlobalWorkerOptions.workerSrc = "/pdfjs/pdf.worker.min.mjs";
 const pdfPath = "/pdf/cv-mykyta-antonov.pdf";
 
 function PDFResume({ modal }: { modal: Modal }) {
+  const [isLoading, setIsLoading] = useState(true);
+
   const handleExpand = () => {
     window.open(pdfPath, "_blank", "noopener noreferrer");
   };
@@ -40,10 +44,10 @@ function PDFResume({ modal }: { modal: Modal }) {
         },
       ]}
     >
+      {isLoading && <Loader />}
       <Document
-        onLoadSuccess={({ numPages }) =>
-          console.log("PDF loaded. Pages:", numPages)
-        }
+        onLoadSuccess={() => setIsLoading(false)}
+        onLoadError={() => setIsLoading(false)}
         file={pdfPath}
       >
         <Page
