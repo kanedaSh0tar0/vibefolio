@@ -2,14 +2,17 @@ import Header from "./header";
 import { Modal, bringToFront, closeModal } from "../../store/modalSlice";
 import { useEffect, useRef, useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
-import { Container, Content, InnerWrapper } from "./styles";
+import { Container, Content, InnerWrapper, Panel } from "./styles";
+import ModalButton from "./panel-button";
 
 function Wrapper({
   children,
   modal,
+  buttons,
 }: {
   children: React.ReactNode;
   modal: Modal;
+  buttons?: { Icon: React.ReactNode; onClick: () => void; key: string }[];
 }) {
   const [isClosing, setIsClosing] = useState(false);
   const [coordinates, setCoordinates] = useState(modal.position);
@@ -73,6 +76,13 @@ function Wrapper({
         handleClose={handleClose}
         handleDrag={handleMouseDown}
       />
+      {buttons && (
+        <Panel>
+          {buttons.map(({ Icon, onClick, key }) => (
+            <ModalButton Icon={Icon} onClick={onClick} key={key} />
+          ))}
+        </Panel>
+      )}
       <Content title={modal.title}>
         <InnerWrapper>{children}</InnerWrapper>
       </Content>

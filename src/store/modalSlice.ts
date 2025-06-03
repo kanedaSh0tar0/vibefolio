@@ -7,6 +7,7 @@ export type ModalType =
   | "skills"
   | "photo"
   | "experience"
+  | "pdf"
   | "folder";
 export type PositionType = { x: number; y: number };
 export type ProgramType = keyof typeof programs;
@@ -70,12 +71,20 @@ const initialState: ModalStackState = {
       dimensions: { width: 400, height: 300 },
     },
     {
+      type: "pdf",
+      title: "Resume.pdf",
+      isOpen: false,
+      index: 0,
+      position: { x: 0, y: 0 },
+      dimensions: { width: 650, height: 500 },
+    },
+    {
       type: "folder",
       title: "Folder",
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 600, height: 600 },
+      dimensions: { width: 600, height: 400 },
     },
   ],
   topIndex: 0,

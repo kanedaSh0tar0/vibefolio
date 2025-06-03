@@ -10,6 +10,7 @@ import {
 import { Container, IconsContainer } from "./styles";
 import FileUserIcon from "../../assets/icons/file-user";
 import FolderIcon from "../../assets/icons/folder";
+import PDF from "../../assets/icons/pdf";
 
 function Desktop() {
   const dispatch = useAppDispatch();
@@ -31,6 +32,11 @@ function Desktop() {
           onClick={() => handleOpenProgram("info")}
           SvgIcon={FileUserIcon}
           text="My CV"
+        />
+        <Icon
+          onClick={() => handleOpenSingleModal("pdf")}
+          SvgIcon={PDF}
+          text="Resume.pdf"
         />
         <Icon
           onClick={() => handleOpenSingleModal("folder")}

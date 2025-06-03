@@ -26,7 +26,6 @@ export const HeaderContainer = styled.div`
   height: 30px;
   width: 100%;
   padding: 0 10px;
-  background-color: ${({ theme }) => theme.pallet.thirdColor};
 
   ${({ theme }) => {
     if (theme.name === "pastel") {
@@ -91,6 +90,7 @@ export const Container = styled.div<{
   position: absolute;
   display: flex;
   flex-direction: column;
+  background-color: ${({ theme }) => theme.pallet.thirdColor};
 
   width: ${({ dimensions }) => `${dimensions.width}px`};
   height: ${({ dimensions }) => `${dimensions.height}px`};
@@ -176,4 +176,33 @@ export const InnerWrapper = styled.div`
       `;
     }
   }}
+`;
+
+export const Panel = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  padding: 0 10px;
+  gap: 10px;
+`;
+
+export const PanelButton = styled.button<{ clicked?: boolean }>`
+  border-radius: 50px;
+  box-shadow: ${({ clicked }) =>
+    clicked
+      ? "inset 2px 2px 4px rgba(0, 0, 0, 0.6), inset -2px -2px 4px rgba(255, 255, 255, 0.2)"
+      : "2px 2px 0px 1px rgba(0, 0, 0, 0.75)"};
+  padding: 4px;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+
+  svg {
+    transform: ${({ clicked }) => (clicked ? "scale(0.9)" : "scale(1)")};
+    color: ${({ theme }) => theme.pallet.textColor};
+  }
 `;
