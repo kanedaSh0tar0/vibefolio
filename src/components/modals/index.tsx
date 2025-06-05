@@ -6,6 +6,7 @@ import Skills from "./skills";
 import Experience from "./experience";
 import Folder from "./folder";
 import PDFResume from "./pdf-resume";
+import ContactMe from "./contact-me";
 
 const modalRoot = document.getElementById("modal-root");
 
@@ -32,6 +33,8 @@ function ModalManager() {
               return <Folder modal={modal} key={modal.type} />;
             case "pdf":
               return <PDFResume modal={modal} key={modal.type} />;
+            case "contact_me":
+              return <ContactMe modal={modal} key={modal.type} />;
             default:
               return null;
           }

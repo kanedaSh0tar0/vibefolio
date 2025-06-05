@@ -189,7 +189,6 @@ export const Panel = styled.div`
 `;
 
 export const PanelButton = styled.button<{ clicked?: boolean }>`
-  border-radius: 50px;
   box-shadow: ${({ clicked }) =>
     clicked
       ? "inset 2px 2px 4px rgba(0, 0, 0, 0.6), inset -2px -2px 4px rgba(255, 255, 255, 0.2)"

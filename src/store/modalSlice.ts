@@ -8,6 +8,7 @@ export type ModalType =
   | "photo"
   | "experience"
   | "pdf"
+  | "contact_me"
   | "folder";
 export type PositionType = { x: number; y: number };
 export type ProgramType = keyof typeof programs;
@@ -77,6 +78,14 @@ const initialState: ModalStackState = {
       index: 0,
       position: { x: 0, y: 0 },
       dimensions: { width: 650, height: 500 },
+    },
+    {
+      type: "contact_me",
+      title: "Email",
+      isOpen: false,
+      index: 0,
+      position: { x: 0, y: 0 },
+      dimensions: { width: 600, height: 500 },
     },
     {
       type: "folder",

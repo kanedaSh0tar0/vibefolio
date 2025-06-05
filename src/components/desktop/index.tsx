@@ -10,6 +10,7 @@ import {
 import { Container, IconsContainer } from "./styles";
 import FileUserIcon from "../../assets/icons/file-user";
 import FolderIcon from "../../assets/icons/folder";
+import EnvelopIcon from "../../assets/icons/envelop";
 import PDF from "../../assets/icons/pdf";
 
 function Desktop() {
@@ -42,6 +43,11 @@ function Desktop() {
           onClick={() => handleOpenSingleModal("folder")}
           SvgIcon={FolderIcon}
           text="Folder"
+        />
+        <Icon
+          onClick={() => handleOpenSingleModal("contact_me")}
+          SvgIcon={EnvelopIcon}
+          text="Email"
         />
       </IconsContainer>
     </Container>
