@@ -65,6 +65,11 @@ export const GlobalStyle = createGlobalStyle`
     font: inherit;
   }
 
+  input:hover, textarea:hover {
+    caret-color: ${({ theme }) => theme.pallet.textColor};
+    cursor: url("/cursor/Win95ZBlinkCur.png") 32 32, auto;
+  }
+
   button {
     background: none;
     border: none;

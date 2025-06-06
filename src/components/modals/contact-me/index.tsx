@@ -3,13 +3,14 @@ import { Modal } from "../../../store/modalSlice";
 import Wrapper from "../wrapper";
 import { Container, Content, Tabs, AsideButton } from "./styles";
 import ContactForm from "./contact-form";
+import MailsList from "./mails-list";
 
 const tabs = [
   { name: "Contact Me", color: "#345995", component: ContactForm },
-  { name: "Inbox", color: "#62A87C", component: () => <div>test 1</div> },
-  { name: "Outbox", color: "#9C0D38", component: () => <div>test 4</div> },
-  { name: "Spam", color: "#FCBA04", component: () => <div>test 2</div> },
-  { name: "Trash", color: "#CAA8F5", component: () => <div>test 3</div> },
+  { name: "Inbox", color: "#62A87C", component: MailsList },
+  { name: "Outbox", color: "#9C0D38", component: MailsList },
+  { name: "Spam", color: "#FCBA04", component: MailsList },
+  { name: "Trash", color: "#CAA8F5", component: MailsList },
 ];
 
 function ContactMe({ modal }: { modal: Modal }) {

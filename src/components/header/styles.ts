@@ -19,7 +19,7 @@ export const Container = styled.header<{ themeName: ThemeType }>`
     if (themeName === "pastel") {
       return `
         margin: 10px 20px;
-        border: 2px solid black;
+        border: 2px solid ${theme.pallet.textColor};
         border-radius: 10px;
         background-color: ${theme.pallet.thirdColor};
       `;

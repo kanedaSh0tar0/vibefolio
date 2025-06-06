@@ -8,7 +8,7 @@ const pastel = {
   mainColor: "#BFECFF",
   secondColor: "#FFCCEA",
   thirdColor: "#FFF6E3",
-  textColor: "#4A4A4A",
+  textColor: "#1D1C1A ",
 };
 
 const code = {

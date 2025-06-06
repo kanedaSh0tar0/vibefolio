@@ -26,7 +26,7 @@ export const AsideButton = styled.button<{
   height: 100%;
   background-color: ${({ backgroundColor }) => backgroundColor};
 
-  border: 2px solid black;
+  border: 2px solid ${({ theme }) => theme.pallet.textColor};
   border-bottom: ${({ backgroundColor }) => `2px solid ${backgroundColor}`};
   border-top-left-radius: 4px;
   border-top-right-radius: 50%;
@@ -37,6 +37,8 @@ export const AsideButton = styled.button<{
   transform: translateY(2px);
 
   z-index: ${({ zIndex, isActive }) => (isActive ? 10 : zIndex)};
+
+  color: ${({ isActive }) => (isActive ? "var(--white-color)" : "inherit")};
 
   &:hover {
     color: var(--white-color);
@@ -49,7 +51,7 @@ export const Content = styled.div<{ backgroundColor: string }>`
   height: 100%;
   background-color: ${({ backgroundColor }) => backgroundColor};
   z-index: 5;
-  border: 2px solid black;
+  border: 2px solid ${({ theme }) => theme.pallet.textColor};
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   border-bottom-left-radius: 0;
@@ -71,7 +73,7 @@ export const Input = styled.input`
   background-color: var(--white-color);
   border-radius: 4px;
   font-weight: 600;
-  color: black;
+  color: 2px solid ${({ theme }) => theme.pallet.textColor};
 
   &:disabled {
     color: gray;
@@ -116,4 +118,70 @@ export const Button = styled.button`
   border-radius: 4px;
   color: var(--white-color);
   box-shadow: 2px 2px 0px 1px rgba(0, 0, 0, 0.75);
+`;
+
+export const MailListContainer = styled.div`
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  width: 100%;
+
+  background-color: ${({ theme }) => theme.pallet.thirdColor};
+  border-radius: 4px;
+`;
+
+export const MailList = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  border-right: 2px solid ${({ theme }) => theme.pallet.textColor};
+`;
+
+export const MailButton = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: self-start;
+  width: 100%;
+  height: min-content;
+  line-height: 1.2;
+  padding: 4px 2px;
+`;
+
+export const MailName = styled.span`
+  display: inline-block;
+  font-weight: 900;
+
+  max-width: 98%;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+`;
+
+export const MailTitle = styled.span`
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "monospace";
+
+  max-width: 98%;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+`;
+
+export const MailMessage = styled.span`
+  display: inline-block;
+  opacity: 0.7;
+  font-size: 12px;
+
+  max-width: 98%;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+`;
+
+export const MailContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `;
