@@ -5,7 +5,7 @@ export const Container = styled.header<{ themeName: ThemeType }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 35px;
+  height: 40px;
   padding: 0 10px;
 
   font-size: 18px;
@@ -38,6 +38,8 @@ export const ClockContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
 `;
 
 export const LeftSide = styled.div`
@@ -50,4 +52,10 @@ export const ButtonsContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+`;
+
+export const SocialContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
 `;

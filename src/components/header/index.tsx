@@ -6,12 +6,18 @@ import { ButtonsContainer, Container, LeftSide } from "./styles";
 // import ChangeTheme from "../../assets/icons/change-theme";
 // import { changeTheme, themeTypes } from "../../store/themeSlice";
 import VolumeButton from "./volume-button";
+import { showToast } from "../../store/popupSlice";
+import Socials from "./socials";
 
 function Header() {
   const themeName = useAppSelector((state) => state.themes.name);
   const dispatch = useAppDispatch();
 
   const handleCloseAll = () => dispatch(closeAllModals());
+
+  const greetings = () => {
+    dispatch(showToast("Hello there 😊"));
+  };
 
   // const handleChangeTheme = () => {
   //   const currentThemeIndex = themeTypes.findIndex(
@@ -30,7 +36,9 @@ function Header() {
   return (
     <Container themeName={themeName}>
       <LeftSide>
-        <span>Antonov Mykyta</span>
+        <span className="cursor-pointer" onClick={greetings}>
+          Antonov Mykyta
+        </span>
 
         <ButtonsContainer>
           <CloseAll
@@ -48,6 +56,8 @@ function Header() {
           <VolumeButton className="cursor-pointer" width={25} height={25} />
         </ButtonsContainer>
       </LeftSide>
+
+      <Socials />
 
       <Clock />
     </Container>
