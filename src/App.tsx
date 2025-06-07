@@ -7,6 +7,7 @@ import Desktop from "./components/desktop";
 import ModalManager from "./components/modals";
 import BootScreen from "./components/boot-screen";
 import { useSoundContext } from "./context/sound";
+import SnackbarManager from "./components/popups";
 
 const MIN_WIDTH = 1024;
 const MIN_HEIGHT = 600;
@@ -59,6 +60,7 @@ function App() {
         <Scene />
         <Desktop />
         <ModalManager />
+        <SnackbarManager />
       </StartOpacity>
     </ThemeProvider>
   );

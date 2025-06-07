@@ -10,10 +10,13 @@ import {
 } from "./styles";
 import Loader from "../../loader";
 import emailjs from "@emailjs/browser";
+import { useAppDispatch } from "../../../store/hooks";
+import { showToast } from "../../../store/popupSlice";
 
 function ContactForm() {
   const [isSending, setIsSending] = useState(false);
   const form = useRef<HTMLFormElement>(null);
+  const dispatch = useAppDispatch();
 
   const sendEmail = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,8 +33,13 @@ function ContactForm() {
           publicKey: "omhAz0lvyswze0XoT",
         }
       );
+
+      dispatch(
+        showToast("The letter has been sent. \nI will contact you soon 😊")
+      );
     } catch (error) {
       console.error(error);
+      dispatch(showToast("I apologize, something went wrong 😣", "fail"));
     } finally {
       setIsSending(false);
     }

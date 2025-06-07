@@ -26,7 +26,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    cursor: url("/cursor/Arrow1.png"), auto;
+    cursor: url("/cursor/Arrow1.cur"), auto;
   }
 
   html, body {

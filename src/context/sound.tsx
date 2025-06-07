@@ -5,18 +5,22 @@ import {
   useEffect,
   useState,
   useRef,
+  useCallback,
+  useMemo,
 } from "react";
 
 const audioList = {
   clickDown: "/sounds/click-down.mp3",
   clickUp: "/sounds/click-up.mp3",
   intro: "/sounds/intro-sound.mp3",
+  notification: "/sounds/pop.wav",
 };
 
 interface SoundContextInterface {
   playClickDown: () => void;
   playClickUp: () => void;
   playIntro: () => void;
+  playNotification: () => void;
   mute: () => void;
   unmute: () => void;
   isLoaded: boolean;
@@ -61,32 +65,50 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     loadAll();
   }, []);
 
-  const playSound = (name: keyof typeof audioList) => {
-    if (isMuted || !isLoaded) return;
-    const ctx = audioContextRef.current;
-    const buffer = bufferMap.current.get(name);
-    if (!ctx || !buffer) return;
+  const playSound = useCallback(
+    (name: keyof typeof audioList) => {
+      if (isMuted || !isLoaded) return;
+      const ctx = audioContextRef.current;
+      const buffer = bufferMap.current.get(name);
+      if (!ctx || !buffer) return;
+      const source = ctx.createBufferSource();
+      source.buffer = buffer;
+      source.connect(ctx.destination);
+      source.start(0);
+    },
+    [isMuted, isLoaded]
+  );
 
-    const source = ctx.createBufferSource();
-    source.buffer = buffer;
-    source.connect(ctx.destination);
-    source.start(0);
-  };
+  const playClickDown = useCallback(() => playSound("clickDown"), [playSound]);
+  const playClickUp = useCallback(() => playSound("clickUp"), [playSound]);
+  const playIntro = useCallback(() => playSound("intro"), [playSound]);
+  const playNotification = useCallback(
+    () => playSound("notification"),
+    [playSound]
+  );
 
-  const rawClickDown = () => playSound("clickDown");
-  const rawClickUp = () => playSound("clickUp");
-  const rawIntro = () => playSound("intro");
-
-  const value: SoundContextInterface = {
-    playClickDown: rawClickDown,
-    playClickUp: rawClickUp,
-    playIntro: rawIntro,
-    mute: () => setIsMuted(true),
-    unmute: () => setIsMuted(false),
-    isLoaded,
-    loadProgress,
-    isMuted,
-  };
+  const value = useMemo(
+    () => ({
+      playClickDown,
+      playClickUp,
+      playIntro,
+      playNotification,
+      mute: () => setIsMuted(true),
+      unmute: () => setIsMuted(false),
+      isLoaded,
+      loadProgress,
+      isMuted,
+    }),
+    [
+      playClickDown,
+      playClickUp,
+      playIntro,
+      playNotification,
+      isLoaded,
+      loadProgress,
+      isMuted,
+    ]
+  );
 
   return (
     <SoundContext.Provider value={value}>{children}</SoundContext.Provider>

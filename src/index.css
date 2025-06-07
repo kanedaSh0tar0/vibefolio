@@ -1,23 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
 
 .cursor-pointer {
-  cursor: url("/cursor/Hand2.png") 18 0, pointer;
+  cursor: url("/cursor/Hand2.cur"), pointer;
 }
 
 .not-allowed {
-  cursor: url("/cursor/Win95Stop.png") 32 32, auto;
+  cursor: url("/cursor/Win95Stop.cur"), not-allowed;
 }
 
 .cursor-move {
-  cursor: url("/cursor/Win95Move.png") 32 32, auto;
+  cursor: url("/cursor/Win95Move.cur"), grab;
 }
 
 .cursor-loading-start {
-  cursor: url("/cursor/Hourglass_Start.png") 32 32, auto;
+  cursor: url("/cursor/Hourglass_Start.cur"), wait;
 }
 .cursor-loading-mid {
-  cursor: url("/cursor/Hourglass_Mid.png") 32 32, auto;
+  cursor: url("/cursor/Hourglass_Mid.cur"), wait;
 }
 .cursor-loading-end {
-  cursor: url("/cursor/Hourglass_End.png") 32 32, auto;
+  cursor: url("/cursor/Hourglass_End.cur"), wait;
 }

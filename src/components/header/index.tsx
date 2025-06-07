@@ -3,8 +3,8 @@ import { closeAllModals } from "../../store/modalSlice";
 import CloseAll from "../../assets/icons/close-all";
 import Clock from "./clock";
 import { ButtonsContainer, Container, LeftSide } from "./styles";
-import ChangeTheme from "../../assets/icons/change-theme";
-import { changeTheme, themeTypes } from "../../store/themeSlice";
+// import ChangeTheme from "../../assets/icons/change-theme";
+// import { changeTheme, themeTypes } from "../../store/themeSlice";
 import VolumeButton from "./volume-button";
 
 function Header() {
@@ -13,19 +13,19 @@ function Header() {
 
   const handleCloseAll = () => dispatch(closeAllModals());
 
-  const handleChangeTheme = () => {
-    const currentThemeIndex = themeTypes.findIndex(
-      (theme) => theme === themeName
-    );
+  // const handleChangeTheme = () => {
+  //   const currentThemeIndex = themeTypes.findIndex(
+  //     (theme) => theme === themeName
+  //   );
 
-    console.log(currentThemeIndex, "currentThemeIndex");
+  //   console.log(currentThemeIndex, "currentThemeIndex");
 
-    if (themeTypes.length - 1 === currentThemeIndex) {
-      dispatch(changeTheme(themeTypes[0]));
-    } else {
-      dispatch(changeTheme(themeTypes[currentThemeIndex + 1]));
-    }
-  };
+  //   if (themeTypes.length - 1 === currentThemeIndex) {
+  //     dispatch(changeTheme(themeTypes[0]));
+  //   } else {
+  //     dispatch(changeTheme(themeTypes[currentThemeIndex + 1]));
+  //   }
+  // };
 
   return (
     <Container themeName={themeName}>
@@ -39,12 +39,12 @@ function Header() {
             width={25}
             height={25}
           />
-          <ChangeTheme
+          {/* <ChangeTheme 
             className="cursor-pointer"
             onClick={handleChangeTheme}
             width={25}
             height={25}
-          />
+          /> */}
           <VolumeButton className="cursor-pointer" width={25} height={25} />
         </ButtonsContainer>
       </LeftSide>

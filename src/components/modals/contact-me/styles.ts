@@ -50,7 +50,7 @@ export const Content = styled.div<{ backgroundColor: string }>`
   width: 100%;
   height: 100%;
   background-color: ${({ backgroundColor }) => backgroundColor};
-  z-index: 5;
+  z-index: 100;
   border: 2px solid ${({ theme }) => theme.pallet.textColor};
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
