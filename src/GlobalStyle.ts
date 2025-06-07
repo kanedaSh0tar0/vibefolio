@@ -26,7 +26,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    cursor: url("/cursor/Arrow1.cur"), auto;
+    cursor: url("cursor/Arrow1.cur"), auto;
   }
 
   html, body {
@@ -67,7 +67,7 @@ export const GlobalStyle = createGlobalStyle`
 
   input:hover, textarea:hover {
     caret-color: ${({ theme }) => theme.pallet.textColor};
-    cursor: url("/cursor/Win95ZBlinkCur.png") 32 32, auto;
+    cursor: url("cursor/Win95ZBlinkCur.cur"), auto;
   }
 
   button {

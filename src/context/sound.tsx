@@ -10,10 +10,10 @@ import {
 } from "react";
 
 const audioList = {
-  clickDown: "/sounds/click-down.mp3",
-  clickUp: "/sounds/click-up.mp3",
-  intro: "/sounds/intro-sound.mp3",
-  notification: "/sounds/pop.wav",
+  clickDown: "sounds/click-down.mp3",
+  clickUp: "sounds/click-up.mp3",
+  intro: "sounds/intro-sound.mp3",
+  notification: "sounds/pop.wav",
 };
 
 interface SoundContextInterface {

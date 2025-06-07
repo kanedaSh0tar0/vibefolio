@@ -42,7 +42,7 @@ function Desktop() {
         <Icon
           onClick={() => handleOpenSingleModal("folder")}
           SvgIcon={FolderIcon}
-          text="Folder"
+          text="New Folder"
         />
         <Icon
           onClick={() => handleOpenSingleModal("contact_me")}

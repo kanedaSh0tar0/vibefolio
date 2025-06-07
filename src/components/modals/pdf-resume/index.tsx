@@ -6,8 +6,8 @@ import DownloadFile from "../../../assets/icons/download-file";
 import { useState } from "react";
 import Loader from "../../loader";
 
-pdfjs.GlobalWorkerOptions.workerSrc = "/pdfjs/pdf.worker.min.mjs";
-const pdfPath = "/pdf/cv-mykyta-antonov.pdf";
+pdfjs.GlobalWorkerOptions.workerSrc = "pdfjs/pdf.worker.min.mjs";
+const pdfPath = "pdf/cv-mykyta-antonov.pdf";
 
 function PDFResume({ modal }: { modal: Modal }) {
   const [isLoading, setIsLoading] = useState(true);

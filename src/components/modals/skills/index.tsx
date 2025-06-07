@@ -17,20 +17,20 @@ function Skills({ modal }: { modal: Modal }) {
     <Wrapper modal={modal}>
       <InnerWrapper>
         <SkillContainer>
-          <CircularProgressIcon progress={50} Icon={<Javascript />} />
+          <CircularProgressIcon progress={80} Icon={<Javascript />} />
           <IconText color={theme.pallet.textColor} size="medium" text="Javascript" />
         </SkillContainer>
         <SkillContainer>
-          <CircularProgressIcon progress={75} Icon={<Typescript />} />
+          <CircularProgressIcon progress={60} Icon={<Typescript />} />
           <IconText color={theme.pallet.textColor} size="medium" text="Typescript" />
         </SkillContainer>
         <SkillContainer>
-          <CircularProgressIcon progress={0} Icon={<React />} />
+          <CircularProgressIcon progress={70} Icon={<React />} />
           <IconText color={theme.pallet.textColor} size="medium" text="React" />
         </SkillContainer>
         <SkillContainer>
           <CircularProgressIcon
-            progress={75}
+            progress={50}
             Icon={
               <div style={{ backgroundColor: "#00D8FF", padding: 1 }}>
                 <React fill="white" />
@@ -44,7 +44,7 @@ function Skills({ modal }: { modal: Modal }) {
           <IconText color={theme.pallet.textColor} size="medium" text="Three js" />
         </SkillContainer>
         <SkillContainer>
-          <CircularProgressIcon progress={100} Icon={<Nodejs />} />
+          <CircularProgressIcon progress={25} Icon={<Nodejs />} />
           <IconText color={theme.pallet.textColor} size="medium" text="Node js" />
         </SkillContainer>
       </InnerWrapper>

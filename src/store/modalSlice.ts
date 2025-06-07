@@ -57,7 +57,7 @@ const initialState: ModalStackState = {
     },
     {
       type: "skills",
-      title: "Skills",
+      title: "Skills.exe",
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
@@ -65,7 +65,7 @@ const initialState: ModalStackState = {
     },
     {
       type: "experience",
-      title: "Work_experience.txt",
+      title: "Work_experience.exe",
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
@@ -89,7 +89,7 @@ const initialState: ModalStackState = {
     },
     {
       type: "folder",
-      title: "Folder",
+      title: "New Folder",
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },

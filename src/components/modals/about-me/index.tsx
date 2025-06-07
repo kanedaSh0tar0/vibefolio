@@ -10,16 +10,18 @@ function AboutMe({ modal }: { modal: Modal }) {
   return (
     <Wrapper modal={modal}>
       <Content>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt sint
-        aperiam blanditiis molestias fugiat aliquid delectus in! Asperiores
-        maxime natus adipisci, explicabo, assumenda, aut nesciunt tempora vel
-        quis officia cum. Lorem ipsum dolor sit amet consectetur, adipisicing
-        elit. Nesciunt sint aperiam blanditiis molestias fugiat aliquid delectus
-        in! Asperiores maxime natus adipisci, explicabo, assumenda, aut nesciunt
-        tempora vel quis officia cum. Lorem ipsum dolor sit amet consectetur,
-        adipisicing elit. Nesciunt sint aperiam blanditiis molestias fugiat
-        aliquid delectus in! Asperiores maxime natus adipisci, explicabo,
-        assumenda, aut nesciunt tempora vel quis officia cum.
+        <h2>Hey there! I’m Mykyta.</h2>
+        <p>
+          Front-end developer with two years of experience in a dynamic
+          environment as a shadow coder. Throughout my career, I have often
+          taken on new projects received tasks outside of my area of expertise,
+          and quickly learned new technologies and frameworks. It will not be a
+          problem for me to switch to working with other technologies.
+        </p>
+        <p>
+          I have a great desire to develop in different directions besides the
+          front-end and React environment.
+        </p>
       </Content>
     </Wrapper>
   );
