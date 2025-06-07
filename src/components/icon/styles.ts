@@ -12,6 +12,13 @@ export const IconContainer = styled.div<{
   padding: 5px;
   position: relative;
 
+  svg {
+    min-width: 50px;
+    min-height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+  }
+
   &::after {
     content: "";
     position: absolute;

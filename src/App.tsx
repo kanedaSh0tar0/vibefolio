@@ -45,6 +45,8 @@ function App() {
       <div style={{ padding: "2rem", textAlign: "center" }}>
         <h1>The screen is too small</h1>
         <span>Desktop only</span>
+        <br />
+        <a href="pdf/cv-mykyta-antonov.pdf">PDF</a>
       </div>
     );
   }
