@@ -112,7 +112,7 @@ Error generating stack: `+p.message+`
 
   input:hover, textarea:hover {
     caret-color: ${({theme:i})=>i.pallet.textColor};
-    cursor: url("cursor/Win95ZBlinkCur.png") 32 32, auto;
+    cursor: url("cursor/Win95ZBlinkCur.cur"), auto;
   }
 
   button {
