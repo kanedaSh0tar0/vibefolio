@@ -46,7 +46,7 @@ function App() {
         <h1>The screen is too small</h1>
         <span>Desktop only</span>
         <br />
-        <a href="pdf/cv-mykyta-antonov.pdf">PDF</a>
+        <a href="pdf/cv_antonov_mykyta.pdf">PDF</a>
       </div>
     );
   }

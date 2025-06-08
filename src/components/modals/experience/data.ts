@@ -8,18 +8,18 @@ export const data = [
         name: "Hotel Management Platform",
         technologies: "React, React Native, Firebase",
         features: [
-          "Developed cross-platform features using a shared codebase for both web and mobile.",
-          "Built internal utilities to simplify Firebase usage and improve performance.",
-          "Contributed to booking workflows, user dashboards, and offline support.",
+          "Developed both web and mobile applications simultaneously, ensuring a shared codebase for both platforms.",
+          "Built internal utilities to streamline Firebase interactions.",
+          "General mobile application performance optimization and implemented offline features",
         ],
       },
       {
         name: "Food Delivery Platform",
         technologies: "Angular, React, React Native",
         features: [
-          "Implemented components and pages for separate apps tailored to different user roles.",
-          "Ensured consistent design language across platforms.",
-          "Helped debug state management issues and asynchronous flows.",
+          "Maintained multiple applications, including a web versions built with Angular (for common users) and React (for staff).",
+          "Refactored legacy codebase, migrating to a newer libraries and implementing best practices.",
+          "Enhanced test coverage with new unit and end-to-end tests.",
         ],
       },
       {
@@ -27,8 +27,8 @@ export const data = [
         technologies: "React",
         features: [
           "Focused on responsive UI and interactive components for both mobile and desktop.",
-          "Worked on live odds rendering and optimized performance for high-traffic scenarios.",
-          "Contributed to reusable component libraries.",
+          "Collaborated closely with backend developers to facilitate rapid feature implementation.",
+          "Contributed to creating reusable component libraries.",
         ],
       },
     ],

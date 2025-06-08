@@ -7,7 +7,7 @@ import { useState } from "react";
 import Loader from "../../loader";
 
 pdfjs.GlobalWorkerOptions.workerSrc = "pdfjs/pdf.worker.min.mjs";
-const pdfPath = "pdf/cv-mykyta-antonov.pdf";
+const pdfPath = "pdf/cv_antonov_mykyta.pdf";
 
 function PDFResume({ modal }: { modal: Modal }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,7 +22,7 @@ function PDFResume({ modal }: { modal: Modal }) {
         const fileURL = window.URL.createObjectURL(blob);
         const alink = document.createElement("a");
         alink.href = fileURL;
-        alink.download = "cv-mykyta-antonov.pdf";
+        alink.download = "cv_antonov_mykyta.pdf";
         alink.click();
       });
     });
