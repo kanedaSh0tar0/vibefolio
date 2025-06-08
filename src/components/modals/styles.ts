@@ -158,8 +158,8 @@ export const Content = styled.div<{ title?: string }>`
 export const InnerWrapper = styled.div`
   position: relative;
   width: 100%;
-  overflow: auto;
-
+  overflow-y: auto;
+  overflow-x: hidden;
   border: 2px solid ${({ theme }) => theme.pallet.textColor};
 
   ${({ theme }) => {
