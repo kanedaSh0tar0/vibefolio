@@ -15,7 +15,7 @@ export const data = [
       },
       {
         name: "Food Delivery Platform",
-        technologies: "Angular, React, React Native",
+        technologies: "Angular, React",
         features: [
           "Maintained multiple applications, including a web versions built with Angular (for common users) and React (for staff).",
           "Refactored legacy codebase, migrating to a newer libraries and implementing best practices.",
