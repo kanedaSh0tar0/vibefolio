@@ -5,7 +5,7 @@ import { data } from "./data";
 import Company from "./company";
 
 const Container = styled.div`
-  padding: 10px;
+  padding: 0.5rem;
 `;
 
 function Experience({ modal }: { modal: Modal }) {

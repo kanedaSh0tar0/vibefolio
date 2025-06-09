@@ -2,11 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useTheme } from "styled-components";
 import { CircleWrapper, Container, InnerCircle } from "./styles";
 
-const size = 50;
-const strokeWidth = 4;
-const radius = (size - strokeWidth) / 2;
-const circumference = 2 * Math.PI * radius;
-
 type CircularProgressIconProps = {
   progress: number;
   Icon?: React.ReactNode;
@@ -20,10 +15,8 @@ export const CircularProgressIcon: React.FC<CircularProgressIconProps> = ({
   const theme = useTheme();
 
   useEffect(() => {
-    setAnimatedProgress(progress);
-
     let start: number | null = null;
-    const duration = 1000;
+    const duration = 1500;
 
     const step = (timestamp: number) => {
       if (start === null) start = timestamp;
@@ -40,11 +33,15 @@ export const CircularProgressIcon: React.FC<CircularProgressIconProps> = ({
     requestAnimationFrame(step);
   }, [progress]);
 
+  const size = 100;
+  const strokeWidth = size * 0.06;
+  const radius = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * radius;
   const offset = circumference * (1 - animatedProgress / 100);
 
   return (
     <Container>
-      <CircleWrapper width={size} height={size}>
+      <CircleWrapper viewBox={`0 0 ${size} ${size}`}>
         <circle
           stroke="#e6e6e6"
           fill="transparent"
@@ -65,14 +62,12 @@ export const CircularProgressIcon: React.FC<CircularProgressIconProps> = ({
           strokeDashoffset={-offset}
           transform={`rotate(-90 ${size / 2} ${size / 2})`}
           style={{
-            transition: "linear 0.3s ease",
+            transition: "stroke-dashoffset 0.3s linear",
           }}
         />
       </CircleWrapper>
 
-      <InnerCircle strokeWidth={strokeWidth} size={size}>
-        {Icon}
-      </InnerCircle>
+      <InnerCircle strokeWidth={strokeWidth}>{Icon}</InnerCircle>
     </Container>
   );
 };

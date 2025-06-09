@@ -55,13 +55,7 @@ function ContactForm() {
         </Label>
         <Label>
           <span>To:</span>
-          <Input
-            className="not-allowed"
-            disabled
-            type="email"
-            name="fake_to"
-            value="Me"
-          />
+          <Input disabled type="email" name="fake_to" value="Me" />
         </Label>
         <Label>
           <span>Name:</span>

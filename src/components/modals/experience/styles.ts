@@ -3,15 +3,13 @@ import styled from "styled-components";
 export const Title = styled.div`
   display: flex;
   flex-direction: column;
-  gap-y: 5px;
-
-  margin-bottom: 10px;
+  gap: 0.25rem 0;
+  margin-bottom: 0.5rem;
 `;
 
 export const CompanyName = styled.a`
   color: blue;
   text-decoration: underline;
-  font-size: 18px;
 
   &:link {
     color: blue;
@@ -34,19 +32,24 @@ export const CompanyName = styled.a`
   }
 `;
 
+export const LengthOfService = styled.span`
+  font-size: 0.8rem;
+  font-weight: 600;
+`;
+
+export const Position = styled.span`
+  font-size: 0.8rem;
+`;
+
 export const Button = styled.button`
   position: relative;
-  min-width: 24px;
-  min-height: 48px;
   height: 100%;
   width: auto;
   z-index: 2;
-  transition: linear 0.1s;
 
   svg {
     height: 100%;
     width: auto;
-    transition: linear 0.1s;
   }
 
   &:hover:not([disabled]) {
@@ -65,7 +68,7 @@ export const ProjectTitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items; center;
-  height: 80px;
+  height: 5rem;
 `;
 
 export const ProjectTitleInfoCarouselContainer = styled.div`
@@ -78,14 +81,15 @@ export const ProjectTitleInfoCarouselContainer = styled.div`
 export const ProjectTitleInfoCarousel = styled.div`
   position: relative;
   display: flex;
+  align-items: center;
   transition: linear 0.3s;
+  width: 100%;
 `;
 
 export const ProjectTitleInfo = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  padding: 10px;
+  padding: 0.25rem;
   min-width: 100%;
 `;
 
@@ -96,14 +100,17 @@ export const ProjectInfo = styled.div`
 
 export const ProjectTitle = styled.span`
   font-weight: 600;
+  font-size: 0.8rem;
 `;
 
 export const ProjectTechnologies = styled.span`
   font-style: italic;
+  font-size: 0.7rem;
 `;
 
 export const ProjectListContainer = styled.div`
   position: relative;
+  font-size: 0.8rem;
 `;
 
 export const ProjectList = styled.ul<{ isVisible: boolean }>`
@@ -112,7 +119,7 @@ export const ProjectList = styled.ul<{ isVisible: boolean }>`
   left: 0;
   width: 100%;
   margin: 0;
-  padding-top: 16px;
+  padding-top: 0.8rem;
 
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
   visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
@@ -121,7 +128,7 @@ export const ProjectList = styled.ul<{ isVisible: boolean }>`
 `;
 
 export const ProjectItem = styled.li`
-  margin-bottom: 4px;
+  margin-bottom: 0.2rem;
 
   &:last-child {
     margin: 0;

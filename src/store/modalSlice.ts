@@ -14,12 +14,20 @@ export type PositionType = { x: number; y: number };
 export type ProgramType = keyof typeof programs;
 type ModalDimension = { width: number; height: number };
 
+// TODO: Replace from redux
 const DESKTOP_HEIGHT = document.documentElement.clientHeight;
 const DESKTOP_WIDTH = document.documentElement.clientWidth;
 
-const MARGIN_LEFT = 100;
-const MARGIN_TOP = 60;
-const MODAL_GAP = 15;
+const MODAL_GAP = 10;
+const COLUMNS = 12;
+const ROWS = 6;
+
+const cellSize =
+  Math.min(DESKTOP_WIDTH / COLUMNS, DESKTOP_HEIGHT / ROWS) - MODAL_GAP / 2;
+
+// TODO: This is really bad :(
+const MARGIN_LEFT = cellSize + 2 * MODAL_GAP;
+const MARGIN_TOP = cellSize / 1.5;
 
 export interface Modal {
   type: ModalType;
@@ -45,7 +53,7 @@ const initialState: ModalStackState = {
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 200, height: 200 },
+      dimensions: { width: 2 * cellSize, height: 2 * cellSize },
     },
     {
       type: "about_me",
@@ -53,7 +61,7 @@ const initialState: ModalStackState = {
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 600, height: 250 },
+      dimensions: { width: 5 * cellSize, height: 2.5 * cellSize },
     },
     {
       type: "skills",
@@ -61,7 +69,7 @@ const initialState: ModalStackState = {
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 300, height: 450 },
+      dimensions: { width: 2.5 * cellSize, height: 4 * cellSize },
     },
     {
       type: "experience",
@@ -69,7 +77,7 @@ const initialState: ModalStackState = {
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 400, height: 300 },
+      dimensions: { width: 3.5 * cellSize, height: 5 * cellSize },
     },
     {
       type: "pdf",
@@ -77,7 +85,7 @@ const initialState: ModalStackState = {
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 650, height: 500 },
+      dimensions: { width: 6.5 * cellSize, height: 5 * cellSize },
     },
     {
       type: "contact_me",
@@ -85,7 +93,7 @@ const initialState: ModalStackState = {
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 600, height: 500 },
+      dimensions: { width: 6 * cellSize, height: 5 * cellSize },
     },
     {
       type: "folder",
@@ -93,7 +101,7 @@ const initialState: ModalStackState = {
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 600, height: 400 },
+      dimensions: { width: 6 * cellSize, height: 4 * cellSize },
     },
   ],
   topIndex: 0,

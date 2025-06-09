@@ -26,10 +26,10 @@ export const PopupManagerContainer = styled.div`
   position: fixed;
   bottom: 0;
   right: 0;
-  padding: 0 10px 10px 0;
+  padding: 0 0.5rem 0.5rem 0;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0.25rem;
   align-items: flex-end;
   z-index: 1000;
   pointer-events: none;
@@ -38,14 +38,14 @@ export const PopupManagerContainer = styled.div`
 export const ToastWrapper = styled.div<{ isVisible: boolean }>`
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px;
-  border: 2px solid ${({ theme }) => theme.pallet.textColor};
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
   background-color: ${({ theme }) => theme.pallet.thirdColor};
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  width: 250px;
-  min-height: 80px;
+  min-width: 12rem;
+  min-height: 4rem;
   pointer-events: auto;
   transition: transform 0.3s ease;
 
@@ -60,10 +60,10 @@ export const ToastWrapper = styled.div<{ isVisible: boolean }>`
 `;
 
 export const MarkContainer = styled.div`
-  min-width: 25px;
-  min-height: 25px;
-  max-width: 25px;
-  max-height: 25px;
+  min-width: 2rem;
+  min-height: 2rem;
+  max-width: 2rem;
+  max-height: 2rem;
 `;
 
 export const ToastContent = styled.div`
@@ -77,6 +77,6 @@ export const Title = styled.span`
 `;
 
 export const Description = styled.span`
-  font-size: 12px;
+  font-size: 0.8rem;
   white-space: pre-line;
 `;

@@ -25,25 +25,25 @@ function Folder({ modal }: { modal: Modal }) {
           onClick={() => handleOpenSingleModal("photo")}
           SvgIcon={PhotoIcon}
           text="My_photo"
-          textColor={theme.pallet.textColor}
+          highlightColor={theme.pallet.textColor}
         />
         <Icon
           onClick={() => handleOpenSingleModal("experience")}
           SvgIcon={ExperienceIcon}
           text="Experience"
-          textColor={theme.pallet.textColor}
+          highlightColor={theme.pallet.textColor}
         />
         <Icon
           onClick={() => handleOpenSingleModal("about_me")}
           SvgIcon={AboutMeIcon}
           text="About_me"
-          textColor={theme.pallet.textColor}
+          highlightColor={theme.pallet.textColor}
         />
         <Icon
           onClick={() => handleOpenSingleModal("skills")}
           SvgIcon={BookIcon}
           text="Skills"
-          textColor={theme.pallet.textColor}
+          highlightColor={theme.pallet.textColor}
         />
       </IconsContainer>
     </Wrapper>

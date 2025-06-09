@@ -5,15 +5,15 @@ export const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 10px;
+  padding: 0.5rem;
 `;
 
 export const Tabs = styled.div`
   display: flex;
   width: 100%;
-  padding-left: 50px;
-  padding-top: 10px;
-  height: 50px;
+  // padding-left: 50px;
+  // padding-top: 10px;
+  // height: 50px;
 `;
 
 export const AsideButton = styled.button<{
@@ -22,19 +22,19 @@ export const AsideButton = styled.button<{
   backgroundColor: string;
 }>`
   position: relative;
-  width: 120px;
+  // width: 120px;
   height: 100%;
   background-color: ${({ backgroundColor }) => backgroundColor};
 
   border: 2px solid ${({ theme }) => theme.pallet.textColor};
-  border-bottom: ${({ backgroundColor }) => `2px solid ${backgroundColor}`};
+  border-bottom: ${({ backgroundColor }) => `0.15rem solid ${backgroundColor}`};
   border-top-left-radius: 4px;
   border-top-right-radius: 50%;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 
-  margin-right: -32px;
-  transform: translateY(2px);
+  // margin-right: -32px;
+  // transform: translateY(2px);
 
   z-index: ${({ zIndex, isActive }) => (isActive ? 10 : zIndex)};
 
@@ -45,18 +45,20 @@ export const AsideButton = styled.button<{
   }
 `;
 
-export const Content = styled.div<{ backgroundColor: string }>`
+export const Content = styled.div<{ backgroundColor?: string }>`
   display: flex;
   width: 100%;
   height: 100%;
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background-color: ${({ backgroundColor }) =>
+    backgroundColor || "var(--white-color)"};
   z-index: 100;
   border: 2px solid ${({ theme }) => theme.pallet.textColor};
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  padding: 10px;
+  // border-top-left-radius: 10px;
+  // border-top-right-radius: 10px;
+  // border-bottom-left-radius: 0;
+  // border-bottom-right-radius: 0;
+  border-radius: 10px;
+  padding: 0.5rem;
 `;
 
 export const Form = styled.form`
@@ -64,19 +66,22 @@ export const Form = styled.form`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  gap: 20px;
+  gap: 1rem;
 `;
 
 export const Input = styled.input`
   width: 100%;
-  height: 30px;
+  height: 1.5rem;
   background-color: var(--white-color);
   border-radius: 4px;
   font-weight: 600;
-  color: 2px solid ${({ theme }) => theme.pallet.textColor};
+  border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
+  outline: none;
+  padding: 1rem 0.5rem;
 
   &:disabled {
     color: gray;
+    cursor: url("/vibefolio/cursor/Win95Stop.cur"), not-allowed;
   }
 `;
 
@@ -87,14 +92,14 @@ export const Label = styled.label`
 
   span {
     display: inline-block;
-    width: 70px;
+    width: 5rem;
   }
 `;
 
 export const LetterContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0.25rem;
   width: 100%;
   height: fit-content;
 `;
@@ -104,6 +109,8 @@ export const TextArea = styled.textarea`
   height: 100%;
   border-radius: 4px;
   resize: none;
+  outline: none;
+  border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
 `;
 
 export const ButtonContainer = styled.div`
@@ -114,7 +121,8 @@ export const ButtonContainer = styled.div`
 
 export const Button = styled.button`
   width: fit-content;
-  padding: 4px;
+  padding: 0.25rem;
+  font-weight: 600;
   border-radius: 4px;
   color: var(--white-color);
   box-shadow: 2px 2px 0px 1px rgba(0, 0, 0, 0.75);
@@ -122,9 +130,8 @@ export const Button = styled.button`
 
 export const MailListContainer = styled.div`
   display: grid;
-  grid-template-columns: 150px 1fr;
+  // grid-template-columns: 150px 1fr;
   width: 100%;
-
   background-color: ${({ theme }) => theme.pallet.thirdColor};
   border-radius: 4px;
 `;
@@ -133,8 +140,7 @@ export const MailList = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-
-  border-right: 2px solid ${({ theme }) => theme.pallet.textColor};
+  border-right: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
 `;
 
 export const MailButton = styled.button`
@@ -144,7 +150,7 @@ export const MailButton = styled.button`
   width: 100%;
   height: min-content;
   line-height: 1.2;
-  padding: 4px 2px;
+  // padding: 4px 2px;
 `;
 
 export const MailName = styled.span`
@@ -159,7 +165,6 @@ export const MailName = styled.span`
 
 export const MailTitle = styled.span`
   display: inline-block;
-  font-size: 14px;
   font-weight: 600;
   font-family: "monospace";
 
@@ -172,7 +177,6 @@ export const MailTitle = styled.span`
 export const MailMessage = styled.span`
   display: inline-block;
   opacity: 0.7;
-  font-size: 12px;
 
   max-width: 98%;
   white-space: nowrap;

@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import {
   Button,
   CompanyName,
+  LengthOfService,
+  Position,
   Project,
   ProjectInfo,
   ProjectItem,
@@ -63,9 +65,9 @@ function Company({ company }: { company: ExperienceDataType }) {
           >
             {companyName}
           </CompanyName>{" "}
-          · {lengthOfService}
+          · <LengthOfService>{lengthOfService}</LengthOfService>
         </span>
-        <span>{position}</span>
+        <Position>{position}</Position>
       </Title>
 
       <Project>

@@ -3,7 +3,7 @@ import { Modal } from "../../../store/modalSlice";
 import Wrapper from "../wrapper";
 
 const Content = styled.div`
-  padding: 10px;
+  padding: 0.5rem;
 `;
 
 function AboutMe({ modal }: { modal: Modal }) {

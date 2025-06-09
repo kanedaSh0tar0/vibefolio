@@ -2,8 +2,6 @@ function Typescript(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       fill="#3077C5"
-      width="800px"
-      height="800px"
       viewBox="0 0 24 24"
       role="img"
       xmlns="http://www.w3.org/2000/svg"

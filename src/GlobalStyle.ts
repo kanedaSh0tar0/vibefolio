@@ -26,6 +26,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html {
+    font-size: clamp(12px, 0.75vw + 0.5rem, 26px);
     cursor: url("cursor/Arrow1.cur"), auto;
   }
 
@@ -38,7 +39,6 @@ export const GlobalStyle = createGlobalStyle`
     overflow: hidden;
     font-family: ${({ theme }) => theme.fontFamily};
     letter-spacing: 0.1em;
-    font-size: 16px;
     line-height: 1.5;
     color: ${({ theme }) => theme.pallet.textColor};
     background-color: ${({ theme }) => theme.pallet.mainColor};
