@@ -8,25 +8,19 @@ export const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 40px;
 `;
 
 export const IconsContainer = styled.div<{ flow?: "row" | "column" }>`
   display: grid;
-  gap: 20px;
-  padding: 20px;
+  gap: 0.5rem;
+  padding: 0.5rem;
   height: 100%;
+  width: 100%;
 
   grid-auto-flow: ${({ flow }) => flow || "column"};
+  justify-content: start;
 
-  ${({ flow }) =>
-    flow === "row"
-      ? `
-    grid-template-columns: repeat(auto-fill, 80px);
-    grid-template-rows: repeat(auto-fill, 120px);
-  `
-      : `
-    grid-template-columns: repeat(auto-fill, 120px);
-    grid-template-rows: repeat(auto-fill, 80px);
-  `}
+  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(6rem, 1fr));
+  align-items: start;
 `;

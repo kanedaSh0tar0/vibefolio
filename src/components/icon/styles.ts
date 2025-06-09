@@ -2,30 +2,81 @@ import styled from "styled-components";
 
 export const IconContainer = styled.div<{
   chosen?: boolean;
-  borderColor?: string;
+  highlightColor?: string;
 }>`
-  width: 80px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 5px;
+  padding: 0.5rem;
   position: relative;
+  box-sizing: border-box;
 
   svg {
-    min-width: 50px;
-    min-height: 50px;
-    min-width: 50px;
-    min-height: 50px;
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    object-fit: contain;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 6px;
+    backdrop-filter: ${({ chosen }) => (chosen ? "blur(6px)" : "none")};
+    background-color: ${({ chosen }) =>
+      chosen ? "var(--white-color)" : "transparent"};
+    opacity: 0.25;
+    transition: all 0.2s ease;
+    z-index: 0;
   }
 
   &::after {
     content: "";
     position: absolute;
     inset: -2px;
-    border: ${({ chosen, borderColor }) =>
-      chosen ? `2px dashed ${borderColor || "var(--white-color)"}` : "none"};
-    pointer-events: none;
+    border: ${({ chosen, highlightColor }) =>
+      chosen ? `2px dashed ${highlightColor || "var(--white-color)"}` : "none"};
+    outline-offset: -4px;
     border-radius: 4px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  > * {
+    position: relative;
+    z-index: 2;
+  }
+`;
+
+export const IconText = styled.span<{
+  color?: string;
+  highlightColor?: string;
+}>`
+  position: relative;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 0.6rem;
+  color: ${({ color }) => color || "var(--white-color)"};
+  text-align: center;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  user-select: none;
+  margin: auto 0;
+  display: inline-block;
+  width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: ${({ highlightColor }) => highlightColor || "black"};
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: -1;
+    border-radius: 3px;
   }
 `;

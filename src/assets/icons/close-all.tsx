@@ -1,8 +1,6 @@
 function CloseAll(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
-      width="800px"
-      height="800px"
       viewBox="0 0 16 16"
       xmlns="http://www.w3.org/2000/svg"
       fill="#000000"

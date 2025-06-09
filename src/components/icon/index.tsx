@@ -1,17 +1,18 @@
 import { SVGProps, useEffect, useRef, useState } from "react";
-import IconText from "../icon-text";
-import { IconContainer } from "./styles";
+import { IconContainer, IconText } from "./styles";
 
 function Icon({
   SvgIcon,
   text,
   onClick,
   textColor,
+  highlightColor,
 }: {
   SvgIcon: React.FC<SVGProps<SVGSVGElement>>;
   text: string;
   onClick: () => void;
   textColor?: string;
+  highlightColor?: string;
 }) {
   const [chosen, setChosen] = useState(false);
   const iconRef = useRef<HTMLDivElement>(null);
@@ -35,7 +36,7 @@ function Icon({
       ref={iconRef}
       className="cursor-pointer"
       chosen={chosen}
-      borderColor={textColor}
+      highlightColor={highlightColor}
       onClick={() => {
         if (chosen) {
           onClick();
@@ -46,7 +47,7 @@ function Icon({
       }}
     >
       <SvgIcon width="100%" height="100%" />
-      <IconText color={textColor} text={text} />
+      <IconText color={textColor}>{text}</IconText>
     </IconContainer>
   );
 }

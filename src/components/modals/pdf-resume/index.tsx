@@ -51,6 +51,7 @@ function PDFResume({ modal }: { modal: Modal }) {
         file={pdfPath}
       >
         <Page
+          width={modal.dimensions.width}
           renderTextLayer={false}
           renderAnnotationLayer={false}
           pageNumber={1}

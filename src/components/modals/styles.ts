@@ -5,12 +5,12 @@ export const Button = styled.button<{ clicked?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20px;
-  height: 20px;
+  width: 1rem;
+  height: 1rem;
   border-radius: 50%;
-  border: 2px solid ${({ theme }) => theme.pallet.textColor};
+  border: 0.1rem solid ${({ theme }) => theme.pallet.textColor};
   background-color: ${({ theme }) => theme.pallet.secondColor};
-  padding: 4px;
+  padding: 0.2rem;
 
   svg {
     transform: ${({ clicked }) => (clicked ? "scale(0.9)" : "scale(1)")};
@@ -23,41 +23,21 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 30px;
   width: 100%;
-  padding: 0 10px;
+  padding: 0.2rem 0.5rem;
 
-  ${({ theme }) => {
-    if (theme.name === "pastel") {
-      return `
-        border-radius: 10px 10px 0 0;
-
-      `;
-    }
-
-    if (theme.name === "code") {
-      return `
-        height: 0px;
-        padding-top: 30px;
-        overflow: hidden;
-        position: absolute;
-        left: 0;
-        top: 0;
-        right: 0;
-      `;
-    }
-  }}
+  border-radius: 10px 10px 0 0;
 `;
 
 export const ButtonsContainer = styled.div`
   display: flex;
   align-center: center;
-  gap: 5px;
+  gap: 0.25rem;
 `;
 
 export const Title = styled.span`
   font-family: "Segoe UI", sans-serif;
-  font-size: 12px;
+  font-size: 0.8rem;
   font-weight: 600;
   color: ${({ theme }) => theme.pallet.textColor};
   text-align: center;
@@ -104,21 +84,9 @@ export const Container = styled.div<{
   animation: ${({ isClosing }) => (isClosing ? scaleOut : scaleIn)} 0.25s
     cubic-bezier(0.39, 0.575, 0.565, 1) both;
 
-  ${({ theme }) => {
-    if (theme.name === "pastel") {
-      return `
-        border-radius: 10px;
-        border: 2px solid ${theme.pallet.textColor};
-        box-shadow: 5px 5px 0px 2px rgba(0, 0, 0, 0.75);
-      `;
-    }
-
-    if (theme.name === "code") {
-      return `
-        
-      `;
-    }
-  }}
+  border-radius: 10px;
+  border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
+  box-shadow: 5px 5px 0px 2px rgba(0, 0, 0, 0.75);
 `;
 
 export const Content = styled.div<{ title?: string }>`
@@ -126,56 +94,18 @@ export const Content = styled.div<{ title?: string }>`
   flex: 1;
   display: flex;
   overflow: hidden;
-
-  ${({ theme, title }) => {
-    if (theme.name === "pastel") {
-      return `
-        border-radius: 0 0 10px 10px;
-        padding: 4px;
-      `;
-    }
-
-    if (theme.name === "code") {
-      const getAfterContent = (title?: string) =>
-        `"${(title || "").replace(/"/g, '\\"')}"`;
-
-      return `
-        padding: 10px;
-
-        &:after {
-          content: ${getAfterContent(title)};
-          background-color: ${theme.pallet.thirdColor};
-          position: absolute;
-          left: 25px;
-          top: 0;
-          padding: 0 5px;
-        }
-      `;
-    }
-  }}
+  padding: 0.2rem;
+  border-radius: 0 0 10px 10px;
 `;
 
 export const InnerWrapper = styled.div`
   position: relative;
   width: 100%;
-  overflow: auto;
-
-  border: 2px solid ${({ theme }) => theme.pallet.textColor};
-
-  ${({ theme }) => {
-    if (theme.name === "pastel") {
-      return `
-        background-color: var(--white-color);
-        border-radius: 6px;
-      `;
-    }
-
-    if (theme.name === "code") {
-      return `
-        padding: 10px;
-      `;
-    }
-  }}
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
+  background-color: var(--white-color);
+  border-radius: 6px;
 `;
 
 export const Panel = styled.div`
@@ -183,9 +113,9 @@ export const Panel = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 50px;
-  padding: 0 10px;
-  gap: 10px;
+  height: 2rem;
+  padding: 0 0.5rem;
+  gap: 0.5rem;
 `;
 
 export const PanelButton = styled.button<{ clicked?: boolean }>`
@@ -193,9 +123,9 @@ export const PanelButton = styled.button<{ clicked?: boolean }>`
     clicked
       ? "inset 2px 2px 4px rgba(0, 0, 0, 0.6), inset -2px -2px 4px rgba(255, 255, 255, 0.2)"
       : "2px 2px 0px 1px rgba(0, 0, 0, 0.75)"};
-  padding: 4px;
-  width: 28px;
-  height: 28px;
+  padding: 0.2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 4px;
   display: grid;
   place-items: center;
