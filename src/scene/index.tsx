@@ -5,6 +5,7 @@ import { EffectComposer } from "@react-three/postprocessing";
 import Light from "./light";
 import { Suspense } from "react";
 import CRTPostEffects from "./effects";
+import Coffee from "../models/coffee";
 
 function Scene() {
   return (
@@ -15,6 +16,7 @@ function Scene() {
         <Camera />
         <Light position={[1, 2, 1]} />
         <Suspense fallback={null}>
+          <Coffee rotation={[0, -0.8, 0]} position={[1, 0, 0.8]} />
           <Computer rotation={[0, 3, 0]} position={[0, 0, 1]} />
         </Suspense>
 
