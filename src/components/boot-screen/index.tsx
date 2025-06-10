@@ -4,28 +4,36 @@ import { Container, ErrorText, Screen, Text, WarningText } from "./styles";
 import { useSoundContext } from "../../context/sound";
 import { useCameraContext } from "../../context/camera";
 
+const cursorsList = {
+  arrow: "/vibefolio/cursor/Arrow1.cur",
+  pointer: "/vibefolio/cursor/Hand2.cur",
+  notAllowed: "/vibefolio/cursor/Win95Stop.cur",
+  move: "/vibefolio/cursor/Win95Move.cur",
+  loadingStart: "/vibefolio/cursor/Hourglass_Start.cur",
+  loadingMid: "/vibefolio/cursor/Hourglass_Mid.cur",
+  loadingEnd: "/vibefolio/cursor/Hourglass_End.cur",
+};
+
 function BootScreen({ onFinish }: { onFinish: () => void }) {
   const { progress } = useProgress();
   const { start } = useCameraContext();
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [cursorsLoaded, setCursorsLoaded] = useState(false);
   const {
     playIntro,
     isLoaded: audioReady,
     loadProgress: audioProgress,
   } = useSoundContext();
-  const allReady = progress === 100 && fontsLoaded && audioReady;
+  const allReady = progress === 100 && fontsLoaded && audioReady && cursorsLoaded;
   const [skanningDots, setScanningDots] = useState("");
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setScanningDots((prev) => {
-        if (prev === "...") return "";
-        return prev + ".";
-      });
-    }, 300);
-
-    return () => clearInterval(interval);
-  }, []);
+  const preloadCursor = (url: string): Promise<void> =>
+    new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = url;
+      img.onload = () => resolve();
+      img.onerror = () => reject();
+    });
 
   const handleOnFinish = useCallback(() => {
     onFinish();
@@ -43,7 +51,24 @@ function BootScreen({ onFinish }: { onFinish: () => void }) {
   );
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      setScanningDots((prev) => {
+        if (prev === "...") return "";
+        return prev + ".";
+      });
+    }, 300);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const loadCursors = async () => {
+      const entries = Object.entries(cursorsList);
+      await Promise.all(entries.map(([, url]) => preloadCursor(url)));
+      setCursorsLoaded(true);
+    };
     document.fonts.ready.then(() => setFontsLoaded(true));
+    loadCursors();
   }, []);
 
   useEffect(() => {
