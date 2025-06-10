@@ -1,9 +1,11 @@
 import { Modal } from "../../../store/modalSlice";
 import Wrapper from "../wrapper";
 import { ImageWrapper } from "./styles";
-import ThumbImage from "/pics/My_photo_thumb.webp";
-import MainImage from "/pics/My_photo.webp";
+// import ThumbImage from "/pics/My_photo_thumb.webp";
 import ImageComponent from "./image";
+
+import MainImage from "/pics/My_photo.webp";
+import imageThumbs from "../../../assets/pics-thumbs";
 
 function Photo({ modal }: { modal: Modal }) {
   const { width = 200, height = 200 } = modal?.dimensions || {};
@@ -15,7 +17,7 @@ function Photo({ modal }: { modal: Modal }) {
           width={width}
           height={height}
           src={MainImage}
-          thumb={ThumbImage}
+          thumb={imageThumbs.MyPhoto}
         />
       </ImageWrapper>
     </Wrapper>
