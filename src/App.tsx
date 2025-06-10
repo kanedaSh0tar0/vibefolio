@@ -19,6 +19,8 @@ function App() {
   const { playClickDown, playClickUp } = useSoundContext();
 
   useEffect(() => {
+    if (!bootDone) return;
+
     window.addEventListener("mousedown", playClickDown);
     window.addEventListener("mouseup", playClickUp);
 
@@ -26,7 +28,7 @@ function App() {
       window.removeEventListener("mousedown", playClickDown);
       window.removeEventListener("mouseup", playClickUp);
     };
-  }, [playClickDown, playClickUp]);
+  }, [bootDone]);
 
   useEffect(() => {
     const checkSize = () => {
