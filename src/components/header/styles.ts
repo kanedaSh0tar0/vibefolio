@@ -8,7 +8,6 @@ export const Container = styled.header`
   padding: 1rem;
   font-weight: 800;
 
-  margin: 1rem 2rem 0.5rem;
   border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
   border-radius: 10px;
   background-color: ${({ theme }) => theme.pallet.thirdColor};
@@ -36,4 +35,55 @@ export const SocialContainer = styled.div`
   display: flex;
   gap: 0.5rem;
   align-items: center;
+`;
+
+export const ContainerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 1rem 2rem 0.5rem;
+`;
+
+export const ControlsContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+export const ControlButton = styled.button`
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+`;
+
+export const SettingsButtonContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem;
+  border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.pallet.thirdColor};
+  z-index: 102;
+`;
+
+export const RadialButton = styled.button<{
+  x: number;
+  y: number;
+  visible: boolean;
+  index: number;
+}>`
+  position: absolute;
+  inset: 0.25rem;
+  transform: ${({ visible, x, y }) =>
+    visible ? `translate(${x}px, ${y}px)` : "translate(0, 0)"};
+  transition: transform 0.4s ease ${({ index }) => index * 0.05}s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem;
+  border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.pallet.thirdColor};
+  z-index: 101;
 `;

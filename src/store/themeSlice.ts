@@ -4,6 +4,15 @@ import { DefaultTheme } from "styled-components";
 export type ThemeType = "pastel" | "code";
 export const themeTypes: ThemeType[] = ["pastel", "code"];
 
+const pastelBackgrounds = {
+  uraniumBlue: "#BFECFF",
+  cerulean: "#0B7189",
+  cinnabar: "#E55934",
+  roseRed: "#C33C54",
+  davysGray: "#50514F",
+  darkGreen: "#17301C",
+};
+
 const pastel = {
   mainColor: "#BFECFF",
   secondColor: "#FFCCEA",
@@ -46,6 +55,9 @@ const themeSlice = createSlice({
           break;
       }
     },
+    changeBackground: (state, action: PayloadAction<keyof typeof pastelBackgrounds>) => {
+      state.pallet = {...state.pallet , mainColor: pastelBackgrounds[action.payload]}
+    }
   },
 });
 

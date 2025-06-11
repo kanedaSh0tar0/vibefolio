@@ -1,8 +1,14 @@
 import { useAppDispatch } from "../../store/hooks";
 import Clock from "./clock";
-import { Container, LeftSide } from "./styles";
+import {
+  Container,
+  ContainerWrapper,
+  LeftSide,
+  ControlsContainer,
+} from "./styles";
 import { showToast } from "../../store/popupSlice";
 import Socials from "./socials";
+import RadialSettings from "./radial-settings";
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -12,17 +18,23 @@ function Header() {
   };
 
   return (
-    <Container>
-      <LeftSide>
-        <span className="cursor-pointer" onClick={greetings}>
-          Antonov Mykyta
-        </span>
-      </LeftSide>
+    <ContainerWrapper>
+      <Container>
+        <LeftSide>
+          <span className="cursor-pointer" onClick={greetings}>
+            Antonov Mykyta
+          </span>
+        </LeftSide>
 
-      <Socials />
+        <Socials />
 
-      <Clock />
-    </Container>
+        <Clock />
+      </Container>
+
+      <ControlsContainer>
+        <RadialSettings />
+      </ControlsContainer>
+    </ContainerWrapper>
   );
 }
 

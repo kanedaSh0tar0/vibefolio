@@ -1,18 +1,12 @@
-import { useSoundContext } from "../../context/sound";
 import VolumeIcon from "../../assets/icons/volume";
 import VolumeMuteIcon from "../../assets/icons/volume-mute";
 
-function VolumeButton(props: React.SVGProps<SVGSVGElement>) {
-  const { isMuted, mute, unmute } = useSoundContext();
-
+function VolumeButton({
+  isMuted,
+  ...props
+}: { isMuted: boolean } & React.SVGProps<SVGSVGElement>) {
   return (
-    <>
-      {isMuted ? (
-        <VolumeMuteIcon onClick={unmute} {...props} />
-      ) : (
-        <VolumeIcon onClick={mute} {...props} />
-      )}
-    </>
+    <>{isMuted ? <VolumeMuteIcon {...props} /> : <VolumeIcon {...props} />}</>
   );
 }
 

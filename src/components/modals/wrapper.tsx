@@ -54,6 +54,12 @@ function Wrapper({
   };
 
   useEffect(() => {
+    if (modal.isClosing) {
+      handleClose();
+    }
+  }, [handleClose, modal.isClosing]);
+
+  useEffect(() => {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);

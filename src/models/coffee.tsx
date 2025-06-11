@@ -3,12 +3,12 @@ import { JSX, useEffect, useMemo, useRef } from "react";
 import { useGraph } from "@react-three/fiber";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { SkeletonUtils } from "three-stdlib";
-import * as THREE from "three";
+import { Group } from "three";
 
 useGLTF.preload("models/coffee.glb");
 
 function Coffee(props: JSX.IntrinsicElements["group"]) {
-  const coffeRef = useRef<THREE.Group>(null);
+  const coffeRef = useRef<Group>(null);
   const { scene, animations } = useGLTF("models/coffee.glb") as any;
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
   const { nodes, materials } = useGraph(clone) as any;

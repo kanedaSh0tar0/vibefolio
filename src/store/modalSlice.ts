@@ -36,6 +36,7 @@ export interface Modal {
   index: number;
   position: PositionType;
   dimensions: ModalDimension;
+  isClosing: boolean;
 }
 
 interface ModalStackState {
@@ -54,6 +55,7 @@ const initialState: ModalStackState = {
       index: 0,
       position: { x: 0, y: 0 },
       dimensions: { width: 2 * cellSize, height: 2 * cellSize },
+      isClosing: false
     },
     {
       type: "about_me",
@@ -62,6 +64,7 @@ const initialState: ModalStackState = {
       index: 0,
       position: { x: 0, y: 0 },
       dimensions: { width: 5 * cellSize, height: 2.5 * cellSize },
+      isClosing: false
     },
     {
       type: "skills",
@@ -70,6 +73,7 @@ const initialState: ModalStackState = {
       index: 0,
       position: { x: 0, y: 0 },
       dimensions: { width: 2.5 * cellSize, height: 4 * cellSize },
+      isClosing: false
     },
     {
       type: "experience",
@@ -77,7 +81,8 @@ const initialState: ModalStackState = {
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 3.5 * cellSize, height: 5 * cellSize },
+      dimensions: { width: 3.5 * cellSize, height: 4.5 * cellSize },
+      isClosing: false
     },
     {
       type: "pdf",
@@ -86,6 +91,7 @@ const initialState: ModalStackState = {
       index: 0,
       position: { x: 0, y: 0 },
       dimensions: { width: 6.5 * cellSize, height: 5 * cellSize },
+      isClosing: false
     },
     {
       type: "contact_me",
@@ -94,6 +100,7 @@ const initialState: ModalStackState = {
       index: 0,
       position: { x: 0, y: 0 },
       dimensions: { width: 6 * cellSize, height: 5 * cellSize },
+      isClosing: false
     },
     {
       type: "folder",
@@ -102,6 +109,7 @@ const initialState: ModalStackState = {
       index: 0,
       position: { x: 0, y: 0 },
       dimensions: { width: 6 * cellSize, height: 4 * cellSize },
+      isClosing: false
     },
   ],
   topIndex: 0,
@@ -231,6 +239,7 @@ const modalsSlice = createSlice({
       const modal = state.modals[modalIndex];
 
       modal.isOpen = false;
+      modal.isClosing = false;
       modal.index = 0;
 
       if (action.payload.position) {
@@ -239,7 +248,7 @@ const modalsSlice = createSlice({
     },
     closeAllModals: (state) => {
       for (const modal of state.modals) {
-        modal.isOpen = false;
+        modal.isClosing = true;
       }
       state.topIndex = 0;
     },

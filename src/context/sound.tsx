@@ -42,9 +42,14 @@ export function SoundProvider({ children }: { children: ReactNode }) {
   const [loadProgress, setLoadProgress] = useState(0);
   const audioContextRef = useRef<AudioContext | null>(null);
   const bufferMap = useRef<Map<string, AudioBuffer>>(new Map());
+  const gainNodeRef = useRef<GainNode | null>(null);
 
   useEffect(() => {
     audioContextRef.current = new AudioContext();
+
+    gainNodeRef.current = audioContextRef.current.createGain();
+    gainNodeRef.current.connect(audioContextRef.current.destination);
+    gainNodeRef.current.gain.value = 1;
 
     const loadAudio = async (name: string, url: string) => {
       const response = await fetch(url);
@@ -67,16 +72,24 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 
   const playSound = useCallback(
     (name: keyof typeof audioList) => {
-      if (isMuted || !isLoaded) return;
+      if (!isLoaded) return;
+
       const ctx = audioContextRef.current;
       const buffer = bufferMap.current.get(name);
-      if (!ctx || !buffer) return;
+      const gainNode = gainNodeRef.current;
+
+      if (!ctx || !buffer || !gainNode) return;
+
+      if (ctx.state === "suspended") {
+        ctx.resume();
+      }
+
       const source = ctx.createBufferSource();
       source.buffer = buffer;
-      source.connect(ctx.destination);
+      source.connect(gainNode);
       source.start(0);
     },
-    [isMuted, isLoaded]
+    [isLoaded]
   );
 
   const playClickDown = useCallback(() => playSound("clickDown"), [playSound]);
@@ -86,6 +99,20 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     () => playSound("notification"),
     [playSound]
   );
+  const setVolume = (volume: number) => {
+    const ctx = audioContextRef.current;
+    const gain = gainNodeRef.current;
+
+    if (!ctx || !gain) return;
+
+    const now = ctx.currentTime;
+
+    gain.gain.cancelScheduledValues(now);
+    gain.gain.setValueAtTime(gain.gain.value, now);
+    gain.gain.linearRampToValueAtTime(volume, now + 0.1);
+
+    setIsMuted(volume === 0);
+  };
 
   const value = useMemo(
     () => ({
@@ -93,8 +120,8 @@ export function SoundProvider({ children }: { children: ReactNode }) {
       playClickUp,
       playIntro,
       playNotification,
-      mute: () => setIsMuted(true),
-      unmute: () => setIsMuted(false),
+      mute: () => setVolume(0),
+      unmute: () => setVolume(1),
       isLoaded,
       loadProgress,
       isMuted,
