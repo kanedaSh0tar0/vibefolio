@@ -1,6 +1,6 @@
 import Header from "./header";
 import { Modal, bringToFront, closeModal } from "../../store/modalSlice";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { Container, Content, InnerWrapper, Panel } from "./styles";
 import ModalButton from "./panel-button";
@@ -20,13 +20,13 @@ function Wrapper({
   const offset = useRef({ x: 0, y: 0 });
   const dispatch = useAppDispatch();
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setIsClosing(true);
 
     setTimeout(() => {
       dispatch(closeModal({ type: modal.type, position: coordinates }));
     }, 250);
-  };
+  }, [coordinates, dispatch, modal.type]);
 
   const handleMouseMove = (e: MouseEvent) => {
     if (!dragging.current) return;
@@ -43,7 +43,6 @@ function Wrapper({
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    dispatch(bringToFront(modal.type));
     dragging.current = true;
     offset.current = {
       x: e.clientX - coordinates.x,
@@ -76,6 +75,7 @@ function Wrapper({
       }}
       position={coordinates}
       className="cursor"
+      onMouseDown={() => dispatch(bringToFront(modal.type))}
     >
       <Header
         title={modal.title}

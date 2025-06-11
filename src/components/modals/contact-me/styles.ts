@@ -57,7 +57,7 @@ export const Content = styled.div<{ backgroundColor?: string }>`
   // border-top-right-radius: 10px;
   // border-bottom-left-radius: 0;
   // border-bottom-right-radius: 0;
-  border-radius: 10px;
+  border-radius: 0.3rem;
   padding: 0.5rem;
 `;
 
@@ -73,7 +73,7 @@ export const Input = styled.input`
   width: 100%;
   height: 1.5rem;
   background-color: var(--white-color);
-  border-radius: 4px;
+  border-radius: 0.2rem;
   font-weight: 600;
   border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
   outline: none;
@@ -107,7 +107,7 @@ export const LetterContainer = styled.div`
 export const TextArea = styled.textarea`
   width: 100%;
   height: 100%;
-  border-radius: 4px;
+  border-radius: 0.2rem;
   resize: none;
   outline: none;
   border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
@@ -123,7 +123,7 @@ export const Button = styled.button`
   width: fit-content;
   padding: 0.25rem;
   font-weight: 600;
-  border-radius: 4px;
+  border-radius: 0.2rem;
   color: var(--white-color);
   box-shadow: 2px 2px 0px 1px rgba(0, 0, 0, 0.75);
 `;
@@ -133,7 +133,7 @@ export const MailListContainer = styled.div`
   // grid-template-columns: 150px 1fr;
   width: 100%;
   background-color: ${({ theme }) => theme.pallet.thirdColor};
-  border-radius: 4px;
+  border-radius: 0.2rem;
 `;
 
 export const MailList = styled.div`

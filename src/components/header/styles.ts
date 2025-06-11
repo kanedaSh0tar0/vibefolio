@@ -9,7 +9,7 @@ export const Container = styled.header`
   font-weight: 800;
 
   border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
-  border-radius: 10px;
+  border-radius: 0.3rem;
   background-color: ${({ theme }) => theme.pallet.thirdColor};
 
   svg {
@@ -49,10 +49,11 @@ export const ControlsContainer = styled.div`
   justify-content: flex-end;
 `;
 
-export const ControlButton = styled.button`
+export const ControlButton = styled.button<{ isOpen: boolean }>`
   position: relative;
   width: 2rem;
   height: 2rem;
+  z-index: ${({ isOpen }) => (isOpen ? 100 : 1)};
 `;
 
 export const SettingsButtonContainer = styled.div`
@@ -62,9 +63,9 @@ export const SettingsButtonContainer = styled.div`
   justify-content: center;
   padding: 0.2rem;
   border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
-  border-radius: 10px;
+  border-radius: 0.3rem;
   background-color: ${({ theme }) => theme.pallet.thirdColor};
-  z-index: 102;
+  z-index: 2;
 `;
 
 export const RadialButton = styled.button<{
@@ -74,16 +75,16 @@ export const RadialButton = styled.button<{
   index: number;
 }>`
   position: absolute;
-  inset: 0.25rem;
+  inset: 0.3rem;
   transform: ${({ visible, x, y }) =>
-    visible ? `translate(${x}px, ${y}px)` : "translate(0, 0)"};
+    visible ? `translate(${x}rem, ${y}rem)` : "translate(0, 0)"};
   transition: transform 0.4s ease ${({ index }) => index * 0.05}s;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.2rem;
+  padding: 0.15rem;
   border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
   border-radius: 50%;
   background-color: ${({ theme }) => theme.pallet.thirdColor};
-  z-index: 101;
+  z-index: 1;
 `;

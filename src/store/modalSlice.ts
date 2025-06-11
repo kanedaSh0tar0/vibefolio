@@ -9,6 +9,7 @@ export type ModalType =
   | "experience"
   | "pdf"
   | "contact_me"
+  | "settings"
   | "folder";
 export type PositionType = { x: number; y: number };
 export type ProgramType = keyof typeof programs;
@@ -18,7 +19,7 @@ type ModalDimension = { width: number; height: number };
 const DESKTOP_HEIGHT = document.documentElement.clientHeight;
 const DESKTOP_WIDTH = document.documentElement.clientWidth;
 
-const MODAL_GAP = 10;
+const MODAL_GAP = 8;
 const COLUMNS = 12;
 const ROWS = 6;
 
@@ -27,7 +28,7 @@ const cellSize =
 
 // TODO: This is really bad :(
 const MARGIN_LEFT = cellSize + 2 * MODAL_GAP;
-const MARGIN_TOP = cellSize / 1.5;
+const MARGIN_TOP = cellSize;
 
 export interface Modal {
   type: ModalType;
@@ -55,7 +56,7 @@ const initialState: ModalStackState = {
       index: 0,
       position: { x: 0, y: 0 },
       dimensions: { width: 2 * cellSize, height: 2 * cellSize },
-      isClosing: false
+      isClosing: false,
     },
     {
       type: "about_me",
@@ -64,7 +65,7 @@ const initialState: ModalStackState = {
       index: 0,
       position: { x: 0, y: 0 },
       dimensions: { width: 5 * cellSize, height: 2.5 * cellSize },
-      isClosing: false
+      isClosing: false,
     },
     {
       type: "skills",
@@ -73,7 +74,7 @@ const initialState: ModalStackState = {
       index: 0,
       position: { x: 0, y: 0 },
       dimensions: { width: 2.5 * cellSize, height: 4 * cellSize },
-      isClosing: false
+      isClosing: false,
     },
     {
       type: "experience",
@@ -82,7 +83,7 @@ const initialState: ModalStackState = {
       index: 0,
       position: { x: 0, y: 0 },
       dimensions: { width: 3.5 * cellSize, height: 4.5 * cellSize },
-      isClosing: false
+      isClosing: false,
     },
     {
       type: "pdf",
@@ -91,7 +92,7 @@ const initialState: ModalStackState = {
       index: 0,
       position: { x: 0, y: 0 },
       dimensions: { width: 6.5 * cellSize, height: 5 * cellSize },
-      isClosing: false
+      isClosing: false,
     },
     {
       type: "contact_me",
@@ -100,7 +101,7 @@ const initialState: ModalStackState = {
       index: 0,
       position: { x: 0, y: 0 },
       dimensions: { width: 6 * cellSize, height: 5 * cellSize },
-      isClosing: false
+      isClosing: false,
     },
     {
       type: "folder",
@@ -109,7 +110,16 @@ const initialState: ModalStackState = {
       index: 0,
       position: { x: 0, y: 0 },
       dimensions: { width: 6 * cellSize, height: 4 * cellSize },
-      isClosing: false
+      isClosing: false,
+    },
+    {
+      type: "settings",
+      title: "Settings",
+      isOpen: false,
+      index: 0,
+      position: { x: 0, y: 0 },
+      dimensions: { width: 3 * cellSize, height: 2 * cellSize },
+      isClosing: false,
     },
   ],
   topIndex: 0,
@@ -210,11 +220,15 @@ const openModalFunction = (
 
   const modal = state.modals[modalIndex];
 
-  state.topIndex += 1;
-  modal.index = state.topIndex;
-
   if (!modal.isOpen) {
+    modal.isClosing = false;
     packWithinArea(state, modal);
+
+    const openModals = state.modals.filter((m) => m.isOpen);
+    const maxIndex = Math.max(...openModals.map((m) => m.index ?? 0), 0);
+    const newTopIndex = maxIndex + 1;
+    state.topIndex = newTopIndex;
+    modal.index = state.topIndex;
   }
 };
 
@@ -259,8 +273,31 @@ const modalsSlice = createSlice({
 
       if (modalIndex === -1) return;
 
-      state.topIndex += 1;
-      state.modals[modalIndex].index = state.topIndex;
+      const targetModal = state.modals[modalIndex];
+      const prevIndex = targetModal.index ?? 0;
+
+      const openModals = state.modals.filter((m) => m.isOpen);
+
+      // Новий topIndex буде +1 від поточного максимуму
+      const maxIndex = Math.max(...openModals.map((m) => m.index ?? 0), 0);
+      const newTopIndex = maxIndex + 1;
+
+      state.modals = state.modals.map((modal) => {
+        if (!modal.isOpen) return modal;
+
+        // Зсуваємо вниз лише ті, хто був вище targetModal
+        if ((modal.index ?? 0) > prevIndex) {
+          return { ...modal, index: (modal.index ?? 0) - 1 };
+        }
+
+        return modal;
+      });
+
+      // Підносимо цільову модалку
+      state.modals[modalIndex].index = maxIndex;
+
+      // Оновлюємо topIndex
+      state.topIndex = newTopIndex;
     },
   },
 });

@@ -11,5 +11,6 @@ declare module "styled-components" {
       thirdColor: string;
       textColor: string;
     };
+    backgroundColors: string[];
   }
 }

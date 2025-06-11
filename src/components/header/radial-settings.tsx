@@ -6,14 +6,14 @@ import CloseFolder from "../../assets/icons/close-folder";
 import Brush from "../../assets/icons/brush";
 import { useAppDispatch } from "../../store/hooks";
 import { useSoundContext } from "../../context/sound";
-import { closeAllModals } from "../../store/modalSlice";
+import { closeAllModals, openModal } from "../../store/modalSlice";
 
 function RadialSettings() {
   const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
   const { isMuted, mute, unmute } = useSoundContext();
 
-  const radius = 40;
+  const radius = 2;
 
   const handleMute = () => {
     if (isMuted) {
@@ -29,7 +29,7 @@ function RadialSettings() {
   };
 
   const handleWallpaper = () => {
-    // dispatch(setWallpaper())
+    dispatch(openModal("settings"));
     setOpen(false);
   };
 
@@ -55,7 +55,7 @@ function RadialSettings() {
   ];
 
   return (
-    <ControlButton>
+    <ControlButton isOpen={open}>
       <SettingsButtonContainer
         className="cursor-pointer"
         onClick={() => setOpen((prev) => !prev)}

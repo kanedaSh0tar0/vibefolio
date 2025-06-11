@@ -42,7 +42,7 @@ export const ToastWrapper = styled.div<{ isVisible: boolean }>`
   padding: 0.5rem;
   border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
   background-color: ${({ theme }) => theme.pallet.thirdColor};
-  border-radius: 10px;
+  border-radius: 0.3rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   min-width: 12rem;
   min-height: 4rem;

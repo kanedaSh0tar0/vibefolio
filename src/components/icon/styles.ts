@@ -24,7 +24,7 @@ export const IconContainer = styled.div<{
     content: "";
     position: absolute;
     inset: 0;
-    border-radius: 6px;
+    border-radius: 0.2rem;
     backdrop-filter: ${({ chosen }) => (chosen ? "blur(6px)" : "none")};
     background-color: ${({ chosen }) =>
       chosen ? "var(--white-color)" : "transparent"};
@@ -38,9 +38,9 @@ export const IconContainer = styled.div<{
     position: absolute;
     inset: -2px;
     border: ${({ chosen, highlightColor }) =>
-      chosen ? `2px dashed ${highlightColor || "var(--white-color)"}` : "none"};
+      chosen ? `0.15rem dashed ${highlightColor || "var(--white-color)"}` : "none"};
     outline-offset: -4px;
-    border-radius: 4px;
+    border-radius: 0.2rem;
     pointer-events: none;
     z-index: 1;
   }
@@ -61,7 +61,7 @@ export const IconText = styled.span<{
   color: ${({ color }) => color || "var(--white-color)"};
   text-align: center;
   padding: 0.2rem 0.4rem;
-  border-radius: 3px;
+  border-radius: 0.2rem;
   user-select: none;
   margin: auto 0;
   display: inline-block;
@@ -77,6 +77,6 @@ export const IconText = styled.span<{
     opacity: 0.4;
     pointer-events: none;
     z-index: -1;
-    border-radius: 3px;
+    border-radius: 0.2rem;
   }
 `;

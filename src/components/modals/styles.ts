@@ -25,8 +25,7 @@ export const HeaderContainer = styled.div`
   align-items: center;
   width: 100%;
   padding: 0.2rem 0.5rem;
-
-  border-radius: 10px 10px 0 0;
+  border-radius: 0.3rem 0.3rem 0 0;
 `;
 
 export const ButtonsContainer = styled.div`
@@ -84,9 +83,9 @@ export const Container = styled.div<{
   animation: ${({ isClosing }) => (isClosing ? scaleOut : scaleIn)} 0.25s
     cubic-bezier(0.39, 0.575, 0.565, 1) both;
 
-  border-radius: 10px;
+  border-radius: 0.3rem;
   border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
-  box-shadow: 5px 5px 0px 2px rgba(0, 0, 0, 0.75);
+  box-shadow: 2.5px 2.5px 0px 2px rgba(0, 0, 0, 0.75);
 `;
 
 export const Content = styled.div<{ title?: string }>`
@@ -95,7 +94,7 @@ export const Content = styled.div<{ title?: string }>`
   display: flex;
   overflow: hidden;
   padding: 0.2rem;
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 0.3rem 0.3rem;
 `;
 
 export const InnerWrapper = styled.div`
@@ -105,7 +104,7 @@ export const InnerWrapper = styled.div`
   overflow-x: hidden;
   border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
   background-color: var(--white-color);
-  border-radius: 6px;
+  border-radius: 0.2rem;
 `;
 
 export const Panel = styled.div`
@@ -126,7 +125,7 @@ export const PanelButton = styled.button<{ clicked?: boolean }>`
   padding: 0.2rem;
   width: 1.5rem;
   height: 1.5rem;
-  border-radius: 4px;
+  border-radius: 0.3rem;
   display: grid;
   place-items: center;
 
