@@ -1,12 +1,13 @@
 import Header from "./header";
 import {
   Modal,
+  PositionType,
   bringToFront,
   closeModal,
   setLastCoordinates,
   setPosition,
 } from "../../store/modalSlice";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { Container, Content, InnerWrapper, Panel } from "./styles";
 import ModalButton from "./panel-button";
@@ -23,16 +24,32 @@ function Wrapper({
 }) {
   const [isClosing, setIsClosing] = useState(false);
   const [coordinates, setCoordinates] = useState(modal.position);
+  const [ghostPosition, setGhostPosition] = useState<PositionType | null>(null);
   const dragging = useRef(false);
-  const offset = useRef({ x: 0, y: 0 });
+  const dragOffset = useRef({ x: 0, y: 0 });
   const coordinatesRef = useRef(coordinates);
   const dispatch = useAppDispatch();
   const { modals, lastX, lastY } = useAppSelector((state) => state.modals);
-
   const { cellSize, width, height, gap, columns, rows } = useWindowSize();
 
-  const INITIAL_LEFT_OFFSET = cellSize;
-  const INITIAL_TOP_OFFSET = cellSize;
+  const INITIAL_LEFT_OFFSET = useMemo(() => cellSize * 1.5, [cellSize]);
+  const INITIAL_TOP_OFFSET = useMemo(() => cellSize, [cellSize]);
+
+  const toGrid = useCallback(
+    ({ x, y }: PositionType) => ({
+      x: x / (cellSize * columns),
+      y: y / (cellSize * rows),
+    }),
+    [cellSize, columns, rows]
+  );
+
+  const toPosition = useCallback(
+    ({ x, y }: PositionType) => ({
+      x: x * (cellSize * columns),
+      y: y * (cellSize * rows),
+    }),
+    [cellSize, columns, rows]
+  );
 
   const doesOverlap = useCallback(
     (a: Modal, b: Modal): boolean => {
@@ -102,13 +119,16 @@ function Wrapper({
         }
       }
 
-      handleSetLastCoordinates(lastX, lastY);
+      const newLastX = lastX + gap;
+      const newLastY = lastY + gap;
+
+      handleSetLastCoordinates(newLastX, newLastY);
 
       return {
         ...modal,
         position: {
-          x: INITIAL_LEFT_OFFSET + lastX,
-          y: INITIAL_TOP_OFFSET + lastY,
+          x: INITIAL_LEFT_OFFSET + newLastX,
+          y: INITIAL_TOP_OFFSET + newLastY,
         },
       };
     },
@@ -127,10 +147,11 @@ function Wrapper({
   );
 
   const handleClose = useCallback(() => {
-    const gridPosition = {
-      x: coordinates.x / (cellSize * columns),
-      y: coordinates.y / (cellSize * rows),
-    };
+    const gridPosition = toGrid(coordinates);
+    // const gridPosition = {
+    //   x: coordinates.x / (cellSize * columns),
+    //   y: coordinates.y / (cellSize * rows),
+    // };
 
     setIsClosing(true);
 
@@ -143,20 +164,33 @@ function Wrapper({
         })
       );
     }, 250);
-  }, [coordinates, cellSize, columns, rows, dispatch, modal.type]);
+  }, [toGrid, coordinates, dispatch, modal.type]);
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!dragging.current) return;
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!dragging.current) return;
 
-    const newX = e.clientX - offset.current.x;
-    const newY = e.clientY - offset.current.y;
+      const newX = e.clientX - dragOffset.current.x;
+      const newY = e.clientY - dragOffset.current.y;
 
-    if (coordinates.x !== newX || coordinates.y !== newY) {
-      const newCoords = { x: newX, y: newY };
-      setCoordinates(newCoords);
-      coordinatesRef.current = newCoords;
-    }
-  }, []);
+      if (coordinates.x !== newX || coordinates.y !== newY) {
+        const newCoords = { x: newX, y: newY };
+        setGhostPosition(newCoords);
+        // setCoordinates(newCoords);
+        coordinatesRef.current = newCoords;
+      }
+      // cancelAnimationFrame(frame.current);
+      // frame.current = requestAnimationFrame(() => {
+      //   const newX = e.clientX - offset.current.x;
+      //   const newY = e.clientY - offset.current.y;
+
+      //   const newCoords = { x: newX, y: newY };
+      //   setGhostPos(newCoords);
+      //   coordinatesRef.current = newCoords;
+      // });
+    },
+    [coordinates.x, coordinates.y]
+  );
 
   const handleMouseUp = useCallback(() => {
     window.removeEventListener("mousemove", handleMouseMove);
@@ -167,20 +201,18 @@ function Wrapper({
         setPosition({
           type: modal.type,
           position: { ...coordinatesRef.current },
-          gridPosition: {
-            x: coordinatesRef.current.x / (cellSize * columns),
-            y: coordinatesRef.current.y / (cellSize * rows),
-          },
+          gridPosition: toGrid(coordinatesRef.current),
         })
       );
     }
 
     dragging.current = false;
-  }, [handleMouseMove, dispatch, modal.type, cellSize, columns, rows]);
+    setGhostPosition(null);
+  }, [handleMouseMove, dispatch, modal.type, toGrid]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     dragging.current = true;
-    offset.current = {
+    dragOffset.current = {
       x: e.clientX - coordinates.x,
       y: e.clientY - coordinates.y,
     };
@@ -207,25 +239,28 @@ function Wrapper({
         setPosition({
           type: modal.type,
           position: positionedModal.position,
-          gridPosition: {
-            x: positionedModal.position.x / (cellSize * columns),
-            y: positionedModal.position.y / (cellSize * rows),
-          },
+          gridPosition: toGrid(positionedModal.position),
         })
       );
     }
-  }, [cellSize, columns, dispatch, modal, modals, packWithinArea, rows]);
+  }, [
+    cellSize,
+    columns,
+    dispatch,
+    modal,
+    modals,
+    packWithinArea,
+    rows,
+    toGrid,
+  ]);
 
   useEffect(() => {
     if (!modal.gridPosition || dragging.current) return;
 
-    const newPosition = {
-      x: modal.gridPosition.x * (cellSize * columns),
-      y: modal.gridPosition.y * (cellSize * rows),
-    };
+    const newPosition = toPosition(modal.gridPosition);
 
     setCoordinates(newPosition);
-  }, [cellSize, columns, modal.gridPosition, rows]);
+  }, [cellSize, columns, modal.gridPosition, rows, toPosition]);
 
   useEffect(() => {
     return () => {
@@ -235,33 +270,50 @@ function Wrapper({
   }, []);
 
   return (
-    <Container
-      index={modal.index || 1}
-      isClosing={isClosing}
-      dimensions={{
-        width: modal.dimensions.width * cellSize,
-        height: modal.dimensions.height * cellSize,
-      }}
-      position={coordinates}
-      className="cursor"
-      onMouseDown={() => dispatch(bringToFront(modal.type))}
-    >
-      <Header
-        title={modal.title}
-        handleClose={handleClose}
-        handleDrag={handleMouseDown}
-      />
-      {buttons && (
-        <Panel>
-          {buttons.map(({ Icon, onClick, key }) => (
-            <ModalButton Icon={Icon} onClick={onClick} key={key} />
-          ))}
-        </Panel>
+    <>
+      {dragging && ghostPosition && (
+        <div
+          className="cursor-move"
+          style={{
+            position: "absolute",
+            border: "2px dashed white",
+            left: ghostPosition.x,
+            top: ghostPosition.y,
+            width: modal.dimensions.width * cellSize,
+            height: modal.dimensions.height * cellSize,
+            zIndex: 9999,
+          }}
+        />
       )}
-      <Content title={modal.title}>
-        <InnerWrapper>{children}</InnerWrapper>
-      </Content>
-    </Container>
+
+      <Container
+        index={modal.index || 1}
+        isClosing={isClosing}
+        dimensions={{
+          width: modal.dimensions.width * cellSize,
+          height: modal.dimensions.height * cellSize,
+        }}
+        position={coordinates}
+        className="cursor"
+        onMouseDown={() => dispatch(bringToFront(modal.type))}
+      >
+        <Header
+          title={modal.title}
+          handleClose={handleClose}
+          handleDrag={handleMouseDown}
+        />
+        {buttons && (
+          <Panel>
+            {buttons.map(({ Icon, onClick, key }) => (
+              <ModalButton Icon={Icon} onClick={onClick} key={key} />
+            ))}
+          </Panel>
+        )}
+        <Content title={modal.title}>
+          <InnerWrapper>{children}</InnerWrapper>
+        </Content>
+      </Container>
+    </>
   );
 }
 
