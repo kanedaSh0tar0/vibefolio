@@ -51,8 +51,8 @@ export const ControlsContainer = styled.div`
 
 export const ControlButton = styled.button<{ isOpen: boolean }>`
   position: relative;
-  width: 2rem;
-  height: 2rem;
+  width: clamp(2rem, 1vw, 3rem);
+  height: clamp(2rem, 1vw, 3rem);
   z-index: ${({ isOpen }) => (isOpen ? 100 : 1)};
 `;
 
@@ -61,7 +61,7 @@ export const SettingsButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.2rem;
+  padding: 0.1rem;
   border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
   border-radius: 0.3rem;
   background-color: ${({ theme }) => theme.pallet.thirdColor};
@@ -75,7 +75,7 @@ export const RadialButton = styled.button<{
   index: number;
 }>`
   position: absolute;
-  inset: 0.3rem;
+  inset: 0.35rem;
   transform: ${({ visible, x, y }) =>
     visible ? `translate(${x}rem, ${y}rem)` : "translate(0, 0)"};
   transition: transform 0.4s ease ${({ index }) => index * 0.05}s;

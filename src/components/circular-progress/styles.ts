@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   position: relative;
-  width: clamp(2.5rem, 5vw, 5rem);
-  height: clamp(2.5rem, 5vw, 5rem);
+  width: clamp(2rem, 4vw, 4rem);
+  height: clamp(2rem, 4vw, 4rem);
 `;
 
 export const CircleWrapper = styled.svg`
@@ -25,7 +25,7 @@ export const InnerCircle = styled.div<{ strokeWidth: number }>`
   overflow: hidden;
 
   svg {
-    width: clamp(1rem, 2.5vw, 2rem);
-    height: clamp(1rem, 2.5vw, 2rem);
+    width: clamp(1rem, 2vw, 2rem);
+    height: clamp(1rem, 2vw, 2rem);
   }
 `;
