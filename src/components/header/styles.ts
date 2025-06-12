@@ -49,10 +49,10 @@ export const ControlsContainer = styled.div`
   justify-content: flex-end;
 `;
 
-export const ControlButton = styled.button<{ isOpen: boolean }>`
+export const ControlButton = styled.div<{ isOpen: boolean }>`
   position: relative;
-  width: clamp(2rem, 1vw, 3rem);
-  height: clamp(2rem, 1vw, 3rem);
+  width: clamp(1.5rem, 1vw, 2.5rem);
+  height: clamp(1.5rem, 1vw, 2.5rem);
   z-index: ${({ isOpen }) => (isOpen ? 100 : 1)};
 `;
 
@@ -75,14 +75,14 @@ export const RadialButton = styled.button<{
   index: number;
 }>`
   position: absolute;
-  inset: 0.35rem;
+  inset: 0;
   transform: ${({ visible, x, y }) =>
     visible ? `translate(${x}rem, ${y}rem)` : "translate(0, 0)"};
   transition: transform 0.4s ease ${({ index }) => index * 0.05}s;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.15rem;
+  padding: 0.2rem;
   border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
   border-radius: 50%;
   background-color: ${({ theme }) => theme.pallet.thirdColor};

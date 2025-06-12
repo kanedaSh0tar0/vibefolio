@@ -5,12 +5,14 @@ import Expand from "../../../assets/icons/expand";
 import DownloadFile from "../../../assets/icons/download-file";
 import { useState } from "react";
 import Loader from "../../loader";
+import { useWindowSize } from "../../../store/hooks/window-size";
 
 pdfjs.GlobalWorkerOptions.workerSrc = "pdfjs/pdf.worker.min.mjs";
 const pdfPath = "pdf/cv_antonov_mykyta.pdf";
 
 function PDFResume({ modal }: { modal: Modal }) {
   const [isLoading, setIsLoading] = useState(true);
+  const { cellSize } = useWindowSize();
 
   const handleExpand = () => {
     window.open(pdfPath, "_blank", "noopener noreferrer");
@@ -51,7 +53,7 @@ function PDFResume({ modal }: { modal: Modal }) {
         file={pdfPath}
       >
         <Page
-          width={modal.dimensions.width}
+          width={modal.dimensions.width * cellSize}
           renderTextLayer={false}
           renderAnnotationLayer={false}
           pageNumber={1}

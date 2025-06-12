@@ -4,8 +4,6 @@ import { Image as StyledImage } from "./styles";
 function ImageComponent({
   src,
   thumb,
-  width,
-  height,
 }: {
   src: string;
   thumb: string;
@@ -26,8 +24,6 @@ function ImageComponent({
 
   return (
     <StyledImage
-      width={width}
-      height={height}
       src={imageSrc}
       alt="My photo"
       loading="lazy"
