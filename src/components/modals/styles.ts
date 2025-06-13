@@ -134,3 +134,25 @@ export const PanelButton = styled.button<{ clicked?: boolean }>`
     color: ${({ theme }) => theme.pallet.textColor};
   }
 `;
+
+export const Ghost = styled.div.attrs<{
+  isVisible: boolean;
+  position: PositionType | null;
+  dimensions: { width: number; height: number };
+}>(({ isVisible, position, dimensions }) => ({
+  style: {
+    left: position ? `${position.x}px` : '0px',
+    top: position ? `${position.y}px` : '0px',
+    width: `${dimensions.width}px`,
+    height: `${dimensions.height}px`,
+    visibility: isVisible ? 'visible' : 'hidden',
+  },
+}))`
+  position: absolute;
+  z-index: 1000;
+  border-radius: 0.3rem;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 2px 10px rgba(0, 0, 0, 0.2);
+`;

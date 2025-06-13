@@ -1,7 +1,7 @@
 import Header from "./header";
 import { Modal, bringToFront } from "../../store/modalSlice";
 import { useAppDispatch } from "../../store/hooks";
-import { Container, Content, InnerWrapper, Panel } from "./styles";
+import { Container, Content, Ghost, InnerWrapper, Panel } from "./styles";
 import ModalButton from "./panel-button";
 import useModalPositioning from "./hooks/modal-positioning";
 import useModalManagement from "./hooks/modal-management";
@@ -30,20 +30,15 @@ function Wrapper({
 
   return (
     <>
-      {dragging && ghostPosition && (
-        <div
-          className="cursor-move"
-          style={{
-            position: "absolute",
-            border: "2px dashed white",
-            left: ghostPosition.x,
-            top: ghostPosition.y,
-            width: convertedWidth,
-            height: convertedHeight,
-            zIndex: 9999,
-          }}
-        />
-      )}
+      <Ghost
+        className="cursor-move"
+        isVisible={!!dragging && !!ghostPosition}
+        position={ghostPosition}
+        dimensions={{
+          width: convertedWidth,
+          height: convertedHeight,
+        }}
+      />
 
       <Container
         index={modal.index || 1}
