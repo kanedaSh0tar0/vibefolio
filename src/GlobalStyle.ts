@@ -116,8 +116,8 @@ export const CRTOverlay = styled.div`
   }
 `;
 
-export const StartOpacity = styled.div<{ bootDone: boolean }>`
-  opacity: ${({ bootDone }) => (bootDone ? 1 : 0)};
+export const StartOpacity = styled.div<{ $bootDone: boolean }>`
+  opacity: ${({ $bootDone }) => ($bootDone ? 1 : 0)};
   transition: opacity 2s ease-in-out;
-  pointerevents: ${({ bootDone }) => (bootDone ? "auto" : "none")};
+  pointerevents: ${({ $bootDone }) => ($bootDone ? "auto" : "none")};
 `;

@@ -13,7 +13,7 @@ function Experience({ modal }: { modal: Modal }) {
     <Wrapper modal={modal}>
       <Container>
         {data.map((company) => (
-          <Company company={company} />
+          <Company key={company.company} company={company} />
         ))}
       </Container>
     </Wrapper>

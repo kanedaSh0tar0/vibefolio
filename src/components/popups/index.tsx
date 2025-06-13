@@ -2,7 +2,11 @@ import { createPortal } from "react-dom";
 import ToastPopup from "./toast";
 import { useAppSelector } from "../../store/hooks";
 import { FC } from "react";
-import { PopupType, ResultType } from "../../store/popupSlice";
+import {
+  PopupType,
+  ResultType,
+  selectToastPopups,
+} from "../../store/popupSlice";
 import { PopupManagerContainer } from "./styles";
 import { useSoundContext } from "../../context/sound";
 
@@ -26,9 +30,7 @@ function SnackbarManager() {
   // TODO: different sounds for different results
   const { playNotification } = useSoundContext();
 
-  const popups = useAppSelector((state) =>
-    state.popups.popups.filter((p) => p.type === "toast")
-  );
+  const popups = useAppSelector(selectToastPopups);
 
   if (!popupRoot || popups.length === 0) return null;
 

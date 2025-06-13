@@ -55,7 +55,7 @@ function RadialSettings() {
   ];
 
   return (
-    <ControlButton isOpen={open}>
+    <ControlButton $isOpen={open}>
       <SettingsButtonContainer
         className="cursor-pointer"
         onClick={() => setOpen((prev) => !prev)}
@@ -73,8 +73,8 @@ function RadialSettings() {
             key={label}
             x={x}
             y={y}
-            visible={open}
-            index={index}
+            $visible={open}
+            $index={index}
             onClick={onClick}
           >
             {icon}

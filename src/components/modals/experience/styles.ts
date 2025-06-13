@@ -113,7 +113,7 @@ export const ProjectListContainer = styled.div`
   font-size: 0.8rem;
 `;
 
-export const ProjectList = styled.ul<{ isVisible: boolean }>`
+export const ProjectList = styled.ul<{ $isVisible: boolean }>`
   position: absolute;
   top: 0;
   left: 0;
@@ -121,10 +121,10 @@ export const ProjectList = styled.ul<{ isVisible: boolean }>`
   margin: 0;
   padding-top: 0.8rem;
 
-  opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
-  visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
+  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+  visibility: ${({ $isVisible }) => ($isVisible ? "visible" : "hidden")};
   transition: opacity 0.4s ease-in-out, visibility 0.3s ease-in-out;
-  pointer-events: ${({ isVisible }) => (isVisible ? "auto" : "none")};
+  pointer-events: ${({ $isVisible }) => ($isVisible ? "auto" : "none")};
 `;
 
 export const ProjectItem = styled.li`

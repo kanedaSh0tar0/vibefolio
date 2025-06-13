@@ -15,31 +15,16 @@ export type PositionType = { x: number; y: number };
 export type ProgramType = keyof typeof programs;
 type ModalDimension = { width: number; height: number };
 
-// TODO: Replace from redux
-const DESKTOP_HEIGHT = document.documentElement.clientHeight;
-const DESKTOP_WIDTH = document.documentElement.clientWidth;
-
-const MODAL_GAP = 8;
-const COLUMNS = 12;
-const ROWS = 6;
-
-const cellSize =
-  Math.min(DESKTOP_WIDTH / COLUMNS, DESKTOP_HEIGHT / ROWS) - MODAL_GAP / 2;
-
-// TODO: This is really bad :(
-const MARGIN_LEFT = cellSize + 2 * MODAL_GAP;
-const MARGIN_TOP = cellSize;
-
 export interface Modal {
   type: ModalType;
   title?: string;
   isOpen: boolean;
   index: number;
   position: PositionType;
+  gridPosition?: PositionType;
   dimensions: ModalDimension;
   isClosing: boolean;
 }
-
 interface ModalStackState {
   modals: Modal[];
   topIndex: number;
@@ -55,7 +40,7 @@ const initialState: ModalStackState = {
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 2 * cellSize, height: 2 * cellSize },
+      dimensions: { width: 2, height: 2 },
       isClosing: false,
     },
     {
@@ -64,7 +49,7 @@ const initialState: ModalStackState = {
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 5 * cellSize, height: 2.5 * cellSize },
+      dimensions: { width: 5, height: 2.5 },
       isClosing: false,
     },
     {
@@ -73,7 +58,7 @@ const initialState: ModalStackState = {
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 2.5 * cellSize, height: 4 * cellSize },
+      dimensions: { width: 2.5, height: 4 },
       isClosing: false,
     },
     {
@@ -82,7 +67,7 @@ const initialState: ModalStackState = {
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 3.5 * cellSize, height: 4.5 * cellSize },
+      dimensions: { width: 3.5, height: 4.5 },
       isClosing: false,
     },
     {
@@ -91,7 +76,7 @@ const initialState: ModalStackState = {
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 6.5 * cellSize, height: 5 * cellSize },
+      dimensions: { width: 6.5, height: 5 },
       isClosing: false,
     },
     {
@@ -100,7 +85,7 @@ const initialState: ModalStackState = {
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 6 * cellSize, height: 5 * cellSize },
+      dimensions: { width: 6, height: 5 },
       isClosing: false,
     },
     {
@@ -109,7 +94,7 @@ const initialState: ModalStackState = {
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 6 * cellSize, height: 4 * cellSize },
+      dimensions: { width: 6, height: 4 },
       isClosing: false,
     },
     {
@@ -118,17 +103,17 @@ const initialState: ModalStackState = {
       isOpen: false,
       index: 0,
       position: { x: 0, y: 0 },
-      dimensions: { width: 3 * cellSize, height: 2 * cellSize },
+      dimensions: { width: 3, height: 2 },
       isClosing: false,
     },
   ],
   topIndex: 0,
-  lastX: MARGIN_LEFT,
-  lastY: MARGIN_TOP,
+  lastX: 0,
+  lastY: 0,
 };
 
 const programs: Record<string, ModalType[]> = {
-  info: ["photo", "about_me", "skills", "experience"],
+  info: ["experience", "about_me", "skills", "photo"],
 };
 
 export const openProgramThunk =
@@ -153,64 +138,6 @@ export const openProgramThunk =
     });
   };
 
-function isOverlapping(r1: Modal, r2: Modal): boolean {
-  return (
-    r1.position.x < r2.position.x + r2.dimensions.width + MODAL_GAP &&
-    r1.position.x + r1.dimensions.width + MODAL_GAP > r2.position.x &&
-    r1.position.y < r2.position.y + r2.dimensions.height + MODAL_GAP &&
-    r1.position.y + r1.dimensions.height + MODAL_GAP > r2.position.y
-  );
-}
-
-function findPosition(
-  placed: Modal[],
-  modal: Modal
-): { x: number; y: number } | null {
-  for (
-    let y = MARGIN_TOP;
-    y <= DESKTOP_HEIGHT - modal.dimensions.height;
-    y += MODAL_GAP
-  ) {
-    for (
-      let x = MARGIN_LEFT;
-      x <= DESKTOP_WIDTH - modal.dimensions.width;
-      x += MODAL_GAP
-    ) {
-      const candidate: Modal = { ...modal, position: { x, y } };
-      const overlaps = placed.some((r) => isOverlapping(r, candidate));
-      if (!overlaps) {
-        return { x, y };
-      }
-    }
-  }
-
-  return null;
-}
-
-function packWithinArea(state: ModalStackState, modal: Modal) {
-  const openedModals = state.modals.filter((m) => m.isOpen);
-  const pos = findPosition(openedModals, modal);
-
-  if (pos) {
-    modal.position = pos;
-  } else {
-    state.lastX += MODAL_GAP;
-    state.lastY += MODAL_GAP;
-
-    if (
-      state.lastX + modal.dimensions.width > DESKTOP_WIDTH ||
-      state.lastY + modal.dimensions.height > DESKTOP_HEIGHT
-    ) {
-      state.lastX = MARGIN_LEFT;
-      state.lastY = MARGIN_TOP;
-    }
-
-    modal.position = { x: state.lastX, y: state.lastY };
-  }
-
-  modal.isOpen = true;
-}
-
 const openModalFunction = (
   state: WritableDraft<ModalStackState>,
   type: ModalType
@@ -222,7 +149,7 @@ const openModalFunction = (
 
   if (!modal.isOpen) {
     modal.isClosing = false;
-    packWithinArea(state, modal);
+    modal.isOpen = true;
 
     const openModals = state.modals.filter((m) => m.isOpen);
     const maxIndex = Math.max(...openModals.map((m) => m.index ?? 0), 0);
@@ -242,7 +169,11 @@ const modalsSlice = createSlice({
     ) => openModalFunction(state, action.payload),
     closeModal: (
       state,
-      action: PayloadAction<{ type: ModalType; position?: PositionType }>
+      action: PayloadAction<{
+        type: ModalType;
+        position?: PositionType;
+        gridPosition?: PositionType;
+      }>
     ) => {
       const modalIndex = state.modals.findIndex(
         (modal) => modal.type === action.payload.type
@@ -278,14 +209,12 @@ const modalsSlice = createSlice({
 
       const openModals = state.modals.filter((m) => m.isOpen);
 
-      // Новий topIndex буде +1 від поточного максимуму
       const maxIndex = Math.max(...openModals.map((m) => m.index ?? 0), 0);
       const newTopIndex = maxIndex + 1;
 
       state.modals = state.modals.map((modal) => {
         if (!modal.isOpen) return modal;
 
-        // Зсуваємо вниз лише ті, хто був вище targetModal
         if ((modal.index ?? 0) > prevIndex) {
           return { ...modal, index: (modal.index ?? 0) - 1 };
         }
@@ -293,15 +222,40 @@ const modalsSlice = createSlice({
         return modal;
       });
 
-      // Підносимо цільову модалку
       state.modals[modalIndex].index = maxIndex;
 
-      // Оновлюємо topIndex
       state.topIndex = newTopIndex;
+    },
+    setLastCoordinates: (state, action: PayloadAction<PositionType>) => {
+      state.lastX = action.payload.x;
+      state.lastY = action.payload.y;
+    },
+    setPosition: (
+      state,
+      action: PayloadAction<{
+        type: ModalType;
+        position: PositionType;
+        gridPosition: PositionType;
+      }>
+    ) => {
+      const modalIndex = state.modals.findIndex(
+        (modal) => modal.type === action.payload.type
+      );
+
+      if (modalIndex === -1) return;
+
+      state.modals[modalIndex].position = action.payload.position;
+      state.modals[modalIndex].gridPosition = action.payload.gridPosition;
     },
   },
 });
 
-export const { openModal, closeModal, closeAllModals, bringToFront } =
-  modalsSlice.actions;
+export const {
+  openModal,
+  closeModal,
+  closeAllModals,
+  bringToFront,
+  setPosition,
+  setLastCoordinates,
+} = modalsSlice.actions;
 export default modalsSlice.reducer;

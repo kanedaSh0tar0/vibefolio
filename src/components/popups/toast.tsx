@@ -43,7 +43,7 @@ function Toast({ text, id, result = "success", sound }: PopupComponent) {
     <ToastWrapper
       className="cursor-pointer"
       onClick={handleClose}
-      isVisible={isVisible}
+      $isVisible={isVisible}
     >
       <MarkContainer>
         <Mark fill={result === "success" ? "green" : "red"} />

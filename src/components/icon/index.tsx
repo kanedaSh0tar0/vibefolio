@@ -35,8 +35,8 @@ function Icon({
     <IconContainer
       ref={iconRef}
       className="cursor-pointer"
-      chosen={chosen}
-      highlightColor={highlightColor}
+      $chosen={chosen}
+      $highlightColor={highlightColor}
       onClick={() => {
         if (chosen) {
           onClick();

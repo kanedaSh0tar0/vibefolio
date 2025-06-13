@@ -35,7 +35,7 @@ export const PopupManagerContainer = styled.div`
   pointer-events: none;
 `;
 
-export const ToastWrapper = styled.div<{ isVisible: boolean }>`
+export const ToastWrapper = styled.div<{ $isVisible: boolean }>`
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -49,8 +49,8 @@ export const ToastWrapper = styled.div<{ isVisible: boolean }>`
   pointer-events: auto;
   transition: transform 0.3s ease;
 
-  animation: ${({ isVisible }) =>
-    isVisible
+  animation: ${({ $isVisible }) =>
+    $isVisible
       ? css`
           ${slideIn} 0.4s ease-out forwards
         `

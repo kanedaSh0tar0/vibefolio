@@ -10,10 +10,10 @@ export const ColorsGrid = styled.div`
   grid-template-rows: repeat(2, 1fr);
 `;
 
-export const CoolorTile = styled.div<{ tileColor: string }>`
+export const CoolorTile = styled.div<{ $tileColor: string }>`
   width: 1fr;
   height: 1fr;
   border-radius: 0.3rem;
-  background-color: ${({ tileColor }) => tileColor};
+  background-color: ${({ $tileColor }) => $tileColor};
   border: 0.15rem solid ${({ theme }) => theme.pallet.textColor};
 `;

@@ -21,12 +21,12 @@ function App() {
   useEffect(() => {
     if (!bootDone) return;
 
-    window.addEventListener("mousedown", playClickDown);
-    window.addEventListener("mouseup", playClickUp);
+    window.addEventListener("pointerdown", playClickDown);
+    window.addEventListener("pointerup", playClickUp);
 
     return () => {
-      window.removeEventListener("mousedown", playClickDown);
-      window.removeEventListener("mouseup", playClickUp);
+      window.removeEventListener("pointerdown", playClickDown);
+      window.removeEventListener("pointerup", playClickUp);
     };
   }, [bootDone]);
 
@@ -60,7 +60,7 @@ function App() {
 
       {!bootDone && <BootScreen onFinish={() => setBootDone(true)} />}
 
-      <StartOpacity bootDone={bootDone}>
+      <StartOpacity $bootDone={bootDone}>
         <Scene />
         <Desktop />
         <ModalManager />

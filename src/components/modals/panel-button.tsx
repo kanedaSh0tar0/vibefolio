@@ -13,7 +13,7 @@ function ModalButton({
   return (
     <PanelButton
       className="cursor-pointer"
-      clicked={clicked}
+      $clicked={clicked}
       onMouseDown={(e) => e.stopPropagation()}
       onPointerDown={() => setClicked(true)}
       onPointerUp={() => setClicked(false)}
