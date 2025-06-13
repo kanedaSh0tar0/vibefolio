@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const IconContainer = styled.div<{
-  chosen?: boolean;
+  $chosen?: boolean;
   highlightColor?: string;
 }>`
   width: 100%;
@@ -25,9 +25,9 @@ export const IconContainer = styled.div<{
     position: absolute;
     inset: 0;
     border-radius: 0.2rem;
-    backdrop-filter: ${({ chosen }) => (chosen ? "blur(6px)" : "none")};
-    background-color: ${({ chosen }) =>
-      chosen ? "var(--white-color)" : "transparent"};
+    backdrop-filter: ${({ $chosen }) => ($chosen ? "blur(6px)" : "none")};
+    background-color: ${({ $chosen }) =>
+      $chosen ? "var(--white-color)" : "transparent"};
     opacity: 0.25;
     transition: all 0.2s ease;
     z-index: 0;
@@ -37,8 +37,10 @@ export const IconContainer = styled.div<{
     content: "";
     position: absolute;
     inset: -2px;
-    border: ${({ chosen, highlightColor }) =>
-      chosen ? `0.15rem dashed ${highlightColor || "var(--white-color)"}` : "none"};
+    border: ${({ $chosen, highlightColor }) =>
+      $chosen
+        ? `0.15rem dashed ${highlightColor || "var(--white-color)"}`
+        : "none"};
     outline-offset: -4px;
     border-radius: 0.2rem;
     pointer-events: none;

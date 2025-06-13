@@ -49,11 +49,11 @@ export const ControlsContainer = styled.div`
   justify-content: flex-end;
 `;
 
-export const ControlButton = styled.div<{ isOpen: boolean }>`
+export const ControlButton = styled.div<{ $isOpen: boolean }>`
   position: relative;
   width: clamp(1.5rem, 1vw, 2.5rem);
   height: clamp(1.5rem, 1vw, 2.5rem);
-  z-index: ${({ isOpen }) => (isOpen ? 100 : 1)};
+  z-index: ${({ $isOpen }) => ($isOpen ? 100 : 1)};
 `;
 
 export const SettingsButtonContainer = styled.div`
@@ -71,14 +71,14 @@ export const SettingsButtonContainer = styled.div`
 export const RadialButton = styled.button<{
   x: number;
   y: number;
-  visible: boolean;
-  index: number;
+  $visible: boolean;
+  $index: number;
 }>`
   position: absolute;
   inset: 0;
-  transform: ${({ visible, x, y }) =>
-    visible ? `translate(${x}rem, ${y}rem)` : "translate(0, 0)"};
-  transition: transform 0.4s ease ${({ index }) => index * 0.05}s;
+  transform: ${({ $visible, x, y }) =>
+    $visible ? `translate(${x}rem, ${y}rem)` : "translate(0, 0)"};
+  transition: transform 0.4s ease ${({ $index }) => $index * 0.05}s;
   display: flex;
   align-items: center;
   justify-content: center;

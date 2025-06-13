@@ -60,7 +60,7 @@ function App() {
 
       {!bootDone && <BootScreen onFinish={() => setBootDone(true)} />}
 
-      <StartOpacity bootDone={bootDone}>
+      <StartOpacity $bootDone={bootDone}>
         <Scene />
         <Desktop />
         <ModalManager />
