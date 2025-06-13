@@ -1,12 +1,10 @@
 import { Modal } from "../../../store/modalSlice";
 import Wrapper from "../wrapper";
 import { ImageWrapper } from "./styles";
-// import ThumbImage from "/pics/My_photo_thumb.webp";
 import ImageComponent from "./image";
-
 import MainImage from "/pics/My_photo.webp";
 import imageThumbs from "../../../assets/pics-thumbs";
-import { useWindowSize } from "../../../store/hooks/window-size";
+import { useWindowSize } from "../hooks/window-size";
 
 function Photo({ modal }: { modal: Modal }) {
   const { cellSize } = useWindowSize();

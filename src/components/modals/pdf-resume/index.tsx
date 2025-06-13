@@ -5,7 +5,7 @@ import Expand from "../../../assets/icons/expand";
 import DownloadFile from "../../../assets/icons/download-file";
 import { useState } from "react";
 import Loader from "../../loader";
-import { useWindowSize } from "../../../store/hooks/window-size";
+import { useWindowSize } from "../hooks/window-size";
 
 pdfjs.GlobalWorkerOptions.workerSrc = "pdfjs/pdf.worker.min.mjs";
 const pdfPath = "pdf/cv_antonov_mykyta.pdf";

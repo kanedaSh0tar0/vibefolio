@@ -4,14 +4,15 @@ import {
   PositionType,
   bringToFront,
   closeModal,
-  setLastCoordinates,
   setPosition,
 } from "../../store/modalSlice";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useAppDispatch } from "../../store/hooks";
 import { Container, Content, InnerWrapper, Panel } from "./styles";
 import ModalButton from "./panel-button";
-import { useWindowSize } from "../../store/hooks/window-size";
+import { useWindowSize } from "./hooks/window-size";
+import useModalPositioning from "./hooks/modal-positioning";
+import { toGrid, toPosition } from "./utils";
 
 function Wrapper({
   children,
@@ -29,130 +30,11 @@ function Wrapper({
   const dragOffset = useRef({ x: 0, y: 0 });
   const coordinatesRef = useRef(coordinates);
   const dispatch = useAppDispatch();
-  const { modals, lastX, lastY } = useAppSelector((state) => state.modals);
-  const { cellSize, width, height, gap, columns, rows } = useWindowSize();
-
-  const INITIAL_LEFT_OFFSET = useMemo(() => cellSize * 1.5, [cellSize]);
-  const INITIAL_TOP_OFFSET = useMemo(() => cellSize, [cellSize]);
-
-  const toGrid = useCallback(
-    ({ x, y }: PositionType) => ({
-      x: x / (cellSize * columns),
-      y: y / (cellSize * rows),
-    }),
-    [cellSize, columns, rows]
-  );
-
-  const toPosition = useCallback(
-    ({ x, y }: PositionType) => ({
-      x: x * (cellSize * columns),
-      y: y * (cellSize * rows),
-    }),
-    [cellSize, columns, rows]
-  );
-
-  const doesOverlap = useCallback(
-    (a: Modal, b: Modal): boolean => {
-      return (
-        a.position.x < b.position.x + b.dimensions.width * cellSize + gap &&
-        a.position.x + a.dimensions.width * cellSize + gap > b.position.x &&
-        a.position.y < b.position.y + b.dimensions.height * cellSize + gap &&
-        a.position.y + a.dimensions.height * cellSize + gap > b.position.y
-      );
-    },
-    [cellSize, gap]
-  );
-
-  const handleSetLastCoordinates = useCallback(
-    (x: number, y: number) => {
-      if (
-        lastX + modal.dimensions.width * cellSize > width ||
-        lastY + modal.dimensions.height * cellSize > height
-      ) {
-        dispatch(setLastCoordinates({ x: cellSize, y: cellSize }));
-      } else {
-        dispatch(setLastCoordinates({ x, y }));
-      }
-    },
-    [
-      cellSize,
-      dispatch,
-      height,
-      lastX,
-      lastY,
-      modal.dimensions.height,
-      modal.dimensions.width,
-      width,
-    ]
-  );
-
-  const packWithinArea = useCallback(
-    (modals: Modal[], modal: Modal): Modal => {
-      const openedModals = modals.filter(
-        (m) => m.isOpen && m.type !== modal.type
-      );
-
-      const newItemSize = modal.dimensions;
-
-      for (
-        let y = INITIAL_TOP_OFFSET;
-        y <= height - newItemSize.height * cellSize;
-        y += gap
-      ) {
-        for (
-          let x = INITIAL_LEFT_OFFSET;
-          x <= width - newItemSize.width * cellSize;
-          x += gap
-        ) {
-          const candidate = {
-            ...modal,
-            position: { x, y },
-          };
-
-          const overlaps = openedModals.some((item) =>
-            doesOverlap(candidate, item)
-          );
-
-          if (!overlaps) {
-            return candidate;
-          }
-        }
-      }
-
-      const newLastX = lastX + gap;
-      const newLastY = lastY + gap;
-
-      handleSetLastCoordinates(newLastX, newLastY);
-
-      return {
-        ...modal,
-        position: {
-          x: INITIAL_LEFT_OFFSET + newLastX,
-          y: INITIAL_TOP_OFFSET + newLastY,
-        },
-      };
-    },
-    [
-      INITIAL_LEFT_OFFSET,
-      INITIAL_TOP_OFFSET,
-      cellSize,
-      doesOverlap,
-      gap,
-      handleSetLastCoordinates,
-      height,
-      lastX,
-      lastY,
-      width,
-    ]
-  );
+  const { cellSize, columns, rows } = useWindowSize();
+  useModalPositioning(modal);
 
   const handleClose = useCallback(() => {
-    const gridPosition = toGrid(coordinates);
-    // const gridPosition = {
-    //   x: coordinates.x / (cellSize * columns),
-    //   y: coordinates.y / (cellSize * rows),
-    // };
-
+    const gridPosition = toGrid(coordinates, { cellSize, columns, rows });
     setIsClosing(true);
 
     setTimeout(() => {
@@ -164,7 +46,7 @@ function Wrapper({
         })
       );
     }, 250);
-  }, [toGrid, coordinates, dispatch, modal.type]);
+  }, [coordinates, cellSize, columns, rows, dispatch, modal.type]);
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
@@ -176,18 +58,8 @@ function Wrapper({
       if (coordinates.x !== newX || coordinates.y !== newY) {
         const newCoords = { x: newX, y: newY };
         setGhostPosition(newCoords);
-        // setCoordinates(newCoords);
         coordinatesRef.current = newCoords;
       }
-      // cancelAnimationFrame(frame.current);
-      // frame.current = requestAnimationFrame(() => {
-      //   const newX = e.clientX - offset.current.x;
-      //   const newY = e.clientY - offset.current.y;
-
-      //   const newCoords = { x: newX, y: newY };
-      //   setGhostPos(newCoords);
-      //   coordinatesRef.current = newCoords;
-      // });
     },
     [coordinates.x, coordinates.y]
   );
@@ -197,18 +69,25 @@ function Wrapper({
     window.removeEventListener("mouseup", handleMouseUp);
 
     if (dragging.current) {
+      const final = { ...coordinatesRef.current };
+      setCoordinates(final);
+
       dispatch(
         setPosition({
           type: modal.type,
-          position: { ...coordinatesRef.current },
-          gridPosition: toGrid(coordinatesRef.current),
+          position: final,
+          gridPosition: toGrid(final, {
+            cellSize,
+            columns,
+            rows,
+          }),
         })
       );
     }
 
     dragging.current = false;
     setGhostPosition(null);
-  }, [handleMouseMove, dispatch, modal.type, toGrid]);
+  }, [handleMouseMove, dispatch, modal.type, cellSize, columns, rows]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     dragging.current = true;
@@ -227,40 +106,17 @@ function Wrapper({
   }, [handleClose, modal.isClosing]);
 
   useEffect(() => {
-    if (
-      !modal.gridPosition &&
-      modal.position.x === 0 &&
-      modal.position.y === 0
-    ) {
-      const positionedModal = packWithinArea(modals, modal);
-
-      setCoordinates(positionedModal.position);
-      dispatch(
-        setPosition({
-          type: modal.type,
-          position: positionedModal.position,
-          gridPosition: toGrid(positionedModal.position),
-        })
-      );
-    }
-  }, [
-    cellSize,
-    columns,
-    dispatch,
-    modal,
-    modals,
-    packWithinArea,
-    rows,
-    toGrid,
-  ]);
-
-  useEffect(() => {
     if (!modal.gridPosition || dragging.current) return;
 
-    const newPosition = toPosition(modal.gridPosition);
+    const newPosition = toPosition(modal.gridPosition, {
+      cellSize,
+      columns,
+      rows,
+    });
 
     setCoordinates(newPosition);
-  }, [cellSize, columns, modal.gridPosition, rows, toPosition]);
+    coordinatesRef.current = newPosition;
+  }, [cellSize, columns, modal.gridPosition, rows]);
 
   useEffect(() => {
     return () => {
@@ -271,7 +127,7 @@ function Wrapper({
 
   return (
     <>
-      {dragging && ghostPosition && (
+      {dragging.current && ghostPosition && (
         <div
           className="cursor-move"
           style={{
