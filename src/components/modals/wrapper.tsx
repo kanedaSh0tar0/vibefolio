@@ -32,22 +32,22 @@ function Wrapper({
     <>
       <Ghost
         className="cursor-move"
-        isVisible={!!dragging && !!ghostPosition}
-        position={ghostPosition}
-        dimensions={{
+        $isVisible={!!dragging && !!ghostPosition}
+        $position={ghostPosition}
+        $dimensions={{
           width: convertedWidth,
           height: convertedHeight,
         }}
       />
 
       <Container
-        index={modal.index || 1}
-        isClosing={isClosing}
-        dimensions={{
+        $index={modal.index || 1}
+        $isClosing={isClosing}
+        $dimensions={{
           width: convertedWidth,
           height: convertedHeight,
         }}
-        position={coordinates}
+        $position={coordinates}
         className="cursor"
         onMouseDown={() => dispatch(bringToFront(modal.type))}
       >

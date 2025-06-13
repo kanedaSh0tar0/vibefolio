@@ -105,7 +105,7 @@ function Company({ company }: { company: ExperienceDataType }) {
             {projects.map((project, index) => (
               <ProjectList
                 key={project.name}
-                isVisible={index === currentProjectIndex}
+                $isVisible={index === currentProjectIndex}
                 ref={index === currentProjectIndex ? activeListRef : null}
               >
                 {project.features.map((feature) => (

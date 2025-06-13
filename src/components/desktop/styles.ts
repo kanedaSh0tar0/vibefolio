@@ -10,14 +10,14 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
-export const IconsContainer = styled.div<{ flow?: "row" | "column" }>`
+export const IconsContainer = styled.div<{ $flow?: "row" | "column" }>`
   display: grid;
   gap: 0.5rem;
   padding: 0.5rem;
   height: 100%;
   width: 100%;
 
-  grid-auto-flow: ${({ flow }) => flow || "column"};
+  grid-auto-flow: ${({ $flow }) => $flow || "column"};
   justify-content: start;
 
   grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));

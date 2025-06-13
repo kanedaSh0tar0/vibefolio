@@ -20,7 +20,7 @@ function Folder({ modal }: { modal: Modal }) {
 
   return (
     <Wrapper modal={modal}>
-      <IconsContainer flow="row">
+      <IconsContainer $flow="row">
         <Icon
           onClick={() => handleOpenSingleModal("photo")}
           SvgIcon={PhotoIcon}

@@ -19,7 +19,7 @@ function Settings({ modal }: { modal: Modal }) {
         {backgroundColors.map((color) => (
           <CoolorTile
             key={color}
-            tileColor={color}
+            $tileColor={color}
             className="cursor-pointer"
             onClick={() => handleColorClick(color)}
           />

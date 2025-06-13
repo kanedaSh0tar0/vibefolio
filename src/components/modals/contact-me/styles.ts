@@ -45,12 +45,12 @@ export const AsideButton = styled.button<{
   }
 `;
 
-export const Content = styled.div<{ backgroundColor?: string }>`
+export const Content = styled.div<{ $backgroundColor?: string }>`
   display: flex;
   width: 100%;
   height: 100%;
-  background-color: ${({ backgroundColor }) =>
-    backgroundColor || "var(--white-color)"};
+  background-color: ${({ $backgroundColor }) =>
+    $backgroundColor || "var(--white-color)"};
   z-index: 100;
   border: 2px solid ${({ theme }) => theme.pallet.textColor};
   // border-top-left-radius: 10px;

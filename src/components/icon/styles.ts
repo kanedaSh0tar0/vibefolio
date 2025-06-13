@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const IconContainer = styled.div<{
   $chosen?: boolean;
-  highlightColor?: string;
+  $highlightColor?: string;
 }>`
   width: 100%;
   height: 100%;
@@ -37,9 +37,9 @@ export const IconContainer = styled.div<{
     content: "";
     position: absolute;
     inset: -2px;
-    border: ${({ $chosen, highlightColor }) =>
+    border: ${({ $chosen, $highlightColor }) =>
       $chosen
-        ? `0.15rem dashed ${highlightColor || "var(--white-color)"}`
+        ? `0.15rem dashed ${$highlightColor || "var(--white-color)"}`
         : "none"};
     outline-offset: -4px;
     border-radius: 0.2rem;

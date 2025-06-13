@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { PositionType } from "../../store/modalSlice";
 
-export const Button = styled.button<{ clicked?: boolean }>`
+export const Button = styled.button<{ $clicked?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,7 +13,7 @@ export const Button = styled.button<{ clicked?: boolean }>`
   padding: 0.2rem;
 
   svg {
-    transform: ${({ clicked }) => (clicked ? "scale(0.9)" : "scale(1)")};
+    transform: ${({ $clicked }) => ($clicked ? "scale(0.9)" : "scale(1)")};
     color: ${({ theme }) => theme.pallet.textColor};
   }
 `;
@@ -61,26 +61,26 @@ export const scaleOut = keyframes`
 `;
 
 export const Container = styled.div<{
-  position: PositionType;
-  dimensions: { width: number; height: number };
-  isClosing: boolean;
-  index: number;
+  $position: PositionType;
+  $dimensions: { width: number; height: number };
+  $isClosing: boolean;
+  $index: number;
 }>`
   position: absolute;
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme.pallet.thirdColor};
 
-  width: ${({ dimensions }) => `${dimensions.width}px`};
-  height: ${({ dimensions }) => `${dimensions.height}px`};
-  left: ${({ position }) => (position ? position.x : 0)}px;
-  top: ${({ position }) => (position ? position.y : 0)}px;
+  width: ${({ $dimensions }) => `${$dimensions.width}px`};
+  height: ${({ $dimensions }) => `${$dimensions.height}px`};
+  left: ${({ $position }) => ($position ? $position.x : 0)}px;
+  top: ${({ $position }) => ($position ? $position.y : 0)}px;
 
-  z-index: ${({ index }) => 10 * (index + 1)};
+  z-index: ${({ $index }) => 10 * ($index + 1)};
 
-  opacity: ${({ isClosing }) => (isClosing ? "1" : "0")};
-  transform: ${({ isClosing }) => (isClosing ? "scale(1)" : "scale(0)")};
-  animation: ${({ isClosing }) => (isClosing ? scaleOut : scaleIn)} 0.25s
+  opacity: ${({ $isClosing }) => ($isClosing ? "1" : "0")};
+  transform: ${({ $isClosing }) => ($isClosing ? "scale(1)" : "scale(0)")};
+  animation: ${({ $isClosing }) => ($isClosing ? scaleOut : scaleIn)} 0.25s
     cubic-bezier(0.39, 0.575, 0.565, 1) both;
 
   border-radius: 0.3rem;
@@ -117,9 +117,9 @@ export const Panel = styled.div`
   gap: 0.5rem;
 `;
 
-export const PanelButton = styled.button<{ clicked?: boolean }>`
-  box-shadow: ${({ clicked }) =>
-    clicked
+export const PanelButton = styled.button<{ $clicked?: boolean }>`
+  box-shadow: ${({ $clicked }) =>
+    $clicked
       ? "inset 2px 2px 4px rgba(0, 0, 0, 0.6), inset -2px -2px 4px rgba(255, 255, 255, 0.2)"
       : "2px 2px 0px 1px rgba(0, 0, 0, 0.75)"};
   padding: 0.2rem;
@@ -130,22 +130,22 @@ export const PanelButton = styled.button<{ clicked?: boolean }>`
   place-items: center;
 
   svg {
-    transform: ${({ clicked }) => (clicked ? "scale(0.9)" : "scale(1)")};
+    transform: ${({ $clicked }) => ($clicked ? "scale(0.9)" : "scale(1)")};
     color: ${({ theme }) => theme.pallet.textColor};
   }
 `;
 
 export const Ghost = styled.div.attrs<{
-  isVisible: boolean;
-  position: PositionType | null;
-  dimensions: { width: number; height: number };
-}>(({ isVisible, position, dimensions }) => ({
+  $isVisible: boolean;
+  $position: PositionType | null;
+  $dimensions: { width: number; height: number };
+}>(({ $isVisible, $position, $dimensions }) => ({
   style: {
-    left: position ? `${position.x}px` : '0px',
-    top: position ? `${position.y}px` : '0px',
-    width: `${dimensions.width}px`,
-    height: `${dimensions.height}px`,
-    visibility: isVisible ? 'visible' : 'hidden',
+    left: $position ? `${$position.x}px` : "0px",
+    top: $position ? `${$position.y}px` : "0px",
+    width: `${$dimensions.width}px`,
+    height: `${$dimensions.height}px`,
+    visibility: $isVisible ? "visible" : "hidden",
   },
 }))`
   position: absolute;

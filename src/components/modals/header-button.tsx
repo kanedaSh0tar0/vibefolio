@@ -12,7 +12,7 @@ function HeaderButton({
 
   return (
     <Button
-      clicked={clicked}
+      $clicked={clicked}
       onMouseDown={(e) => e.stopPropagation()}
       onPointerDown={() => setClicked(true)}
       onPointerUp={() => setClicked(false)}

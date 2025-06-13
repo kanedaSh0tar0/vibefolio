@@ -36,7 +36,7 @@ function ContactMe({ modal }: { modal: Modal }) {
           </div>
         </Tabs> */}
         {/* <Content backgroundColor={activeTab.color}> */}
-        <Content backgroundColor="#345995">
+        <Content $backgroundColor="#345995">
           {/* {<activeTab.component />} */}
           <ContactForm />
         </Content>
