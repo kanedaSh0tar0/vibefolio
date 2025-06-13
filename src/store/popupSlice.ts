@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppDispatch } from "../store";
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AppDispatch, RootState } from "../store";
 
 export type PopupType = "toast" | "confirm";
 
@@ -13,6 +13,11 @@ export interface Popup {
 }
 
 let idCounter = 0;
+
+export const selectToastPopups = createSelector(
+  (state: RootState) => state.popups.popups,
+  (popups) => popups.filter((p) => p.type === "toast")
+);
 
 const initialState: { popups: Popup[] } = {
   popups: [],
